@@ -14,7 +14,7 @@ public class TestGameManager {
                 {"16","Alberto","Beck","Brown"}
         };
 
-        int boardSize = 28;
+       // int boardSize = 28;
        // boolean resultado = GameManager.createInitialBoard(playerInfo, boardSize);
       //  assertTrue(resultado);
     }
