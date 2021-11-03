@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Programmer {
     String name;
-    TreeSet<String> languages;
     int id;
+    TreeSet<String> languages;
     ProgrammerColor color;
     int pos = 1;
 
-    Programmer(String name, TreeSet<String> languages, int id, ProgrammerColor color) {
+    Programmer(String name, int id, TreeSet<String> languages, ProgrammerColor color) {
         this.name = name;
         this.languages = languages;
         this.id = id;

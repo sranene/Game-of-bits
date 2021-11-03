@@ -8,8 +8,8 @@ import javax.swing.*;
 
 public class GameManager {
     Programmer currentPlayer;
-    ProgrammerColor color;
-    ArrayList<Programmer> players;
+    static ProgrammerColor color;
+    static ArrayList<Programmer> players = new ArrayList<>();
     static TreeMap<Integer,ArrayList<Programmer>> board = new TreeMap<>();
 
     public GameManager() {}
@@ -18,17 +18,17 @@ public class GameManager {
         this.players = players;
     }
 
-    public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
+    static public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String checkId = "ppl";
         String[] languages;
         TreeSet<String> tree = new TreeSet<>();
-        int jogadores = playerInfo.length / 4;
+        int jogadores = playerInfo.length;
 
         if (jogadores < 2 || jogadores > 4) {
             return false;
         }
 
-        if (jogadores * 2 < boardSize) {
+        if (jogadores * 2 > boardSize) {
             return false;
         }
 
@@ -69,7 +69,7 @@ public class GameManager {
                 case "Purple" -> color = ProgrammerColor.PURPLE;
             }
 
-            players.add(new Programmer(playerInfo[x][1],tree,Integer.parseInt(playerInfo[x][0]),color));
+            players.add(new Programmer(playerInfo[x][1], Integer.parseInt(playerInfo[x][0]), tree,color));
         }
         board.put(1,players);
         for(int x = 2; x <= boardSize; x++){
@@ -84,10 +84,10 @@ public class GameManager {
         }
         if (position == board.size()) {
             return "glory.png";
+        } else if (board.get(position) != null) {
+            return "player" + board.get(position).get(1).color.toString() + ".png";
         } else {
             return "blank.png";
-            /*se criarmos as nossas proprias imagens o código será:
-             * return "position" + position + ".png";*/
         }
 
     }

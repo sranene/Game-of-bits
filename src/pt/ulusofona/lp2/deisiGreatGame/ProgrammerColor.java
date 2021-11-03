@@ -6,14 +6,14 @@ public enum ProgrammerColor {
     GREEN("Green"),
     BROWN("Brown");
 
-    String cor;
+    String color;
 
-    ProgrammerColor(String cor){
-        this.cor = cor;
+    ProgrammerColor(String color){
+        this.color = color;
     }
     @Override
     public String toString(){
-        return cor;
+        return color;
     }
 
 }
