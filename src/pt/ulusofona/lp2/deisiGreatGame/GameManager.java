@@ -5,16 +5,16 @@ import javax.swing.*;
 
 public class GameManager {
     Programmer currentPlayer;
-    static ProgrammerColor color;
+    ProgrammerColor color;
     static TreeMap<Integer,ArrayList<Programmer>> board = new TreeMap<>();
 
     public GameManager() {}
 
-    static public Node head = null;
+    Node head = null;
 
-    static public Node tail = null;
+    Node tail = null;
 
-    static public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
+    public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
         ArrayList<Programmer> players = new ArrayList<>();
         int jogadores = playerInfo.length;
@@ -82,7 +82,7 @@ public class GameManager {
         tail.next = head;
         board.put(1,players);
         for(int x = 2; x <= boardSize; x++){
-            board.put(x,null);
+            board.put(x,new ArrayList<>());
         }
         return true;
     }
@@ -93,8 +93,8 @@ public class GameManager {
         }
         if (position == board.size()) {
             return "glory.png";
-        } else if (board.get(position) != null) {
-            return "player" + board.get(position).get(1).color.toString() + ".png";
+        } else if (board.get(position) != null && !(board.get(position).isEmpty())) {
+            return "player" + board.get(position).get(0).color.toString() + ".png";
         } else {
             return "blank.png";
         }
@@ -128,7 +128,9 @@ public class GameManager {
 
         board.get(currentPlayer.getPos()).remove(currentPlayer);
 
-        board.get(currentPlayer.movePlayer(nrPositions)).add(currentPlayer);
+        currentPlayer.movePlayer(nrPositions);
+
+        board.get(currentPlayer.getPos()).add(currentPlayer);
 
         head = head.next;
 
