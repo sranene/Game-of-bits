@@ -93,7 +93,7 @@ public class GameManager {
     }
 
     public ArrayList<Programmer> getProgrammers() {
-        return players;
+        return null;
     }
 
     public ArrayList<Programmer> getProgrammers(int position) {
