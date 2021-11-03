@@ -14,7 +14,6 @@ public class GameManager {
     public GameManager() {}
 
     static public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
-        String checkId = "ppl";
         String[] languages;
         TreeSet<String> tree = new TreeSet<>();
         ArrayList<Programmer> players = new ArrayList<>();
@@ -54,18 +53,18 @@ public class GameManager {
             }
         }
 
-        for (int x = 0; x < jogadores; x++){
-            languages = playerInfo[x][2].split(";");
+        for (String[] strings : playerInfo) {
+            languages = strings[2].split("; ");
             tree.clear();
             tree.addAll(Arrays.asList(languages));
-            switch (playerInfo[x][3]){
+            switch (strings[3]) {
                 case "Green" -> color = ProgrammerColor.GREEN;
                 case "Blue" -> color = ProgrammerColor.BLUE;
                 case "Brown" -> color = ProgrammerColor.BROWN;
                 case "Purple" -> color = ProgrammerColor.PURPLE;
             }
 
-            players.add(new Programmer(playerInfo[x][1], Integer.parseInt(playerInfo[x][0]), tree,color));
+            players.add(new Programmer(strings[1], Integer.parseInt(strings[0]), tree, color));
         }
         board.put(1,players);
         for(int x = 2; x <= boardSize; x++){
