@@ -46,7 +46,7 @@ public class Programmer {
         StringBuilder languages = new StringBuilder();
         int aux = 0;
         for(String language : this.languages) {
-            if (this.languages.size() == aux) {
+            if (this.languages.size()-1 == aux) {
                 languages.append(language);
                 break;
             }

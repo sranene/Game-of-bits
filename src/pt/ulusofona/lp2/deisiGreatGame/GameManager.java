@@ -15,7 +15,6 @@ public class GameManager {
 
     static public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
-
         ArrayList<Programmer> players = new ArrayList<>();
         int jogadores = playerInfo.length;
 
