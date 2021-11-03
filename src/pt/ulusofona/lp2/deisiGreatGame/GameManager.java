@@ -9,19 +9,15 @@ import javax.swing.*;
 public class GameManager {
     Programmer currentPlayer;
     static ProgrammerColor color;
-    static ArrayList<Programmer> players = new ArrayList<>();
     static TreeMap<Integer,ArrayList<Programmer>> board = new TreeMap<>();
 
     public GameManager() {}
-
-    public GameManager(ArrayList<Programmer> players) {
-        this.players = players;
-    }
 
     static public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String checkId = "ppl";
         String[] languages;
         TreeSet<String> tree = new TreeSet<>();
+        ArrayList<Programmer> players = new ArrayList<>();
         int jogadores = playerInfo.length;
 
         if (jogadores < 2 || jogadores > 4) {
@@ -93,7 +89,7 @@ public class GameManager {
     }
 
     public ArrayList<Programmer> getProgrammers() {
-        return players;
+        return board.get(1);
     }
 
     public ArrayList<Programmer> getProgrammers(int position) {
