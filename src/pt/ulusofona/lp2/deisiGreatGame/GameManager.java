@@ -1,9 +1,6 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 import javax.swing.*;
 
 public class GameManager {
@@ -12,6 +9,10 @@ public class GameManager {
     static TreeMap<Integer,ArrayList<Programmer>> board = new TreeMap<>();
 
     public GameManager() {}
+
+    static public Node head = null;
+
+    static public Node tail = null;
 
     static public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
@@ -67,6 +68,18 @@ public class GameManager {
 
             players.add(new Programmer(strings[1], Integer.parseInt(strings[0]), tree, color));
         }
+        players.sort(Comparator.comparing(Programmer::getId));
+        for (Programmer player : players) {
+
+            Node newNode = new Node(player);
+            if (head == null) {
+                head = newNode;
+            } else {
+                tail.next = newNode;
+            }
+            tail = newNode;
+        }
+        tail.next = head;
         board.put(1,players);
         for(int x = 2; x <= boardSize; x++){
             board.put(x,null);
@@ -104,16 +117,22 @@ public class GameManager {
     }
 
     public int getCurrentPlayerID() {
-        return currentPlayer.getId();
+        return head.programmer.getId();
     }
 
     public boolean moveCurrentPlayer(int nrPositions) {
         if (nrPositions < 1 || nrPositions > 6) {
             return false;
         }
+        currentPlayer = head.programmer;
+
         board.get(currentPlayer.getPos()).remove(currentPlayer);
 
         board.get(currentPlayer.movePlayer(nrPositions)).add(currentPlayer);
+
+        head = head.next;
+
+        tail = tail.next;
 
         return true;
     }
