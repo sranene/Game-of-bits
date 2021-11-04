@@ -32,14 +32,14 @@ public class Programmer {
         return pos;
     }
 
-    public int movePlayer(int nrCasas){
+    public void movePlayer(int nrCasas){
         int sub;
         pos += nrCasas;
         if(pos > GameManager.board.size()){
             sub = pos-GameManager.board.size();
+            pos = GameManager.board.size();
             pos -= sub;
         }
-        return pos;
     }
 
     public String toString() {
