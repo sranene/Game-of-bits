@@ -15,7 +15,7 @@ public class GameManager {
 
     Node tail = null;
 
-    int nrTurnos = 0;
+    int nrTurnos = 1;
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
@@ -31,7 +31,7 @@ public class GameManager {
             head = null;
             tail = null;
         }
-        nrTurnos = 0;
+        nrTurnos = 1;
         ArrayList<Programmer> players = new ArrayList<>();
         int jogadores = playerInfo.length;
 
