@@ -163,13 +163,18 @@ public class GameManager {
 
         results.add("O GRANDE JOGO DO DEISI");
 
-        results.add("NR. DE TURNOS\n" + nrTurnos);
-        results.add("VENCEDOR\n " + board.get(board.size()).get(0).name);
-        StringBuilder temp = new StringBuilder("RESTANTES\n");
+        results.add(" ");
+
+        results.add("NR. DE TURNOS");
+        results.add(""+nrTurnos);
+        results.add(" ");
+        results.add("VENCEDOR");
+        results.add(board.get(board.size()).get(0).name);
+        results.add(" ");
+        results.add("RESTANTES");
         for (Programmer programmer : programmers){
-            temp.append(programmer.name).append(" ").append(programmer.pos).append("\n");
+            results.add(programmer.name + " " + programmer.pos);
         }
-        results.add(temp.toString());
 
         return results;
     }
