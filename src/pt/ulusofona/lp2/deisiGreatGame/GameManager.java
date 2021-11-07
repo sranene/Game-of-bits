@@ -3,6 +3,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import java.util.*;
 import javax.swing.*;
 
+
 public class GameManager {
     Programmer currentPlayer;
     ProgrammerColor color;
@@ -175,22 +176,24 @@ public class GameManager {
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
 
         results.add("O GRANDE JOGO DO DEISI");
-        results.add(" ");
+        results.add("");
         results.add("NR. DE TURNOS");
         results.add("" + nrTurnos);
-        results.add(" ");
+        results.add("");
         results.add("VENCEDOR");
         results.add(board.get(board.size()).get(0).name);
-        results.add(" ");
+        results.add("");
         results.add("RESTANTES");
         for (Programmer programmer : programmers){
             results.add(programmer.name + " " + programmer.pos);
         }
-        results.add(" ");
+        results.add("");
         return results;
     }
 
     public JPanel getAuthorsPanel() {
+
+       /* JPanel bigFrame = new JPanel();
 
         JFrame frame = new JFrame("Créditos");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -199,6 +202,7 @@ public class GameManager {
         frame.setVisible(true);
 
 
+        return bigFrame;*/
         return null;
     }
 
