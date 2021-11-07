@@ -18,6 +18,19 @@ public class GameManager {
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
+        board.clear();
+        currentPlayer = null;
+        if(head != null) {
+            if (head.next.next != null && head.next.next != tail) {
+                head.next.next = null;
+            }
+            if (head.next != tail) {
+                head.next = null;
+            }
+            head = null;
+            tail = null;
+        }
+        nrTurnos = 0;
         ArrayList<Programmer> players = new ArrayList<>();
         int jogadores = playerInfo.length;
 
