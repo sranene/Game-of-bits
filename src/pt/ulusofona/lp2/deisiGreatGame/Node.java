@@ -4,7 +4,7 @@ public class Node {
     Programmer programmer;
     Node next;
 
-    public Node(Programmer programmer){
+    public Node(Programmer programmer) {
         this.programmer = programmer;
         this.next = null;
     }

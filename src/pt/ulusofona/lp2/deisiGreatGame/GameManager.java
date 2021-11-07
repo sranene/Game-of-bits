@@ -118,7 +118,7 @@ public class GameManager {
 
     public ArrayList<Programmer> getProgrammers() {
         ArrayList<Programmer> programmers = new ArrayList<>();
-        for(int x = 1; x< board.size();x++){
+        for(int x = 1; x < board.size(); x++){
             if(!(board.get(x).isEmpty())){
                 programmers.addAll(board.get(x));
             }
@@ -193,6 +193,14 @@ public class GameManager {
     }
 
     public JPanel getAuthorsPanel() {
+
+        JFrame frame = new JFrame("Créditos");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setBounds(500, 500, 300, 300);
+        frame.setResizable(false);
+        frame.setVisible(true);
+
+
         return null;
     }
 
