@@ -187,7 +187,6 @@ public class GameManager {
         for (Programmer programmer : programmers){
             results.add(programmer.name + " " + programmer.pos);
         }
-        results.add("");
         return results;
     }
 
