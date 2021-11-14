@@ -6,20 +6,20 @@ import javax.swing.*;
 
 
 public class GameManager {
-    static Programmer currentPlayer;
-    static ProgrammerColor color;
-    static TreeMap<Integer, ArrayList<Programmer>> board = new TreeMap<>();
+     Programmer currentPlayer;
+     ProgrammerColor color;
+     static TreeMap<Integer, ArrayList<Programmer>> board = new TreeMap<>();
 
     public GameManager() {
     }
 
-    static Node head = null;
+     Node head = null;
 
-    static Node tail = null;
+     Node tail = null;
 
-    static int nrTurnos = 1;
+    int nrTurnos = 1;
 
-    public static boolean createInitialBoard(String[][] playerInfo, int boardSize) {
+    public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
         board.clear();
         currentPlayer = null;
@@ -105,7 +105,7 @@ public class GameManager {
         return true;
     }
 
-    public static String getImagePng(int position) {
+    public String getImagePng(int position) {
         if (position < 1 || position > board.size()) {
             return null;
         }
@@ -119,7 +119,7 @@ public class GameManager {
 
     }
 
-    public static ArrayList<Programmer> getProgrammers() {
+    public  ArrayList<Programmer> getProgrammers() {
         ArrayList<Programmer> programmers = new ArrayList<>();
         for (int x = 1; x <= board.size(); x++) {
             if (!(board.get(x).isEmpty())) {
@@ -129,7 +129,7 @@ public class GameManager {
         return programmers;
     }
 
-    public static ArrayList<Programmer> getProgrammers(int position) {
+    public  ArrayList<Programmer> getProgrammers(int position) {
         if (!(board.containsKey(position))) {
             return null;
         }
@@ -144,7 +144,7 @@ public class GameManager {
         return head.programmer.getId();
     }
 
-    public static boolean moveCurrentPlayer(int nrPositions) {
+    public boolean moveCurrentPlayer(int nrPositions) {
         if (nrPositions < 1 || nrPositions > 6) {
             return false;
         }
