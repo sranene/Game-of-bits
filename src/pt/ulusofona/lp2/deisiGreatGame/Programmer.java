@@ -7,7 +7,7 @@ public class Programmer {
     int id;
     TreeSet<String> languages;
     ProgrammerColor color;
-    static int pos = 1;
+    int pos = 1;
 
     Programmer(String name, int id, TreeSet<String> languages, ProgrammerColor color) {
         this.name = name;
@@ -32,7 +32,7 @@ public class Programmer {
         return pos;
     }
 
-    public static void movePlayer(int nrCasas){
+    public void movePlayer(int nrCasas){
         int sub;
         pos += nrCasas;
         if(pos > GameManager.board.size()){
