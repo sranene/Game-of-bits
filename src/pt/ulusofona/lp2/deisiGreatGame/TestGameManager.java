@@ -61,11 +61,14 @@ public class TestGameManager {
         Programmer player3 = new Programmer("Alberto",16, tree3, ProgrammerColor.BROWN);
 
         ArrayList<Programmer> programmers = new ArrayList<>();
+        programmers.add(player3);
         programmers.add(player1);
         programmers.add(player2);
-        programmers.add(player3);
 
-        assertEquals(programmers, GameManager.getProgrammers());
+        String expected = programmers.toString();
+        String actual = GameManager.getProgrammers().toString();
+
+        assertEquals(expected, actual);
 
     }
 
@@ -94,11 +97,14 @@ public class TestGameManager {
         Programmer player3 = new Programmer("Alberto",16, tree3, ProgrammerColor.BROWN);
 
         ArrayList<Programmer> programmers = new ArrayList<>();
+        programmers.add(player3);
         programmers.add(player1);
         programmers.add(player2);
-        programmers.add(player3);
 
-        assertEquals(programmers, GameManager.getProgrammers(1));
+        String expected = programmers.toString();
+        String actual = GameManager.getProgrammers(1).toString();
+
+        assertEquals(expected, actual);
 
     }
 
@@ -143,16 +149,14 @@ public class TestGameManager {
         };
         int boardSize = 30;
         GameManager.createInitialBoard(playerInfo, boardSize);
-        GameManager.moveCurrentPlayer(5);
 
         String[] languages = {"Beck"};
         TreeSet<String> tree = new TreeSet<>(Arrays.asList(languages));
         Programmer player = new Programmer("Alberto",16, tree, ProgrammerColor.BROWN);
 
-        ArrayList<Programmer> players = new ArrayList<>();
-        players.add(player);
+        GameManager.moveCurrentPlayer(2);
 
-        assertEquals(players, GameManager.board.get(6));
+        assertEquals(3, player.getPos());
 
     }
 
@@ -172,19 +176,14 @@ public class TestGameManager {
         TreeSet<String> tree1 = new TreeSet<>(Arrays.asList(languages1));
         Programmer player1 = new Programmer("Alberto",16, tree1, ProgrammerColor.BROWN);
 
-        ArrayList<Programmer> players1 = new ArrayList<>();
-        players1.add(player1);
-
-        assertEquals(players1, GameManager.board.get(6));
+        assertEquals(6, player1.getPos());
 
         String[] languages2 = {"PHP", "Java"};
         TreeSet<String> tree2 = new TreeSet<>(Arrays.asList(languages2));
         Programmer player2 = new Programmer("sranene",28, tree2, ProgrammerColor.PURPLE);
+        GameManager.moveCurrentPlayer(3);
 
-        ArrayList<Programmer> players2 = new ArrayList<>();
-        players2.add(player2);
-
-        assertEquals(players2, GameManager.board.get(3));
+        assertEquals(4, player2.getPos());
 
     }
 
