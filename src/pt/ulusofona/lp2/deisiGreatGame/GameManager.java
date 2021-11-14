@@ -193,9 +193,7 @@ public class GameManager {
     }
 
     public JPanel getAuthorsPanel() {
-
-
-        JFrame f = new JFrame("Créditos");
+        
         JPanel panel = new JPanel();
 
         JLabel jlabel1 = new JLabel("Inês Marques - a22001936");
@@ -206,10 +204,6 @@ public class GameManager {
 
         panel.add(jlabel1);
         panel.add(jlabel2);
-        f.add(panel);
-        f.setSize(300, 300);
-        f.setLayout(null);
-        f.setVisible(true);
 
         return panel;
 
