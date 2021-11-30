@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import javax.swing.*;
 
 
@@ -105,6 +106,38 @@ public class GameManager {
         return true;
     }
 
+    public boolean createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) {
+        boolean programmers1;
+
+        programmers1 = createInitialBoard(playerInfo, boardSize);
+        if (programmers1){
+            for (String[] abyssesAndTool : abyssesAndTools) {
+                int checkID = Integer.parseInt(abyssesAndTool[1]);
+                int checkPos = Integer.parseInt(abyssesAndTool[2]);
+
+                if (abyssesAndTool[0].equals("0")) {
+                    if (checkID >= 0 && checkID <= 9 && checkPos >= 0 && checkPos <= boardSize) {
+                        boardPerksMap.put(checkPos, new Perk(new Abyss(checkID, checkPos)));
+                        boardAbyss.add(new Abyss(checkID,checkPos));
+                    } else {
+                        return false;
+                    }
+                } else if (abyssesAndTool[0].equals("1")) {
+                    if (checkID >= 0 && checkID <= 5 && checkPos >= 0 && checkPos <= boardSize) {
+                        boardPerksMap.put(checkPos, new Perk(new Tool(checkID, checkPos)));
+                        boardTools.add(new Tool(checkID,checkPos));
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public String getImagePng(int position) {
         if (position < 1 || position > board.size()) {
             return null;
@@ -116,6 +149,7 @@ public class GameManager {
         } else {
             return "blank.png";
         }
+        return "";
 
     }
 
@@ -140,6 +174,10 @@ public class GameManager {
         return board.get(position);
     }
 
+    public ArrayList<Programmer> getProgrammers(){
+        return programmers;
+    }
+
     public int getCurrentPlayerID() {
         return head.programmer.getId();
     }
@@ -153,6 +191,17 @@ public class GameManager {
         board.get(currentPlayer.getPos()).remove(currentPlayer);
 
         currentPlayer.movePlayer(nrPositions);
+
+        if(boardPerksMap.containsKey(currentPlayer.getPos())){
+            if(boardPerksMap.get(currentPlayer.getPos()).getAbyss() != null){
+                Abyss abyss = boardPerksMap.get(currentPlayer.getPos()).getAbyss();
+                abyss.getAbyss();
+            }else if(boardPerksMap.get(currentPlayer.getPos()).getTool() != null){
+                Tool tool = boardPerksMap.get(currentPlayer.getPos()).getTool();
+                currentPlayer.addTool(tool);
+
+            }
+        }
 
         board.get(currentPlayer.getPos()).add(currentPlayer);
 
@@ -174,7 +223,7 @@ public class GameManager {
         ArrayList<String> results = new ArrayList<>();
         ArrayList<Programmer> programmers;
         programmers = getProgrammers();
-        programmers.remove(board.get(board.size()).get(0));
+        programmers.remove(boardProgrammers.get(boardProgrammers.size()).get(0));
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
 
         results.add("O GRANDE JOGO DO DEISI");
@@ -183,7 +232,7 @@ public class GameManager {
         results.add("" + nrTurnos);
         results.add("");
         results.add("VENCEDOR");
-        results.add(board.get(board.size()).get(0).name);
+        results.add(boardProgrammers.get(boardProgrammers.size()).get(0).name);
         results.add("");
         results.add("RESTANTES");
         for (Programmer programmer : programmers) {

@@ -35,9 +35,12 @@ public class Programmer {
     public void movePlayer(int nrCasas){
         int sub;
         pos += nrCasas;
-        if(pos > GameManager.board.size()){
-            sub = pos-GameManager.board.size();
-            pos = GameManager.board.size();
+        if(pos < 1){
+            pos -= nrCasas;
+        }
+        if(pos > GameManager.boardProgrammers.size()){
+            sub = pos-GameManager.boardProgrammers.size();
+            pos = GameManager.boardProgrammers.size();
             pos -= sub;
         }
     }
