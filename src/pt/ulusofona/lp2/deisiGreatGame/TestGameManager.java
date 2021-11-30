@@ -10,8 +10,8 @@ import static org.junit.Assert.*;
 
 public class TestGameManager {
 
-   @Test
-    public void test01CreateInitialBoard() {
+ @Test
+ public void test01CreateInitialBoard() {
 
        /* String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
@@ -21,10 +21,10 @@ public class TestGameManager {
         int boardSize = 28;
         boolean resultado = GameManager.createInitialBoard(playerInfo, boardSize);
         assertTrue(resultado);*/
-    }
+ }
 
-    @Test
-    public void test02CreateInitialBoard() {
+ @Test
+ public void test02CreateInitialBoard() {
 /*
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
@@ -34,10 +34,10 @@ public class TestGameManager {
         int boardSize = 3;
         boolean resultado = GameManager.createInitialBoard(playerInfo, boardSize);
         assertFalse(resultado);*/
-    }
+ }
 
-    @Test
-    public void test01getProgrammers() {
+ @Test
+ public void test01getProgrammers() {
 /*
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
@@ -70,10 +70,10 @@ public class TestGameManager {
 
         assertEquals(expected, actual);*/
 
-    }
+ }
 
-    @Test
-    public void test01getProgrammersPos() {
+ @Test
+ public void test01getProgrammersPos() {
 /*
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
@@ -106,11 +106,11 @@ public class TestGameManager {
 
         assertEquals(expected, actual);*/
 
-    }
+ }
 
 
-    @Test
-    public void test01moveCurrentPlayer() {
+ @Test
+ public void test01moveCurrentPlayer() {
 /*
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
@@ -122,10 +122,10 @@ public class TestGameManager {
 
         assertFalse(GameManager.moveCurrentPlayer(7));
 */
-    }
+ }
 
-    @Test
-    public void test02moveCurrentPlayer() {
+ @Test
+ public void test02moveCurrentPlayer() {
 /*
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
@@ -137,10 +137,10 @@ public class TestGameManager {
 
         assertTrue(GameManager.moveCurrentPlayer(1));*/
 
-    }
+ }
 
-    @Test
-    public void test01getImagePng() {
+ @Test
+ public void test01getImagePng() {
 /*
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
@@ -154,7 +154,7 @@ public class TestGameManager {
         assertTrue(GameManager.getImagePng(30).equals("glory.png"));
         assertEquals("blank.png", GameManager.getImagePng(9));*/
 
-    }
+ }
 
 
 }

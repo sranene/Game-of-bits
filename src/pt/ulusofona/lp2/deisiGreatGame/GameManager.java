@@ -5,15 +5,14 @@ import java.util.*;
 import java.util.List;
 import javax.swing.*;
 
-
 public class GameManager {
     Programmer currentPlayer;
     ProgrammerColor color;
-    ArrayList<Programmer> programmers = new ArrayList<>();
+    List<Programmer> programmers = new ArrayList<>();
     static TreeMap<Integer, ArrayList<Programmer>> boardProgrammers = new TreeMap<>();
     TreeMap<Integer, Perk> boardPerksMap = new TreeMap<>();
-    TreeSet<Tool> boardTools;
-    TreeSet<Abyss> boardAbyss;
+    List<Tool> boardTools = new ArrayList<>();
+    List<Abyss> boardAbyss = new ArrayList<>();
 
     Node head = null;
 
@@ -88,9 +87,11 @@ public class GameManager {
                 case "Brown" -> color = ProgrammerColor.BROWN;
                 case "Purple" -> color = ProgrammerColor.PURPLE;
             }
-            programmers.add(new Programmer(strings[1], Integer.parseInt(strings[0]), tree, color));
-            players.add(new Programmer(strings[1], Integer.parseInt(strings[0]), tree, color));
+            Programmer programmer = new Programmer(strings[1], Integer.parseInt(strings[0]), tree, color);
+            programmers.add(programmer);
+            players.add(programmer);
         }
+        programmers.sort(Comparator.comparing(Programmer::getId));
         players.sort(Comparator.comparing(Programmer::getId));
         for (Programmer player : players) {
 
@@ -155,7 +156,7 @@ public class GameManager {
                     case "Herança" -> {
                         return "inheritance.png";
                     }
-                    case "Programação Funcional" -> {
+                    case "Programação funcional" -> {
                         return "functional.png";
                     }
                     case "Testes unitários" -> {
@@ -172,7 +173,7 @@ public class GameManager {
                     }
 
                 }
-            }else if(boardPerksMap.get(position).getAbyss() != null){
+            } else if (boardPerksMap.get(position).getAbyss() != null){
                 switch(boardPerksMap.get(position).getAbyss().getTitle()){
                     case "Erro de sintaxe" -> {
                         return "syntax.png";
@@ -210,28 +211,25 @@ public class GameManager {
         if (boardProgrammers.get(position) != null && !(boardProgrammers.get(position).isEmpty())) {
             return "player" + boardProgrammers.get(position).get(0).color.toString() + ".png";
         }
-        return "";
+        return null;
 
     }
 
     public List<Programmer> getProgrammers(boolean includeDefeated) {
-
         if (includeDefeated) {
-            for (int x = 1; x <= boardProgrammers.size(); x++) {
-                if (!(boardProgrammers.get(x).isEmpty())) {
-                    programmers.addAll(boardProgrammers.get(x));
+            return programmers;
+        } else {
+            List<Programmer> programmers1 = new ArrayList<>();
+            for (Programmer programmer : programmers) {
+                if (!programmer.isDefeated()) {
+                    programmers1.add(programmer);
                 }
             }
-        }else{
-
+            return programmers1;
         }
-
-
-        return programmers;
-
     }
 
-    public  ArrayList<Programmer> getProgrammers(int position) {
+    public List<Programmer> getProgrammers(int position) {
         if (!(boardProgrammers.containsKey(position))) {
             return null;
         }
@@ -242,9 +240,9 @@ public class GameManager {
         return boardProgrammers.get(position);
     }
 
-    public ArrayList<Programmer> getProgrammers(){
+    /*public ArrayList<Programmer> getProgrammers(){
         return programmers;
-    }
+    }*/
 
     public int getCurrentPlayerID() {
         return head.programmer.getId();
@@ -260,6 +258,15 @@ public class GameManager {
 
         currentPlayer.movePlayer(nrPositions);
 
+        boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
+
+        String res = reactToAbyssOrTool();
+
+        return true;
+    }
+
+    public String reactToAbyssOrTool() {
+
         if(boardPerksMap.containsKey(currentPlayer.getPos())){
             if(boardPerksMap.get(currentPlayer.getPos()).getAbyss() != null){
                 Abyss abyss = boardPerksMap.get(currentPlayer.getPos()).getAbyss();
@@ -268,29 +275,25 @@ public class GameManager {
                 Tool tool = boardPerksMap.get(currentPlayer.getPos()).getTool();
                 currentPlayer.addTool(tool);
 
+
             }
         }
 
-        boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
-
         nrTurnos += 1;
-
         head = head.next;
-
         tail = tail.next;
 
-        return true;
-    }
+        return "";}
 
     public boolean gameIsOver() {
         return !(boardProgrammers.get(boardProgrammers.size()).isEmpty());
     }
 
-    public ArrayList<String> getGameResults() {
+    public List<String> getGameResults() {
 
-        ArrayList<String> results = new ArrayList<>();
-        ArrayList<Programmer> programmers;
-        programmers = getProgrammers();
+        List<String> results = new ArrayList<>();
+        List<Programmer> programmers;
+        programmers = getProgrammers(true);
         programmers.remove(boardProgrammers.get(boardProgrammers.size()).get(0));
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
 
@@ -345,35 +348,30 @@ public class GameManager {
     public String getProgrammersInfo() {
         StringBuilder res = new StringBuilder();
         int programmersSize = programmers.size();
+        int i = 0;
         for (Programmer programmer : programmers) {
-            int i = 0;
-            if (programmer.getTools() != null) {
+            if (!programmer.getTools().isEmpty()) {
                 int j = 0;
                 int toolsSize = programmer.getTools().size();
                 res.append(programmer.getName()).append(" : ");
                 for (Tool tool : programmer.getTools()) {
                     if (toolsSize - 1  == j) {
-                        res.append(tool);
+                        res.append(tool.getTitle());
                         break;
                     }
-                    res.append(tool).append(";");
+                    res.append(tool.getTitle()).append(";");
                     j++;
                 }
             } else {
                 res.append(programmer.getName()).append(" : No tools");
             }
             i++;
-            if (programmersSize - 1 == i) {
+            if (programmersSize == i) {
                 return res.toString();
             }
             res.append(" | ");
         }
         return "";
     }
-
-    public String reactToAbyssOrTool() {return "";}
-
-
-
 
 }
