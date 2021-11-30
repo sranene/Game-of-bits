@@ -13,6 +13,7 @@ public class GameManager {
     TreeMap<Integer, Perk> boardPerksMap = new TreeMap<>();
     List<Tool> boardTools = new ArrayList<>();
     List<Abyss> boardAbyss = new ArrayList<>();
+    int dado = 0;
 
     Node head = null;
 
@@ -208,9 +209,7 @@ public class GameManager {
                 }
             }
         }
-        if (boardProgrammers.get(position) != null && !(boardProgrammers.get(position).isEmpty())) {
-            return "player" + boardProgrammers.get(position).get(0).color.toString() + ".png";
-        }
+
         return null;
 
     }
@@ -252,6 +251,9 @@ public class GameManager {
         if (nrPositions < 1 || nrPositions > 6) {
             return false;
         }
+
+        dado = nrPositions;
+
         currentPlayer = head.programmer;
 
         boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
@@ -263,11 +265,21 @@ public class GameManager {
         return true;
     }
 
+    public void moveCurrentPlayerAbyss(int nrPositions) {
+
+        boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
+
+        currentPlayer.movePlayer(nrPositions);
+
+        boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
+
+    }
+
     public String reactToAbyssOrTool() {
         if(boardPerksMap.containsKey(currentPlayer.getPos())){
             if(boardPerksMap.get(currentPlayer.getPos()).getAbyss() != null){
                 Abyss abyss = boardPerksMap.get(currentPlayer.getPos()).getAbyss();
-                abyss.getAbyss();
+                getAbyss(abyss);
             }else if(boardPerksMap.get(currentPlayer.getPos()).getTool() != null){
                 Tool tool = boardPerksMap.get(currentPlayer.getPos()).getTool();
                 currentPlayer.addTool(tool);
@@ -366,6 +378,61 @@ public class GameManager {
             res.append(" | ");
         }
         return "";
+    }
+
+
+    public void getAbyss(Abyss abyss){
+        switch(abyss.getId()){
+            case 0 -> abyssFunction0();
+            case 1 -> abyssFunction1();
+            case 2 -> abyssFunction2();
+            case 3 -> abyssFunction3();
+            case 4 -> abyssFunction4();
+            case 5 -> abyssFunction5();
+            case 6 -> abyssFunction6();
+            case 7 -> abyssFunction7();
+            case 8 -> abyssFunction8();
+            case 9 -> abyssFunction9();
+        }
+    }
+
+
+    public void abyssFunction9() {
+    }
+
+    public void abyssFunction8() {
+    }
+
+    public void abyssFunction7() {
+    }
+
+    public void abyssFunction6() {
+    }
+
+    public void abyssFunction5() {
+    }
+
+    public void abyssFunction4() {
+       int pos = currentPlayer.getPos();
+       pos -= 1;
+       moveCurrentPlayerAbyss(-pos);
+    }
+
+    public void abyssFunction3() {
+        moveCurrentPlayerAbyss(-3);
+    }
+
+    public void abyssFunction2() {
+        moveCurrentPlayerAbyss(-2);
+    }
+
+    public void abyssFunction1() {
+        int arredondado = -(dado/2);
+        moveCurrentPlayerAbyss(arredondado);
+    }
+
+    public void abyssFunction0() {
+       moveCurrentPlayerAbyss(-1);
     }
 
 }

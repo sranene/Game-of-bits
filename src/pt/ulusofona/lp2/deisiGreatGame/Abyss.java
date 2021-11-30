@@ -23,52 +23,6 @@ public class Abyss {
         }
     }
 
-    public void getAbyss(){
-        switch(id){
-            case 0 -> abyssFunction0();
-            case 1 -> abyssFunction1();
-            case 2 -> abyssFunction2();
-            case 3 -> abyssFunction3();
-            case 4 -> abyssFunction4();
-            case 5 -> abyssFunction5();
-            case 6 -> abyssFunction6();
-            case 7 -> abyssFunction7();
-            case 8 -> abyssFunction8();
-            case 9 -> abyssFunction9();
-        }
-    }
-
-    public void abyssFunction9() {
-    }
-
-    public void abyssFunction8() {
-    }
-
-    public void abyssFunction7() {
-    }
-
-    public void abyssFunction6() {
-    }
-
-    public void abyssFunction5() {
-    }
-
-    public void abyssFunction4() {
-    }
-
-    public void abyssFunction3() {
-    }
-
-    public void abyssFunction2() {
-    }
-
-    public void abyssFunction1() {
-    }
-
-    public void abyssFunction0() {
-    }
-
-
     public int getId() {
         return id;
     }
