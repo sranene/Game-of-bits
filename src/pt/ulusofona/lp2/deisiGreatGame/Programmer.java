@@ -51,15 +51,15 @@ public class Programmer {
         return tools;
     }
 
-    public void movePlayer(int nrCasas){
+    public void movePlayer(int nrCasas,int size){
         int sub;
         pos += nrCasas;
         if(pos < 1){
             pos -= nrCasas;
         }
-        if(pos > GameManager.boardProgrammers.size()){
-            sub = pos-GameManager.boardProgrammers.size();
-            pos = GameManager.boardProgrammers.size();
+        if(pos > size){
+            sub = pos-size;
+            pos =size;
             pos -= sub;
         }
     }

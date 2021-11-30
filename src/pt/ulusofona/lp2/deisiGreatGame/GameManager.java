@@ -9,7 +9,7 @@ public class GameManager {
     Programmer currentPlayer;
     ProgrammerColor color;
     List<Programmer> programmers = new ArrayList<>();
-    static TreeMap<Integer, ArrayList<Programmer>> boardProgrammers = new TreeMap<>();
+    TreeMap<Integer, ArrayList<Programmer>> boardProgrammers = new TreeMap<>();
     TreeMap<Integer, Perk> boardPerksMap = new TreeMap<>();
     List<Tool> boardTools = new ArrayList<>();
     List<Abyss> boardAbyss = new ArrayList<>();
@@ -157,7 +157,7 @@ public class GameManager {
                     case "Herança" -> {
                         return "inheritance.png";
                     }
-                    case "Programação funcional" -> {
+                    case "Programação Funcional" -> {
                         return "functional.png";
                     }
                     case "Testes unitários" -> {
@@ -258,7 +258,7 @@ public class GameManager {
 
         boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
 
-        currentPlayer.movePlayer(nrPositions);
+        currentPlayer.movePlayer(nrPositions,boardProgrammers.size());
 
         boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
 
@@ -269,7 +269,7 @@ public class GameManager {
 
         boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
 
-        currentPlayer.movePlayer(nrPositions);
+        currentPlayer.movePlayer(nrPositions,boardProgrammers.size());
 
         boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
 

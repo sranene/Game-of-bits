@@ -12,33 +12,34 @@ public class TestGameManager {
 
  @Test
  public void test01CreateInitialBoard() {
-
-       /* String[][] playerInfo ={
+      GameManager gameManager =  new GameManager();
+       String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
                 {"16","Alberto","Beck","Brown"}
         };
         int boardSize = 28;
-        boolean resultado = GameManager.createInitialBoard(playerInfo, boardSize);
-        assertTrue(resultado);*/
+        boolean resultado = gameManager.createInitialBoard(playerInfo, boardSize);
+        assertTrue(resultado);
  }
 
  @Test
  public void test02CreateInitialBoard() {
-/*
+
+        GameManager gameManager =  new GameManager();
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
                 {"16","Alberto","Beck","Brown"}
         };
         int boardSize = 3;
-        boolean resultado = GameManager.createInitialBoard(playerInfo, boardSize);
-        assertFalse(resultado);*/
+        boolean resultado = gameManager.createInitialBoard(playerInfo, boardSize);
+        assertFalse(resultado);
  }
 
  @Test
  public void test01getProgrammers() {
-/*
+        GameManager gameManager =  new GameManager();
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
@@ -46,7 +47,7 @@ public class TestGameManager {
         };
 
         int boardSize = 30;
-        GameManager.createInitialBoard(playerInfo, boardSize);
+        gameManager.createInitialBoard(playerInfo, boardSize);
 
         String[] languages1 = {"PHP", "Java"};
         String[] languages2 = {"Java", "C++", "Python", "Portugues"};
@@ -66,15 +67,15 @@ public class TestGameManager {
         programmers.add(player2);
 
         String expected = programmers.toString();
-        String actual = GameManager.getProgrammers().toString();
+        String actual = gameManager.getProgrammers(true).toString();
 
-        assertEquals(expected, actual);*/
+        assertEquals(expected, actual);
 
  }
 
  @Test
  public void test01getProgrammersPos() {
-/*
+        GameManager gameManager =  new GameManager();
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
@@ -82,7 +83,7 @@ public class TestGameManager {
         };
 
         int boardSize = 30;
-        GameManager.createInitialBoard(playerInfo, boardSize);
+        gameManager.createInitialBoard(playerInfo, boardSize);
 
         String[] languages1 = {"PHP", "Java"};
         String[] languages2 = {"Java", "C++", "Python", "Portugues"};
@@ -102,59 +103,61 @@ public class TestGameManager {
         programmers.add(player2);
 
         String expected = programmers.toString();
-        String actual = GameManager.getProgrammers(1).toString();
+        String actual = gameManager.getProgrammers(1).toString();
 
-        assertEquals(expected, actual);*/
+        assertEquals(expected, actual);
 
  }
 
 
  @Test
  public void test01moveCurrentPlayer() {
-/*
+        GameManager gameManager =  new GameManager();
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
                 {"16","Alberto","Beck","Brown"}
         };
         int boardSize = 30;
-        GameManager.createInitialBoard(playerInfo, boardSize);
+        gameManager.createInitialBoard(playerInfo, boardSize);
+        assertFalse(gameManager.moveCurrentPlayer(7));
 
-        assertFalse(GameManager.moveCurrentPlayer(7));
-*/
  }
 
  @Test
  public void test02moveCurrentPlayer() {
-/*
+        GameManager gameManager =  new GameManager();
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
                 {"16","Alberto","Beck","Brown"}
         };
         int boardSize = 30;
-        GameManager.createInitialBoard(playerInfo, boardSize);
+        gameManager.createInitialBoard(playerInfo, boardSize);
 
-        assertTrue(GameManager.moveCurrentPlayer(1));*/
+        assertTrue(gameManager.moveCurrentPlayer(1));
+        assertFalse(gameManager.getProgrammers(2).isEmpty());
+        assertEquals(16,gameManager.getProgrammers(2).get(0).getId());
 
  }
 
  @Test
  public void test01getImagePng() {
-/*
+        GameManager gameManager =  new GameManager();
         String[][] playerInfo ={
                 {"28","sranene", "PHP; Java", "Purple"},
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
                 {"16","Alberto","Beck","Brown"}
         };
         int boardSize = 30;
-        GameManager.createInitialBoard(playerInfo, boardSize);
+        gameManager.createInitialBoard(playerInfo, boardSize);
 
-        assertFalse(GameManager.getImagePng(24).equals("playerPurple.png"));
-        assertTrue(GameManager.getImagePng(30).equals("glory.png"));
-        assertEquals("blank.png", GameManager.getImagePng(9));*/
+        assertNotEquals("playerPurple.png", gameManager.getImagePng(24));
+        assertEquals("glory.png", gameManager.getImagePng(30));
+        assertEquals(null, gameManager.getImagePng(9));
 
  }
 
+ /*testar se dar move current player muda para o outro*/
 
 }

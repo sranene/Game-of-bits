@@ -10,7 +10,7 @@ public class Tool {
         this.pos = pos;
         switch (id){
             case 0 -> title = "Herança";
-            case 1 -> title = "Programação funcional";
+            case 1 -> title = "Programação Funcional";
             case 2 -> title = "Testes unitários";
             case 3 -> title = "Tratamento de Excepções";
             case 4 -> title = "IDE";
