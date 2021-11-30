@@ -66,22 +66,42 @@ public class Programmer {
 
     public String toString() {
         StringBuilder languages = new StringBuilder();
+        StringBuilder tools = new StringBuilder();
+        String status = "";
+        // languages
         int aux = 0;
         for(String language : this.languages) {
-            if (this.languages.size()-1 == aux) {
+            if (this.languages.size() - 1 == aux) {
                 languages.append(language);
                 break;
             }
             aux++;
             languages.append(language).append("; ");
         }
+        // tools
+        if (this.tools.isEmpty()) {
+            tools.append("No tools");
+        } else {
+            int i = 0;
+            for(Tool tool : this.tools) {
+                if (i == this.tools.size()) {
+                    tools.append(tool.getTitle());
+                }
+                tools.append(tool.getTitle()).append(";");
+                i++;
+            }
+        }
+        // status
+        if (defeated) {
+            status = "Derrotado";
+        } else {
+            status = "Em Jogo";
+        }
+
         /*
         Nota: Para programadores que saiam do
         jogo, <Pos> deve ter a posição onde
         estavam quando perderam o jogo.
-
-        Nota: Nesta primeira parte do projecto, os
-        programadores nunca saem de Jogo.
 
         <Estado> deve ter o valor “Em Jogo”
         (caso o jogador ainda esteja em jogo)
@@ -89,7 +109,7 @@ public class Programmer {
         saído do jogo).
         */
 
-        return id + " | " + name + " | " + pos + " | " + languages + " | Em Jogo";
+        return id + " | " + name + " | " + pos + " | " + tools + " | " + languages + " | " + status;
     }
 
 
