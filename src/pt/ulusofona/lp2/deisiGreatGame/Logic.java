@@ -6,8 +6,5 @@ public class Logic extends Abyss{
         super(id, pos);
     }
 
-    public void logic(Programmer programmer){
-        programmer.movePlayer(-2,200);
-    }
 
 }

@@ -2,10 +2,9 @@ package pt.ulusofona.lp2.deisiGreatGame;
 
 public class Tool extends Square{
 
-    Tool(int id, int pos){
-        this.id = id;
-        this.pos = pos;
-        switch (id){
+    Tool(int id, int pos) {
+        super(id, pos);
+        switch (id) {
             case 0 -> title = "Herança";
             case 1 -> title = "Programação Funcional";
             case 2 -> title = "Testes unitários";
@@ -14,18 +13,6 @@ public class Tool extends Square{
             case 5 -> title = "Ajuda Do Professor";
             default -> title = "";
         }
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getPos() {
-        return pos;
-    }
-
-    public String getTitle(){
-        return title;
     }
 
 

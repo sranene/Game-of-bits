@@ -1,13 +1,9 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-public class Abyss {
-    int id;
-    String title;
-    int pos;
+public class Abyss extends Square {
 
     public Abyss(int id, int pos) {
-        this.id = id;
-        this.pos = pos;
+        super(id,pos);
         switch (id) {
             case 0 -> title = "Erro de sintaxe";
             case 1 -> title = "Erro de lógica";
@@ -20,18 +16,17 @@ public class Abyss {
             case 8 -> title = "Ciclo infinito";
             case 9 -> title = "Segmentation Fault";
             default -> title = "";
+            }
+    }
+            public int getId () {
+                return id;
+            }
+
+            public int getPos () {
+                return pos;
+            }
+
+            public String getTitle () {
+                return title;
+            }
         }
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getPos() {
-        return pos;
-    }
-
-    public String getTitle(){
-        return title;
-    }
-}

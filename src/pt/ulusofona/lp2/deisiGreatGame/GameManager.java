@@ -336,12 +336,12 @@ public class GameManager {
     }
 
     public String reactToAbyssOrTool() {
-        if(boardPerksMap.containsKey(currentPlayer.getPos())){
-            if(boardPerksMap.get(currentPlayer.getPos()).getAbyss() != null){
-                Abyss abyss = boardPerksMap.get(currentPlayer.getPos()).getAbyss();
+        /*if(boardMap.containsKey(currentPlayer.getPos())){
+            if(boardMap.get(currentPlayer.getPos()).getAbyss() != null){
+                Abyss abyss = boardMap.get(currentPlayer.getPos()).getAbyss();
                 getAbyss(abyss);
-            }else if(boardPerksMap.get(currentPlayer.getPos()).getTool() != null){
-                Tool tool = boardPerksMap.get(currentPlayer.getPos()).getTool();
+            }else if(boardMap.get(currentPlayer.getPos()).getTool() != null){
+                Tool tool = boardMap.get(currentPlayer.getPos()).getTool();
                 currentPlayer.addTool(tool);
             }
         }*/
