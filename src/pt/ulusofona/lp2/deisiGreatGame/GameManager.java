@@ -24,6 +24,7 @@ public class GameManager {
     public GameManager() {
     }
 
+
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
         boardProgrammers.clear();
@@ -289,7 +290,9 @@ public class GameManager {
         head = head.next;
         tail = tail.next;
 
-        return null;}
+        return null;
+
+    }
 
     public boolean gameIsOver() {
         return !(boardProgrammers.get(boardProgrammers.size()).isEmpty());
