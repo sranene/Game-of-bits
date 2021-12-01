@@ -5,7 +5,7 @@ public class Abyss {
     String title;
     int pos;
 
-    public Abyss (int id, int pos) {
+    public Abyss(int id, int pos) {
         this.id = id;
         this.pos = pos;
         switch (id) {
