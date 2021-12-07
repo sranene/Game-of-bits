@@ -10,6 +10,8 @@ public class Programmer {
     List<Tool> tools = new ArrayList<>();
     ProgrammerColor color;
     int pos = 1;
+    int posAnterior = 1;
+    int posAnteriorAnterior = 1;
 
     Programmer(String name, int id, TreeSet<String> languages, ProgrammerColor color) {
         this.name = name;
@@ -51,7 +53,23 @@ public class Programmer {
         return tools;
     }
 
-    public void movePlayer(int nrCasas,int size){
+    public int getPosAnterior() {
+        return posAnterior;
+    }
+
+    public int getPosAnteriorAnterior() {
+        return posAnteriorAnterior;
+    }
+
+    public void setPos(int pos) {
+        posAnteriorAnterior = posAnterior;
+        posAnterior = pos;
+        this.pos = pos;
+    }
+
+    public void movePlayer(int nrCasas, int size){
+        posAnteriorAnterior = posAnterior;
+        posAnterior = pos;
         int sub;
         pos += nrCasas;
         if(pos < 1){
@@ -67,7 +85,7 @@ public class Programmer {
     public String toString() {
         StringBuilder languages = new StringBuilder();
         StringBuilder tools = new StringBuilder();
-        String status = "";
+        String status;
         // languages
         int aux = 0;
         for(String language : this.languages) {

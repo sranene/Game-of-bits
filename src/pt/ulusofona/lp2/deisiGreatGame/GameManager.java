@@ -335,12 +335,9 @@ public class GameManager {
         return true;
     }
 
-    public void moveCurrentPlayerAbyss(int oldPosition) {
+    public void moveCurrentPlayerAbyss() {
 
-        boardMap.get(oldPosition).removeProgrammer(currentPlayer);
-
-        currentPlayer.movePlayer(0,boardMap.size());
-
+        boardMap.get(currentPlayer.getPosAnterior()).removeProgrammer(currentPlayer);
         boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
 
     }
@@ -349,9 +346,14 @@ public class GameManager {
 
         String res = "";
         if(boardMap.containsKey(currentPlayer.getPos())){
-            int oldPosition = currentPlayer.getPos();
-            boardMap.get(currentPlayer.getPos()).react(currentPlayer, dado);
-            moveCurrentPlayerAbyss(oldPosition);
+            res = boardMap.get(currentPlayer.getPos()).react(currentPlayer, dado, boardMap);
+            /*if(Tool.class.isAssignableFrom(boardMap.get(currentPlayer.getPos()).getClass())){
+
+            }else if(Abyss.class.isAssignableFrom(boardMap.get(currentPlayer.getPos()).getClass())){
+                 boardMap.get(currentPlayer.getPos().react(currentPlayer,dado));
+            }*/
+
+
         }
 
         nrTurnos += 1;

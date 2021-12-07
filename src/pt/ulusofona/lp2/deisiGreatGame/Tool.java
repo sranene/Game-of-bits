@@ -1,6 +1,8 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-public class Tool extends Square{
+import java.util.TreeMap;
+
+public abstract class Tool extends Square{
 
     Tool(int id, int pos) {
         super(id, pos);

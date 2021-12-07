@@ -9,7 +9,9 @@ public class Effects extends Abyss{
     }
 
     @Override
-    public void react(Programmer programmer,int dado) {
-
+    public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
+        programmer.setPos(programmer.getPosAnteriorAnterior());
+        movePlayerAbyss(boardMap,programmer);
+        return "Effects";
     }
 }

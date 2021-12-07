@@ -1,7 +1,10 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public abstract class Square {
     List<Programmer> programmers = new ArrayList<>();
@@ -9,18 +12,18 @@ public abstract class Square {
     String title;
     int pos;
 
-    public Square(int id, int pos){
+    public Square(int id,int pos){
         this.id = id;
         this.pos = pos;
     }
 
     public Square(int pos){
         this.id = -1;
-        this.title = "Empty";
+        this.title = null;
         this.pos = pos;
     }
 
-    public abstract void react(Programmer programmer,int dado);
+    public abstract String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap);
 
     public int getId(){
         return id;
@@ -30,10 +33,9 @@ public abstract class Square {
         return pos;
     }
 
-    public void addProgrammer(Programmer programmer){
+    public void addProgrammer(Programmer programmer) {
         programmers.add(programmer);
     }
-
     public void removeProgrammer(Programmer programmer){
         programmers.remove(programmer);
     }
@@ -48,15 +50,6 @@ public abstract class Square {
 
     public String getTitle(){
         return title;
-    }
-
-    public Square getAbyssOrTool(int numero){
-        if(numero == 0){
-            return new Syntax(id,pos);
-        }else if(numero == 1){
-            return new Logic(id,pos);
-        }
-        else return null;
     }
 
 }

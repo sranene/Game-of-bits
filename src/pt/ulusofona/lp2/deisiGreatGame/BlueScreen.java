@@ -9,7 +9,8 @@ public class BlueScreen extends Abyss{
 }
 
     @Override
-    public void react(Programmer programmer, int dado) {
-
+    public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
+        programmer.gotDefeated();
+        return "BlueScreen";
     }
 }
