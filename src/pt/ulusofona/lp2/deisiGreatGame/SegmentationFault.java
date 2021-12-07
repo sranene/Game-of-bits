@@ -6,4 +6,8 @@ public class SegmentationFault extends Abyss{
         super(id, pos);
     }
 
+    @Override
+    public void react(Programmer programmer,int dado) {
+
+    }
 }

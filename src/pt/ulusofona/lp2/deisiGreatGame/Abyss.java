@@ -1,9 +1,9 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-public class Abyss extends Square {
+public abstract class Abyss extends Square {
 
     public Abyss(int id, int pos) {
-        super(id,pos);
+        super(id, pos);
         switch (id) {
             case 0 -> title = "Erro de sintaxe";
             case 1 -> title = "Erro de lógica";
@@ -16,17 +16,23 @@ public class Abyss extends Square {
             case 8 -> title = "Ciclo infinito";
             case 9 -> title = "Segmentation Fault";
             default -> title = "";
-            }
-    }
-            public int getId () {
-                return id;
-            }
-
-            public int getPos () {
-                return pos;
-            }
-
-            public String getTitle () {
-                return title;
-            }
         }
+    }
+
+
+    @Override
+    public abstract void react(Programmer programmer, int dado);
+
+
+    public int getId() {
+        return id;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+}

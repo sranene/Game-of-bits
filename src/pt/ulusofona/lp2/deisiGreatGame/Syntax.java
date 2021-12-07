@@ -5,7 +5,9 @@ public class Syntax extends Abyss{
     public Syntax(int id, int pos) {
         super(id, pos);
     }
-    public void syntax(Programmer programmer){
+
+    @Override
+    public void react(Programmer programmer,int dado) {
         programmer.movePlayer(-1,200);
     }
 }

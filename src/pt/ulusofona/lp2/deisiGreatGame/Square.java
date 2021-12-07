@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Square {
+public abstract class Square {
     List<Programmer> programmers = new ArrayList<>();
     int id;
     String title;
@@ -19,6 +19,8 @@ public class Square {
         this.title = "Empty";
         this.pos = pos;
     }
+
+    public abstract void react(Programmer programmer,int dado);
 
     public int getId(){
         return id;

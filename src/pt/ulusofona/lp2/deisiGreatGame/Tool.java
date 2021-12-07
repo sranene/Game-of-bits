@@ -15,5 +15,11 @@ public class Tool extends Square{
         }
     }
 
-
+    @Override
+    public void react(Programmer programmer, int dado) {
+        if (!programmer.getTools().contains(this)){
+            programmer.addTool(this);
+            //probably wrong mas nunca se sabe
+        }
+    }
 }
