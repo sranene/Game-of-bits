@@ -10,6 +10,8 @@ public class Loop extends Abyss{
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
+
+        programmer.setLoop(true);
         return "Loop";
     }
 }

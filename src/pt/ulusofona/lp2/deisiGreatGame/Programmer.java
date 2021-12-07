@@ -12,6 +12,7 @@ public class Programmer {
     int pos = 1;
     int posAnterior = 1;
     int posAnteriorAnterior = 1;
+    boolean loop = false;
 
     Programmer(String name, int id, TreeSet<String> languages, ProgrammerColor color) {
         this.name = name;
@@ -80,6 +81,14 @@ public class Programmer {
             pos =size;
             pos -= sub;
         }
+    }
+
+    public boolean getLoop(){
+        return this.loop;
+    }
+
+    public void setLoop(boolean looped){
+        this.loop = looped;
     }
 
     public String toString() {

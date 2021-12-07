@@ -133,8 +133,9 @@ public class TestGameManager {
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
                 {"16","Alberto","Beck","Brown"}
         };
+        String[][] mostrarAInes = {};
         int boardSize = 30;
-        gameManager.createInitialBoard(playerInfo, boardSize);
+        gameManager.createInitialBoard(playerInfo, boardSize,mostrarAInes);
 
         assertTrue(gameManager.moveCurrentPlayer(1));
         assertFalse(gameManager.getProgrammers(2).isEmpty());
@@ -150,8 +151,10 @@ public class TestGameManager {
                 {"31","robroche","Java; C++; Python; Portugues","Blue"},
                 {"16","Alberto","Beck","Brown"}
         };
+
+        String[][] mostrarAInes = {};
         int boardSize = 30;
-        gameManager.createInitialBoard(playerInfo, boardSize);
+        gameManager.createInitialBoard(playerInfo,30,mostrarAInes);
 
         assertNotEquals("playerPurple.png", gameManager.getImagePng(24));
         assertEquals("glory.png", gameManager.getImagePng(30));

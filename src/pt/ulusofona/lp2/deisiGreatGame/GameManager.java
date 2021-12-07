@@ -222,7 +222,7 @@ public class GameManager {
             return "glory.png";
         }
         if(boardMap.containsKey(position)) {
-
+            if (boardMap.get(position).getTitle() != null) {
                 switch (boardMap.get(position).getTitle()) {
                     case "Herança" -> {
                         return "inheritance.png";
@@ -275,6 +275,7 @@ public class GameManager {
                 }
 
             }
+        }
 
         return null;
 
@@ -305,10 +306,6 @@ public class GameManager {
         return boardMap.get(position).getProgrammers();
     }
 
-    /*public ArrayList<Programmer> getProgrammers(){
-        return programmers;
-    }*/
-
     public int getCurrentPlayerID() {
         return head.programmer.getId();
     }
@@ -338,13 +335,6 @@ public class GameManager {
 
         boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
         return true;
-    }
-
-    public void moveCurrentPlayerAbyss() {
-
-        boardMap.get(currentPlayer.getPosAnterior()).removeProgrammer(currentPlayer);
-        boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
-
     }
 
     public String reactToAbyssOrTool() {

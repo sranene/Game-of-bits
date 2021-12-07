@@ -20,4 +20,7 @@ public abstract class Tool extends Square{
     @Override
     public abstract String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap);
 
+    public String getTitle() {
+        return title;
+    }
 }
