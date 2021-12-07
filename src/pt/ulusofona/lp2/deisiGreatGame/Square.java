@@ -9,8 +9,14 @@ public class Square {
     String title;
     int pos;
 
-    public Square(int id,int pos){
+    public Square(int id, int pos){
         this.id = id;
+        this.pos = pos;
+    }
+
+    public Square(int pos){
+        this.id = -1;
+        this.title = "Empty";
         this.pos = pos;
     }
 
@@ -20,6 +26,22 @@ public class Square {
 
     public int getPos(){
         return pos;
+    }
+
+    public void addProgrammer(Programmer programmer){
+        programmers.add(programmer);
+    }
+
+    public void removeProgrammer(Programmer programmer){
+        programmers.remove(programmer);
+    }
+
+    public void addArrayProgrammers(List<Programmer> programmers1){
+        programmers = programmers1;
+    }
+
+    public List<Programmer> getProgrammers () {
+        return programmers;
     }
 
     public String getTitle(){

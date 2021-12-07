@@ -91,6 +91,7 @@ public class GameManager {
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
         boardProgrammers.clear();
+        boardMap.clear();
         currentPlayer = null;
         if (head != null) {
             if (head.next.next != null && head.next.next != tail) {
@@ -177,10 +178,15 @@ public class GameManager {
     }
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) {
-        boolean programmers1;
+        boolean check;
+        check = createInitialBoard(playerInfo, boardSize);
+        if (check){
+            boardMap.put(1, new Empty(1));
+            boardMap.get(1).addArrayProgrammers(boardProgrammers.get(1));
+            for (int x = 2; x <= boardSize; x++) {
+                boardMap.put(x, new Empty(x));
+            }
 
-        programmers1 = createInitialBoard(playerInfo, boardSize);
-        if (programmers1){
             for (String[] abyssesAndTool : abyssesAndTools) {
                 int checkID = Integer.parseInt(abyssesAndTool[1]);
                 int checkPos = Integer.parseInt(abyssesAndTool[2]);
@@ -209,10 +215,10 @@ public class GameManager {
     }
 
     public String getImagePng(int position) {
-        if (position < 1 || position > boardProgrammers.size()) {
+        if (position < 1 || position > boardMap.size()) {
             return null;
         }
-        if (position == boardProgrammers.size()) {
+        if (position == boardMap.size()) {
             return "glory.png";
         }
         if(boardMap.containsKey(position)) {
@@ -278,25 +284,25 @@ public class GameManager {
         if (includeDefeated) {
             return programmers;
         } else {
-            List<Programmer> programmers1 = new ArrayList<>();
+            List<Programmer> resProgrammers = new ArrayList<>();
             for (Programmer programmer : programmers) {
                 if (!programmer.isDefeated()) {
-                    programmers1.add(programmer);
+                    resProgrammers.add(programmer);
                 }
             }
-            return programmers1;
+            return resProgrammers;
         }
     }
 
     public List<Programmer> getProgrammers(int position) {
-        if (!(boardProgrammers.containsKey(position))) {
+        if (!(boardMap.containsKey(position))) {
             return null;
         }
-        if (boardProgrammers.get(position) == null) {
+        if (boardMap.get(position) == null) {
             return null;
         }
 
-        return boardProgrammers.get(position);
+        return boardMap.get(position).getProgrammers();
     }
 
     /*public ArrayList<Programmer> getProgrammers(){
@@ -316,35 +322,36 @@ public class GameManager {
 
         currentPlayer = head.programmer;
 
-        boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
+        //boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
 
-        currentPlayer.movePlayer(nrPositions,boardProgrammers.size());
+        //currentPlayer.movePlayer(nrPositions,boardProgrammers.size());
 
-        boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
+        //boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
+        boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
 
+        currentPlayer.movePlayer(nrPositions,boardMap.size());
+
+        boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
         return true;
     }
 
-    public void moveCurrentPlayerAbyss(int nrPositions) {
+    public void moveCurrentPlayerAbyss(int oldPosition) {
 
-        boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
+        boardMap.get(oldPosition).removeProgrammer(currentPlayer);
 
-        currentPlayer.movePlayer(nrPositions,boardProgrammers.size());
+        currentPlayer.movePlayer(0,boardMap.size());
 
-        boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
+        boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
 
     }
 
     public String reactToAbyssOrTool() {
-        /*if(boardMap.containsKey(currentPlayer.getPos())){
-            if(boardMap.get(currentPlayer.getPos()).getAbyss() != null){
-                Abyss abyss = boardMap.get(currentPlayer.getPos()).getAbyss();
-                getAbyss(abyss);
-            }else if(boardMap.get(currentPlayer.getPos()).getTool() != null){
-                Tool tool = boardMap.get(currentPlayer.getPos()).getTool();
-                currentPlayer.addTool(tool);
-            }
-        }*/
+        if(boardMap.containsKey(currentPlayer.getPos())){
+            int oldPosition = currentPlayer.getPos();
+            boardMap.get(currentPlayer.getPos()).react(currentPlayer, dado);
+            moveCurrentPlayerAbyss(oldPosition);
+        }
+
         nrTurnos += 1;
         head = head.next;
         tail = tail.next;
@@ -352,7 +359,7 @@ public class GameManager {
         return null;}
 
     public boolean gameIsOver() {
-        return !(boardProgrammers.get(boardProgrammers.size()).isEmpty());
+        return !(boardMap.get(boardMap.size()).getProgrammers().isEmpty());
     }
 
     public List<String> getGameResults() {
@@ -437,7 +444,7 @@ public class GameManager {
     }
 
 
-    public void getAbyss(Abyss abyss){
+    /*public void getAbyss(Abyss abyss){
         switch(abyss.getId()){
             case 0 -> abyssFunction0();
             case 1 -> abyssFunction1();
@@ -489,6 +496,6 @@ public class GameManager {
 
     public void abyssFunction0() {
        moveCurrentPlayerAbyss(-1);
-    }
+    }*/
 
 }

@@ -6,5 +6,9 @@ public class Logic extends Abyss{
         super(id, pos);
     }
 
-
+    @Override
+    public void react(Programmer programmer, int dado){
+        int positions = -(dado/2);
+        programmer.movePlayer(positions, 200);
+    }
 }
