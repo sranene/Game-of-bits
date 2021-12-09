@@ -36,7 +36,7 @@ public abstract class Abyss extends Square {
 
 
     public void movePlayerAbyss(TreeMap<Integer,Square> boardMap,Programmer programmer){
-        boardMap.get(programmer.getPosAnterior()).removeProgrammer(programmer);
+        boardMap.get(pos).removeProgrammer(programmer);
         boardMap.get(programmer.getPos()).addProgrammer(programmer);
     }
 

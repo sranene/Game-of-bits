@@ -14,6 +14,7 @@ public class GameManager {
     List<Tool> boardTools = new ArrayList<>();
     List<Abyss> boardAbyss = new ArrayList<>();
     int dado = 0;
+    int countGameOver = 0;
 
     Node head = null;
 
@@ -314,33 +315,26 @@ public class GameManager {
         if (nrPositions < 1 || nrPositions > 6) {
             return false;
         }
-
-
-        dado = nrPositions;
-
-        currentPlayer = head.programmer;
-
-        if(currentPlayer.getLoop()){
-            return false;
+        if(head.next.programmer.isDefeated()){
+            head.next = head.next.next;
         }
 
-        //boardProgrammers.get(currentPlayer.getPos()).remove(currentPlayer);
+        dado = nrPositions;
+        currentPlayer = head.programmer;
 
-        //currentPlayer.movePlayer(nrPositions,boardProgrammers.size());
-
-        //boardProgrammers.get(currentPlayer.getPos()).add(currentPlayer);
         boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
 
-        currentPlayer.movePlayer(nrPositions,boardMap.size());
+        currentPlayer.movePlayer(nrPositions, boardMap.size());
 
         boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
         return true;
+
     }
 
     public String reactToAbyssOrTool() {
 
         String res = "";
-        if(boardMap.containsKey(currentPlayer.getPos())){
+        if(boardMap.containsKey(currentPlayer.getPos()) && !currentPlayer.isDefeated()){
             res = boardMap.get(currentPlayer.getPos()).react(currentPlayer, dado, boardMap);
             /*if(Tool.class.isAssignableFrom(boardMap.get(currentPlayer.getPos()).getClass())){
 
@@ -348,18 +342,22 @@ public class GameManager {
                  boardMap.get(currentPlayer.getPos().react(currentPlayer,dado));
             }*/
 
-
         }
+            nrTurnos += 1;
+            head = head.next;
+            tail = tail.next;
 
-        nrTurnos += 1;
-        head = head.next;
-        tail = tail.next;
 
         return res;
     }
 
     public boolean gameIsOver() {
-        return !(boardMap.get(boardMap.size()).getProgrammers().isEmpty());
+        for(Programmer programmer : programmers){
+            if(programmer.isDefeated()){
+                countGameOver++;
+            }
+        }
+        return countGameOver == programmers.size() - 1 || !boardMap.get(boardMap.size()).getProgrammers().isEmpty();
     }
 
     public List<String> getGameResults() {

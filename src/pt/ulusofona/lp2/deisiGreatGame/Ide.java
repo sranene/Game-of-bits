@@ -10,10 +10,13 @@ public class Ide extends Tool {
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
-        if (!programmer.getTools().contains(this)){
-            programmer.addTool(this);
+        for (Tool tool : programmer.getTools()) {
+            if (tool.getTitle().equals("IDE")) {
+                return "Já tens";
+            }
         }
-        return "Ide";
+        programmer.addTool(this);
+        return "IDE";
     }
 
 }

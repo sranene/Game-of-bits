@@ -10,9 +10,12 @@ public class TeachersHelp extends Tool {
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
-        if (!programmer.getTools().contains(this)){
-            programmer.addTool(this);
+        for (Tool tool : programmer.getTools()) {
+            if (tool.getTitle().equals("Ajuda Do Professor")) {
+                return "Já tens";
+            }
         }
+        programmer.addTool(this);
         return "TeachersHelp";
     }
 
