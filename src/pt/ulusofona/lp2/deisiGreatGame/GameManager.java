@@ -324,11 +324,10 @@ public class GameManager {
 
         if (boardMap.get(currentPlayer.getPos()) != null) {
             boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
+            currentPlayer.movePlayer(nrPositions, boardMap.size());
+            boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
         }
 
-        currentPlayer.movePlayer(nrPositions, boardMap.size());
-
-        boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
         return true;
 
     }
