@@ -334,7 +334,7 @@ public class GameManager {
 
     public String reactToAbyssOrTool() {
 
-        String res = "";
+        String res = null;
         if(boardMap.containsKey(currentPlayer.getPos()) && !currentPlayer.isDefeated()){
             res = boardMap.get(currentPlayer.getPos()).react(currentPlayer, dado, boardMap);
             /*if(Tool.class.isAssignableFrom(boardMap.get(currentPlayer.getPos()).getClass())){
@@ -344,13 +344,10 @@ public class GameManager {
             }*/
 
         }
-            nrTurnos += 1;
-            head = head.next;
-            tail = tail.next;
+        nrTurnos += 1;
+        head = head.next;
+        tail = tail.next;
 
-        if (res.equals("")) {
-            return null;
-        }
         return res;
     }
 
