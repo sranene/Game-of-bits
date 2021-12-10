@@ -26,7 +26,8 @@ public class SegmentationFault extends Abyss{
                     movePlayerAbyss(boardMap,programmer1);
                 }
             }
-            return "SegmentationFault";
+
+            return "safaste-te";
         }
 
         return "Tas safo por enquanto";

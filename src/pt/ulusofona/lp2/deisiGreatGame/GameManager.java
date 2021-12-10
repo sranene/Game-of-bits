@@ -353,7 +353,17 @@ public class GameManager {
             }
         }
         if (boardMap.get(boardMap.size()) != null) {
-            return countGameOver == programmers.size() - 1 || !boardMap.get(boardMap.size()).getProgrammers().isEmpty();
+            if(countGameOver == programmers.size() - 1) {
+                return true;
+            }else if(!boardMap.get(boardMap.size()).getProgrammers().isEmpty()){
+                programmers.remove(boardMap.get(boardMap.size()).getProgrammers().get(0));
+                for(Programmer programmer : programmers){
+                    programmer.gotDefeated();
+                }
+                programmers.add(boardMap.get(boardMap.size()).getProgrammers().get(0));
+                return true;
+
+            }
         }
         return false;
     }
@@ -363,7 +373,7 @@ public class GameManager {
         List<String> results = new ArrayList<>();
         List<Programmer> programmers;
         programmers = getProgrammers(true);
-        programmers.remove(boardMap.get(boardMap.size()).getProgrammers().get(0));
+        programmers.remove(boardMap.get(boardMap.size()).getWinner());
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
 
         results.add("O GRANDE JOGO DO DEISI");
