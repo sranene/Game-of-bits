@@ -103,7 +103,7 @@ public class GameManager {
             tail = null;
         }
         nrTurnos = 1;
-        ArrayList<Programmer> players = new ArrayList<>();
+
         int jogadores = playerInfo.length;
 
         if (jogadores < 2 || jogadores > 4) {
@@ -309,9 +309,7 @@ public class GameManager {
         if (nrSpaces < 1 || nrSpaces > 6) {
             return false;
         }
-        if (nrSpaces > boardMap.size()) {
-            return false;
-        }
+
         if(head.next.programmer.isDefeated()){
             head.next = head.next.next;
         }
@@ -333,15 +331,11 @@ public class GameManager {
     public String reactToAbyssOrTool() {
 
         String res = null;
+
         if(boardMap.containsKey(currentPlayer.getPos()) && !currentPlayer.isDefeated()){
             res = boardMap.get(currentPlayer.getPos()).react(currentPlayer, dado, boardMap);
-            /*if(Tool.class.isAssignableFrom(boardMap.get(currentPlayer.getPos()).getClass())){
-
-            }else if(Abyss.class.isAssignableFrom(boardMap.get(currentPlayer.getPos()).getClass())){
-                 boardMap.get(currentPlayer.getPos().react(currentPlayer,dado));
-            }*/
-
         }
+
         nrTurnos += 1;
         head = head.next;
         tail = tail.next;
