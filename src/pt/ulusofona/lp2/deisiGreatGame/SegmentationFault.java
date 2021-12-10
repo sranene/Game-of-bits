@@ -12,16 +12,19 @@ public class SegmentationFault extends Abyss{
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
         // verificar se existem dois jogadores nesta casa
 
-        for (Tool tool : programmer.getTools()) {
-            if (tool.getTitle().equals("Tratamento de Excepções")) {
-                programmer.removeTool(tool);
-                return "safaste-te";
-            }
-        }
-        if (boardMap.get(this.pos).getProgrammers().size() > 1) {
+        if (boardMap.get(pos).getProgrammers().size() > 1) {
+            int count = 0;
             for(Programmer programmer1 : getProgrammers()) {
-                programmer1.movePlayer(-3, 200);
-                movePlayerAbyss(boardMap, programmer1);
+                    for (Tool tool : programmer1.getTools()) {
+                        if (tool.getTitle().equals("Tratamento de Excepções")) {
+                            programmer1.removeTool(tool);
+                            count++;
+                        }
+                    }if (count != 1) {
+                        programmer1.movePlayer(-3,200);
+                        movePlayerAbyss(boardMap, programmer1);
+                }
+                return "safaste-te";
             }
             return "SegmentationFault";
         }
