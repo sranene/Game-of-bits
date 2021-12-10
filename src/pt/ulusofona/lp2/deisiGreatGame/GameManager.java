@@ -9,7 +9,6 @@ public class GameManager {
     Programmer currentPlayer;
     ProgrammerColor color;
     List<Programmer> programmers = new ArrayList<>();
-    TreeMap<Integer, ArrayList<Programmer>> boardProgrammers = new TreeMap<>();
     TreeMap<Integer, Square> boardMap = new TreeMap<>();
     List<Tool> boardTools = new ArrayList<>();
     List<Abyss> boardAbyss = new ArrayList<>();
@@ -91,7 +90,6 @@ public class GameManager {
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         String[] languages;
-        boardProgrammers.clear();
         boardMap.clear();
         currentPlayer = null;
         if (head != null) {
@@ -156,11 +154,9 @@ public class GameManager {
             }
             Programmer programmer = new Programmer(strings[1], Integer.parseInt(strings[0]), tree, color);
             programmers.add(programmer);
-            players.add(programmer);
         }
         programmers.sort(Comparator.comparing(Programmer::getId));
-        players.sort(Comparator.comparing(Programmer::getId));
-        for (Programmer player : players) {
+        for (Programmer player : programmers) {
 
             Node newNode = new Node(player);
             if (head == null) {
@@ -171,10 +167,6 @@ public class GameManager {
             tail = newNode;
         }
         tail.next = head;
-        boardProgrammers.put(1, players);
-        for (int x = 2; x <= boardSize; x++) {
-            boardProgrammers.put(x, new ArrayList<>());
-        }
         return true;
     }
 
@@ -183,7 +175,9 @@ public class GameManager {
         check = createInitialBoard(playerInfo, boardSize);
         if (check){
             boardMap.put(1, new Empty(1));
-            boardMap.get(1).addArrayProgrammers(boardProgrammers.get(1));
+            for(Programmer programmer : programmers) {
+                boardMap.get(1).addProgrammer(programmer);
+            }
             for (int x = 2; x <= boardSize; x++) {
                 boardMap.put(x, new Empty(x));
             }
@@ -369,7 +363,7 @@ public class GameManager {
         List<String> results = new ArrayList<>();
         List<Programmer> programmers;
         programmers = getProgrammers(true);
-        programmers.remove(boardProgrammers.get(boardProgrammers.size()).get(0));
+        programmers.remove(boardMap.get(boardMap.size()).getProgrammers().get(0));
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
 
         results.add("O GRANDE JOGO DO DEISI");
@@ -378,7 +372,7 @@ public class GameManager {
         results.add("" + nrTurnos);
         results.add("");
         results.add("VENCEDOR");
-        results.add(boardProgrammers.get(boardProgrammers.size()).get(0).name);
+        results.add(boardMap.get(boardMap.size()).getProgrammers().get(0).getName());
         results.add("");
         results.add("RESTANTES");
         for (Programmer programmer : programmers) {
@@ -406,7 +400,7 @@ public class GameManager {
 
     public String getTitle(int position) {
 
-        if (position < 0 || position > boardProgrammers.size()) {
+        if (position < 0 || position > boardMap.size()) {
             return null;
         }
         if (boardMap.containsKey(position)) {

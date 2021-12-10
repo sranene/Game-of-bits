@@ -10,13 +10,12 @@ public class Functional extends Tool {
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
-        for (Tool tool : programmer.getTools()) {
-            if (tool.getTitle().equals("Programação Funcional")) {
+            if (programmer.getToolsTitle().contains(this.title)) {
                 return "Já tens";
             }
         programmer.addTool(this);
+        programmer.addToolTitle(this.title);
         return "Functional";
-
     }
 
 }

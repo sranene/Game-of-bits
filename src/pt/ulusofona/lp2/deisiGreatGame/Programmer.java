@@ -8,6 +8,7 @@ public class Programmer {
     boolean defeated;
     TreeSet<String> languages;
     List<Tool> tools = new ArrayList<>();
+    TreeSet<String> toolsTitle = new TreeSet<>();
     ProgrammerColor color;
     int pos = 1;
     int posAnterior = 1;
@@ -36,6 +37,14 @@ public class Programmer {
 
     public void addTool(Tool tool) {
         this.tools.add(tool);
+    }
+
+    public void addToolTitle(String tool){
+        this.toolsTitle.add(tool);
+    }
+
+    public TreeSet<String> getToolsTitle(){
+        return toolsTitle;
     }
 
     public String getName() {
