@@ -310,8 +310,9 @@ public class GameManager {
             return false;
         }
 
-        if(head.next.programmer.isDefeated()){
+        if (head.next.programmer.getLoop() || head.next.programmer.isDefeated()) {
             head.next = head.next.next;
+            return false;
         }
 
         dado = nrSpaces;

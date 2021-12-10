@@ -9,7 +9,7 @@ public class Programmer {
     TreeSet<String> languages;
     List<Tool> tools = new ArrayList<>();
     ProgrammerColor color;
-    int pos = 1;
+    int pos;
     int posAnterior = 1;
     int posAnteriorAnterior = 1;
     boolean loop = false;
@@ -19,6 +19,7 @@ public class Programmer {
         this.languages = languages;
         this.id = id;
         this.color = color;
+        this.pos = 1;
     }
 
     public int getId() {
@@ -83,7 +84,7 @@ public class Programmer {
     }
 
     public boolean getLoop(){
-        return this.loop;
+        return loop;
     }
 
     public String getStringTools() {
@@ -105,7 +106,7 @@ public class Programmer {
     }
 
     public void setLoop(boolean looped){
-        this.loop = looped;
+        loop = looped;
     }
 
     public String toString() {
