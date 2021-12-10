@@ -305,24 +305,24 @@ public class GameManager {
         return head.programmer.getId();
     }
 
-    public boolean moveCurrentPlayer(int nrPositions) {
-        if (nrPositions < 1 || nrPositions > 6) {
+    public boolean moveCurrentPlayer(int nrSpaces) {
+        if (nrSpaces < 1 || nrSpaces > 6) {
             return false;
         }
-        if (nrPositions > boardMap.size()) {
+        if (nrSpaces > boardMap.size()) {
             return false;
         }
         if(head.next.programmer.isDefeated()){
             head.next = head.next.next;
         }
 
-        dado = nrPositions;
+        dado = nrSpaces;
         currentPlayer = head.programmer;
 
         if (boardMap.get(currentPlayer.getPos()) != null) {
 
             boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
-            currentPlayer.movePlayer(nrPositions, boardMap.size());
+            currentPlayer.movePlayer(nrSpaces, boardMap.size());
             boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
         }
 

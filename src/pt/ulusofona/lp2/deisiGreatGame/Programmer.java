@@ -5,7 +5,7 @@ import java.util.*;
 public class Programmer {
     String name;
     int id;
-    boolean defeated;
+    boolean defeated = false;
     TreeSet<String> languages;
     List<Tool> tools = new ArrayList<>();
     ProgrammerColor color;
@@ -19,7 +19,6 @@ public class Programmer {
         this.languages = languages;
         this.id = id;
         this.color = color;
-        this.defeated = false;
     }
 
     public int getId() {
