@@ -310,7 +310,7 @@ public class GameManager {
             return false;
         }
 
-        if (head.next.programmer.getLoop() || head.next.programmer.isDefeated()) {
+        if (head.programmer.isDefeated()) {
             head.next = head.next.next;
             return false;
         }
@@ -318,14 +318,16 @@ public class GameManager {
         dado = nrSpaces;
         currentPlayer = head.programmer;
 
-        if (boardMap.get(currentPlayer.getPos()) != null) {
-
-            boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
-            currentPlayer.movePlayer(nrSpaces, boardMap.size());
-            boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
+        if (!currentPlayer.getLoop()) {
+            if (boardMap.get(currentPlayer.getPos()) != null) {
+                boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
+                currentPlayer.movePlayer(nrSpaces, boardMap.size());
+                boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
+            }
+            return true;
         }
 
-        return true;
+        return false;
 
     }
 

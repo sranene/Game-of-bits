@@ -17,6 +17,7 @@ public class SegmentationFault extends Abyss{
             for(Tool tool : boardMap.get(pos).getProgrammers().get(boardMap.get(pos).getProgrammers().size()-1).getTools()){
                 if(tool.getTitle().equals("Tratamento de Excepções")){
                     count++;
+                    programmer.removeTool(tool);
                 }
             }
             if(count == 0){
@@ -28,7 +29,7 @@ public class SegmentationFault extends Abyss{
             return "SegmentationFault";
         }
 
-    return "Tas safo por enquanto";
+        return "Tas safo por enquanto";
 
     }
 }
