@@ -9,7 +9,7 @@ public class Programmer {
     TreeSet<String> languages;
     List<Tool> tools = new ArrayList<>();
     ProgrammerColor color;
-    int pos;
+    int pos = 1;
     int posAnterior = 1;
     int posAnteriorAnterior = 1;
     boolean loop = false;
@@ -19,7 +19,6 @@ public class Programmer {
         this.languages = languages;
         this.id = id;
         this.color = color;
-        this.pos = 1;
     }
 
 
@@ -72,12 +71,12 @@ public class Programmer {
     public void movePlayer(int nrCasas, int size){
         posAnteriorAnterior = posAnterior;
         posAnterior = pos;
-        int sub;
         pos += nrCasas;
         if(pos < 1){
             pos = 1;
         }
         if(pos > size){
+            int sub;
             sub = pos-size;
             pos =size;
             pos -= sub;
