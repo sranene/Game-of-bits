@@ -10,45 +10,38 @@ import static org.junit.Assert.*;
 
 public class TestGameManager {
 
+    GameManager game = new GameManager();
+
+    String[][] playerInfo = {
+            {"28", "sranene", "PHP; Java", "Purple"},
+            {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
+            {"16", "Alberto", "Beck", "Brown"}
+    };
+
     @Test
     public void test01CreateInitialBoard() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
         int boardSize = 28;
-        boolean resultado = gameManager.createInitialBoard(playerInfo, boardSize);
+        boolean resultado = game.createInitialBoard(playerInfo, boardSize);
         assertTrue(resultado);
     }
 
     @Test
     public void test02CreateInitialBoard() {
 
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
         int boardSize = 3;
-        boolean resultado = gameManager.createInitialBoard(playerInfo, boardSize);
+        boolean resultado = game.createInitialBoard(playerInfo, boardSize);
         assertFalse(resultado);
     }
 
 
     @Test
     public void test01getProgrammers() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
 
         int boardSize = 30;
-        gameManager.createInitialBoard(playerInfo, boardSize);
+        game.createInitialBoard(playerInfo, boardSize);
         String[] languages1 = {"PHP", "Java"};
         String[] languages2 = {"Java", "C++", "Python", "Portugues"};
         String[] languages3 = {"Beck"};
@@ -67,7 +60,7 @@ public class TestGameManager {
         programmers.add(player2);
 
         String expected = programmers.toString();
-        String actual = gameManager.getProgrammers(true).toString();
+        String actual = game.getProgrammers(true).toString();
 
         assertEquals(expected, actual);
 
@@ -75,16 +68,11 @@ public class TestGameManager {
 
     @Test
     public void test01getProgrammersPos() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
 
         String[][] teste = {};
         int boardSize = 30;
-        gameManager.createInitialBoard(playerInfo, boardSize, teste);
+        game.createInitialBoard(playerInfo, boardSize, teste);
 
         String[] languages1 = {"PHP", "Java"};
         String[] languages2 = {"Java", "C++", "Python", "Portugues"};
@@ -104,7 +92,7 @@ public class TestGameManager {
         programmers.add(player2);
 
         String expected = programmers.toString();
-        String actual = gameManager.getProgrammers(1).toString();
+        String actual = game.getProgrammers(1).toString();
 
         assertEquals(expected, actual);
 
@@ -113,98 +101,142 @@ public class TestGameManager {
 
     @Test
     public void test01moveCurrentPlayer() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
         int boardSize = 30;
-        gameManager.createInitialBoard(playerInfo, boardSize);
-        assertFalse(gameManager.moveCurrentPlayer(7));
+        game.createInitialBoard(playerInfo, boardSize);
+        assertFalse(game.moveCurrentPlayer(7));
 
     }
 
     @Test
     public void test02moveCurrentPlayer() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
         String[][] mostrarAInes = {};
         int boardSize = 30;
-        gameManager.createInitialBoard(playerInfo, boardSize, mostrarAInes);
+        game.createInitialBoard(playerInfo, boardSize, mostrarAInes);
 
-        assertTrue(gameManager.moveCurrentPlayer(1));
-        assertFalse(gameManager.getProgrammers(2).isEmpty());
-        assertEquals(16, gameManager.getProgrammers(2).get(0).getId());
+        assertTrue(game.moveCurrentPlayer(1));
+        assertFalse(game.getProgrammers(2).isEmpty());
+        assertEquals(16, game.getProgrammers(2).get(0).getId());
 
     }
 
     @Test
     public void test01getImagePng() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
 
         String[][] mostrarAInes = {};
-        gameManager.createInitialBoard(playerInfo, 30, mostrarAInes);
+        game.createInitialBoard(playerInfo, 30, mostrarAInes);
 
-        assertNotEquals("playerPurple.png", gameManager.getImagePng(24));
-        assertEquals("glory.png", gameManager.getImagePng(30));
-        assertNull(gameManager.getImagePng(9));
+        assertNotEquals("playerPurple.png", game.getImagePng(24));
+        assertEquals("glory.png", game.getImagePng(30));
+        assertNull(game.getImagePng(9));
 
     }
 
     @Test
     public void test01getProgrammersInfo() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
 
         String[][] mostrarAInes = {};
-        gameManager.createInitialBoard(playerInfo, 30, mostrarAInes);
-        gameManager.moveCurrentPlayer(1);
+        game.createInitialBoard(playerInfo, 30, mostrarAInes);
+        game.moveCurrentPlayer(1);
         Functional functional = new Functional(1, 2);
-        gameManager.currentPlayer.addTool(functional);
+        game.currentPlayer.addTool(functional);
 
-        assertEquals("Alberto : Programação Funcional | sranene : No tools | robroche : No tools", gameManager.getProgrammersInfo());
+        assertEquals("Alberto : Programação Funcional | sranene : No tools | robroche : No tools", game.getProgrammersInfo());
     }
 
     @Test
     public void test01getProgrammersInfoCatchesSameTool() {
-        GameManager gameManager = new GameManager();
-        String[][] playerInfo = {
-                {"28", "sranene", "PHP; Java", "Purple"},
-                {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-                {"16", "Alberto", "Beck", "Brown"}
-        };
+
 
         String[][] mostrarAInes = {};
-        gameManager.createInitialBoard(playerInfo, 30, mostrarAInes);
-        gameManager.moveCurrentPlayer(1);
+        game.createInitialBoard(playerInfo, 30, mostrarAInes);
+        game.moveCurrentPlayer(1);
         Functional functional = new Functional(1, 2);
-        functional.react(gameManager.currentPlayer, 1, gameManager.boardMap);
-        gameManager.moveCurrentPlayer(3);
-        functional.react(gameManager.currentPlayer, 3, gameManager.boardMap);
-        gameManager.moveCurrentPlayer(3);
-        functional.react(gameManager.currentPlayer, 3, gameManager.boardMap);
-        gameManager.moveCurrentPlayer(6);
-        functional.react(gameManager.currentPlayer, 6, gameManager.boardMap);
+        functional.react(game.currentPlayer, 1, game.boardMap);
+        game.moveCurrentPlayer(3);
+        functional.react(game.currentPlayer, 3, game.boardMap);
+        game.moveCurrentPlayer(3);
+        functional.react(game.currentPlayer, 3, game.boardMap);
+        game.moveCurrentPlayer(6);
+        functional.react(game.currentPlayer, 6, game.boardMap);
 
-        assertEquals("Alberto : Programação Funcional | sranene : No tools | robroche : No tools", gameManager.getProgrammersInfo());
+        assertEquals("Alberto : Programação Funcional | sranene : No tools | robroche : No tools", game.getProgrammersInfo());
 
     }
 
-}
+    @Test
+    public void test01BlueScreen(){
+        String[][] abyss ={
+            { "0", "7", "8" }
+        };
+
+        assertTrue(game.createInitialBoard(playerInfo, 30, abyss));
+        game.moveCurrentPlayer(6);//Alberto vai po 7
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(4);//sranene vai po 5
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(5);//robroche vai po 6
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(1);//ALberto perde pos 8
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(4);//sranene vai po 9
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(5);//robroche vai po 11
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(3);//sranene vai po 12
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(6);//robroche vai po 17
+        game.reactToAbyssOrTool();
+
+
+        assertEquals(8,game.getProgrammers(true).get(0).getPos());
+        assertEquals(12,game.getProgrammers(true).get(1).getPos());
+        assertEquals(17,game.getProgrammers(true).get(2).getPos());
+    }
+
+    @Test
+    public void test01GameResultsBlueScreen(){
+        String[][] abyss ={
+                { "0", "7", "8" }
+        };
+        ArrayList<String> results = new ArrayList<>();
+        assertTrue(game.createInitialBoard(playerInfo, 30, abyss));
+        game.moveCurrentPlayer(6);//Alberto vai po 7
+        game.reactToAbyssOrTool();
+        assertFalse(game.gameIsOver());
+        game.moveCurrentPlayer(4);//sranene vai po 5
+        game.reactToAbyssOrTool();
+        assertFalse(game.gameIsOver());
+        game.moveCurrentPlayer(5);//robroche vai po 6
+        game.reactToAbyssOrTool();
+        assertFalse(game.gameIsOver());
+        game.moveCurrentPlayer(1);//ALberto perde pos 8
+        game.reactToAbyssOrTool();
+        assertFalse(game.gameIsOver());
+        game.moveCurrentPlayer(3);//sranene vai po 8
+        game.reactToAbyssOrTool();
+        assertTrue(game.gameIsOver());
+
+        results.add("O GRANDE JOGO DO DEISI");
+        results.add("");
+        results.add("NR. DE TURNOS");
+        results.add("" + 4);
+        results.add("");
+        results.add("VENCEDOR");
+        results.add("robroche");
+        results.add("");
+        results.add("RESTANTES");
+        results.add("Alberto 8");
+        results.add("sranene 8");
+        assertEquals(results,game.getGameResults());
+    }
+
+    }
+
+
 
 
 

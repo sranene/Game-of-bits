@@ -46,14 +46,6 @@ public abstract class Square {
         return programmers;
     }
 
-    public Programmer getWinner(){
-        for(Programmer programmer : programmers){
-            if(!programmer.isDefeated()){
-                return programmer;
-            }
-        }
-        return null;
-    }
 
     public String getTitle(){
         return title;

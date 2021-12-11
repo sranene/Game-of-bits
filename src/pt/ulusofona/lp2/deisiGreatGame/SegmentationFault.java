@@ -21,12 +21,12 @@ public class SegmentationFault extends Abyss{
                 }
             }
             if(count == 0){
-                for (Programmer programmer1 : programmers){
-                    programmer1.movePlayer(-3,200);
-                    movePlayerAbyss(boardMap,programmer1);
+                int programmersSize = programmers.size();
+                for (int x = 0; x< programmersSize;x++){
+                    programmers.get(0).movePlayer(-3,200);
+                    movePlayerAbyss(boardMap,programmers.get(0));
                 }
-                programmer.movePlayer(-3,200);
-                movePlayerAbyss(boardMap,programmer);
+
                 return "Segmentation Fault";
             }
 

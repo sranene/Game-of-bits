@@ -8,17 +8,17 @@ import javax.swing.*;
 
 public class GameManager {
     Programmer currentPlayer;
+    Node head = null;
+    Node tail = null;
     ProgrammerColor color;
     List<Programmer> programmers = new ArrayList<>();
     TreeMap<Integer, Square> boardMap = new TreeMap<>();
     List<Tool> boardTools = new ArrayList<>();
     List<Abyss> boardAbyss = new ArrayList<>();
     int dado = 0;
-    int countGameOver = 0;
 
-    Node head = null;
 
-    Node tail = null;
+
 
     int nrTurnos = 1;
 
@@ -166,8 +166,9 @@ public class GameManager {
                 tail.next = newNode;
             }
             tail = newNode;
+            tail.next = head;
         }
-        tail.next = head;
+
         return true;
     }
 
@@ -311,11 +312,6 @@ public class GameManager {
             return false;
         }
 
-        if (head.programmer.isDefeated()) {
-            head = head.next;
-            return false;
-        }
-
         dado = nrSpaces;
         currentPlayer = head.programmer;
 
@@ -340,18 +336,36 @@ public class GameManager {
     }
 
     public String reactToAbyssOrTool() {
-
+        int count = 0;
         String res = null;
 
         if(boardMap.containsKey(currentPlayer.getPos()) && !currentPlayer.isDefeated()){
             res = boardMap.get(currentPlayer.getPos()).react(currentPlayer, dado, boardMap);
         }
-        nextNode();
+        if(currentPlayer.isDefeated()){
+            head = head.next;
+            tail.next = null;
+            tail.next = head;
+            count++;
+        }
+        if(count == 0) {
+            nextNode();
+        }
 
         return res;
     }
 
+    public Programmer getWinner(){
+        for(Programmer programmer : programmers){
+            if(!programmer.isDefeated()){
+                return programmer;
+            }
+        }
+        return null;
+    }
+
     public boolean gameIsOver() {
+        int countGameOver = 0;
         for(Programmer programmer : programmers){
             if(programmer.isDefeated()){
                 countGameOver++;
@@ -361,11 +375,12 @@ public class GameManager {
             if(countGameOver == programmers.size() - 1) {
                 return true;
             }else if(!boardMap.get(boardMap.size()).getProgrammers().isEmpty()){
+                Programmer programmerSave = boardMap.get(boardMap.size()).getProgrammers().get(0);
                 programmers.remove(boardMap.get(boardMap.size()).getProgrammers().get(0));
                 for(Programmer programmer : programmers){
                     programmer.gotDefeated();
                 }
-                programmers.add(boardMap.get(boardMap.size()).getProgrammers().get(0));
+                programmers.add(programmerSave);
                 return true;
 
             }
@@ -378,7 +393,8 @@ public class GameManager {
         List<String> results = new ArrayList<>();
         List<Programmer> programmers;
         programmers = getProgrammers(true);
-        programmers.remove(boardMap.get(boardMap.size()).getWinner());
+        Programmer programmerSave = getWinner();
+        programmers.remove(getWinner());
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
 
         results.add("O GRANDE JOGO DO DEISI");
@@ -387,12 +403,13 @@ public class GameManager {
         results.add("" + nrTurnos);
         results.add("");
         results.add("VENCEDOR");
-        results.add(boardMap.get(boardMap.size()).getProgrammers().get(0).getName());
+        results.add(programmerSave.getName());
         results.add("");
         results.add("RESTANTES");
         for (Programmer programmer : programmers) {
-            results.add(programmer.name + " " + programmer.pos);
+            results.add(programmer.getName() + " " + programmer.getPos());
         }
+        programmers.add(programmerSave);
         return results;
     }
 
