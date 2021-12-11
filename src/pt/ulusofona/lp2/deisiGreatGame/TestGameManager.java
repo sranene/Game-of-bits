@@ -234,7 +234,30 @@ public class TestGameManager {
         assertEquals(results,game.getGameResults());
     }
 
+    @Test
+    public void test01ProgrammersInfoBlueScreen(){
+        String[][] abyss ={
+                { "0", "7", "8" }
+        };
+        assertTrue(game.createInitialBoard(playerInfo, 30, abyss));
+        game.moveCurrentPlayer(6);//Alberto vai po 7
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(4);//sranene vai po 5
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(5);//robroche vai po 6
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(1);//ALberto perde pos 8
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(6);//sranene vai po 8
+        game.reactToAbyssOrTool();
+
+
+
+        assertEquals("sranene : No tools | robroche : No tools",game.getProgrammersInfo());
     }
+
+
+}
 
 
 

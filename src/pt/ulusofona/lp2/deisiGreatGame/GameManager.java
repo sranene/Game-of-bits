@@ -456,9 +456,12 @@ public class GameManager {
                 if (programmersSize == i) {
                     return res.toString();
                 }
+                res.append(" | ");
+            }else {
+                i++;
             }
-            res.append(" | ");
+
         }
-        return "";
+        return res.toString();
     }
 }
