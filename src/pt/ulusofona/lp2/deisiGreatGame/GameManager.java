@@ -307,16 +307,16 @@ public class GameManager {
         dado = nrSpaces;
         currentPlayer = head.programmer;
 
-        if (!currentPlayer.getLoop()) {
-            if (boardMap.get(currentPlayer.getPos()) != null) {
-                boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
-                currentPlayer.movePlayer(nrSpaces, boardMap.size());
-                boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
-            }
-            return true;
-        }
 
-        return false;
+        if (boardMap.get(currentPlayer.getPos()) != null) {
+            boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
+            currentPlayer.movePlayer(nrSpaces, boardMap.size());
+            boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
+        }
+            return true;
+
+
+
 
     }
 
@@ -339,7 +339,7 @@ public class GameManager {
             tail.next = null;
             tail.next = head;
             count++;
-            nrTurnos++;
+            nrTurnos += 1;
         }
         if(count == 0) {
             nextNode();
