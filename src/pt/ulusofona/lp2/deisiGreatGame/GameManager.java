@@ -16,7 +16,8 @@ public class GameManager {
     int dado = 0;
     int nrTurnos = 1;
 
-    public GameManager() {}
+    public GameManager() {
+    }
 
     public Abyss checkAbyss(int id, int pos) {
         switch (id) {
@@ -56,6 +57,7 @@ public class GameManager {
             }
         }
     }
+
     public Tool checkTool(int id, int pos) {
         switch (id) {
             case 0 -> {
@@ -84,6 +86,12 @@ public class GameManager {
     }
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
+        createInitialBoard(playerInfo, boardSize, null);
+        return true;
+
+    }
+
+    public boolean createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) {
         String[] languages;
         boardMap.clear();
         programmers.clear();
@@ -163,21 +171,14 @@ public class GameManager {
             tail.next = head;
         }
 
-        return true;
-    }
-
-    public boolean createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) {
-        boolean check;
-        check = createInitialBoard(playerInfo, boardSize);
-        if (check){
-            boardMap.put(1, new Empty(1));
-            for(Programmer programmer : programmers) {
-                boardMap.get(1).addProgrammer(programmer);
-            }
-            for (int x = 2; x <= boardSize; x++) {
-                boardMap.put(x, new Empty(x));
-            }
-
+        boardMap.put(1, new Empty(1));
+        for (Programmer programmer : programmers) {
+            boardMap.get(1).addProgrammer(programmer);
+        }
+        for (int x = 2; x <= boardSize; x++) {
+            boardMap.put(x, new Empty(x));
+        }
+        if(abyssesAndTools != null) {
             for (String[] abyssesAndTool : abyssesAndTools) {
                 int checkID = Integer.parseInt(abyssesAndTool[1]);
                 int checkPos = Integer.parseInt(abyssesAndTool[2]);
@@ -201,7 +202,7 @@ public class GameManager {
         }
 
         return true;
-    }
+}
 
     public String getImagePng(int position) {
         if (position < 1 || position > boardMap.size()) {
@@ -291,6 +292,9 @@ public class GameManager {
         if (boardMap.get(position) == null) {
             return null;
         }
+        if(boardMap.get(position).getProgrammers().isEmpty()){
+            return null;
+        }
 
         return boardMap.get(position).getProgrammers();
     }
@@ -307,16 +311,16 @@ public class GameManager {
         dado = nrSpaces;
         currentPlayer = head.programmer;
 
-
-        if (boardMap.get(currentPlayer.getPos()) != null) {
-            boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
-            currentPlayer.movePlayer(nrSpaces, boardMap.size());
-            boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
-        }
+        if (!currentPlayer.getLoop()) {
+            if (boardMap.get(currentPlayer.getPos()) != null) {
+                boardMap.get(currentPlayer.getPos()).removeProgrammer(currentPlayer);
+                currentPlayer.movePlayer(nrSpaces, boardMap.size());
+                boardMap.get(currentPlayer.getPos()).addProgrammer(currentPlayer);
+            }
             return true;
+        }
 
-
-
+        return false;
 
     }
 
