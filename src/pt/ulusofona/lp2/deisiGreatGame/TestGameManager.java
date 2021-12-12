@@ -35,7 +35,7 @@ public class TestGameManager {
     public void test02CreateInitialBoard() {
         int boardSize = 3;
         String[][] teste = {};
-        boolean resultado = game.createInitialBoard(playerInfo3, boardSize);
+        boolean resultado = game.createInitialBoard(playerInfo3, boardSize,null);
         assertFalse(resultado);
         assertFalse(game.createInitialBoard(teste,20));
     }
@@ -46,12 +46,12 @@ public class TestGameManager {
                 {"", "", "", ""},
                 {"", "", "", ""}
         };
-        assertFalse(game.createInitialBoard(teste,20));
+        assertFalse(game.createInitialBoard(teste,20,null));
         String[][] teste2 = {
                 {"28", "", "", ""},
                 {"", "", "", ""}
         };
-        assertFalse(game.createInitialBoard(teste2,20));
+        assertFalse(game.createInitialBoard(teste2,20,null));
         String[][] teste3 = {
                 {"28", "sranene", "", ""},
                 {"", "", "", ""}

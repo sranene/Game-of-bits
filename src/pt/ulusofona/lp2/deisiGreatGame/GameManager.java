@@ -175,9 +175,15 @@ public class GameManager {
         for (Programmer programmer : programmers) {
             boardMap.get(1).addProgrammer(programmer);
         }
+
+        if(programmers.size() <2 || programmers.size()>4){
+            return false;
+        }
+
         for (int x = 2; x <= boardSize; x++) {
             boardMap.put(x, new Empty(x));
         }
+
         if(abyssesAndTools != null) {
             for (String[] abyssesAndTool : abyssesAndTools) {
                 int checkID = Integer.parseInt(abyssesAndTool[1]);
@@ -393,6 +399,7 @@ public class GameManager {
         Programmer programmerSave = getWinner();
         programmers.remove(getWinner());
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
+        TreeSet<Programmer> programmers1 = new TreeSet<>(programmers);
 
         results.add("O GRANDE JOGO DO DEISI");
         results.add("");
@@ -403,7 +410,7 @@ public class GameManager {
         results.add(programmerSave.getName());
         results.add("");
         results.add("RESTANTES");
-        for (Programmer programmer : programmers) {
+        for (Programmer programmer : programmers1) {
             results.add(programmer.getName() + " " + programmer.getPos());
         }
         programmers.add(programmerSave);
