@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -33,6 +34,7 @@ public abstract class Square {
 
     public void addProgrammer(Programmer programmer) {
         programmers.add(programmer);
+        programmers.sort(Comparator.comparing(Programmer::getName));
     }
     public void removeProgrammer(Programmer programmer){
         programmers.remove(programmer);
