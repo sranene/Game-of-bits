@@ -182,7 +182,7 @@ public class GameManager {
             boardMap.get(1).addProgrammer(programmer);
         }
 
-        if(programmers.size() < 2 || programmers.size() > 4 || boardMap.get(1).getProgrammers().size() == 1) {
+        if(programmers.size() < 2 || programmers.size() > 4) {
             return false;
         }
 
