@@ -13,7 +13,13 @@ public class GameManager {
     ProgrammerColor color;
     List<Programmer> programmers = new ArrayList<>();
     TreeMap<Integer, Square> boardMap = new TreeMap<>();
+    List<Tool> boardTools = new ArrayList<>();
+    List<Abyss> boardAbyss = new ArrayList<>();
     int dado = 0;
+
+
+
+
     int nrTurnos = 1;
 
     public GameManager() {
@@ -94,9 +100,7 @@ public class GameManager {
     public boolean createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) {
         String[] languages;
         boardMap.clear();
-        programmers.clear();
         currentPlayer = null;
-        nrTurnos = 1;
         if (head != null) {
             if (head.next.next != null && head.next.next != tail) {
                 head.next.next = null;
@@ -107,6 +111,7 @@ public class GameManager {
             head = null;
             tail = null;
         }
+        nrTurnos = 1;
 
         int jogadores = playerInfo.length;
 
@@ -130,12 +135,13 @@ public class GameManager {
                     (playerInfo[x][3].equals(ProgrammerColor.BLUE.toString())))) {
                 return false;
             }
-            if (Integer.parseInt(playerInfo[x][0]) < 0 || playerInfo[x][0] == null) {
-                return false;
-            }
 
             for (int y = x + 1; y < jogadores; y++) {
-                if (playerInfo[x][0].equals(playerInfo[y][0])) {
+                if (Integer.parseInt(playerInfo[x][0]) < 0 || playerInfo[x][0] == null) {
+                    return false;
+                } else if (x == jogadores - 1) {
+                    break;
+                } else if (playerInfo[x][0].equals(playerInfo[y][0])) {
                     return false;
                 } else if (playerInfo[x][3].equals(playerInfo[y][3])) {
                     return false;
@@ -176,7 +182,7 @@ public class GameManager {
             boardMap.get(1).addProgrammer(programmer);
         }
 
-        if(programmers.size() <2 || programmers.size()>4){
+        if(programmers.size() < 2 || programmers.size() > 4 || boardMap.get(1).getProgrammers().size() == 1) {
             return false;
         }
 
@@ -192,12 +198,14 @@ public class GameManager {
                 if (abyssesAndTool[0].equals("0")) {
                     if (checkID >= 0 && checkID <= 9 && checkPos >= 0 && checkPos <= boardSize) {
                         boardMap.put(checkPos, checkAbyss(checkID, checkPos));
+                        boardAbyss.add(checkAbyss(checkID,checkPos));
                     } else {
                         return false;
                     }
                 } else if (abyssesAndTool[0].equals("1")) {
                     if (checkID >= 0 && checkID <= 5 && checkPos >= 0 && checkPos <= boardSize) {
                         boardMap.put(checkPos, checkTool(checkID, checkPos));
+                        boardTools.add(checkTool(checkID,checkPos));
                     } else {
                         return false;
                     }
@@ -349,7 +357,7 @@ public class GameManager {
             tail.next = null;
             tail.next = head;
             count++;
-            nrTurnos += 1;
+            nrTurnos++;
         }
         if(count == 0) {
             nextNode();
