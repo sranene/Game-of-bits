@@ -151,8 +151,8 @@ public class TestGameManager {
 
         ArrayList<Programmer> programmers = new ArrayList<>();
         programmers.add(player3);
-        programmers.add(player1);
         programmers.add(player2);
+        programmers.add(player1);
 
         String expected = programmers.toString();
         String actual = game.getProgrammers(1).toString();

@@ -404,11 +404,14 @@ public class GameManager {
     public List<String> getGameResults() {
 
         List<String> results = new ArrayList<>();
-        List<Programmer> programmers;
-        programmers = getProgrammers(true);
+        List<Programmer> programmers = new ArrayList<>();
+        for(int x = boardMap.size() ; x > 0 ; x--) {
+            if(getProgrammers(x) != null) {
+                programmers.addAll(getProgrammers(x));
+            }
+        }
         Programmer programmerSave = getWinner();
         programmers.remove(getWinner());
-        programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
         results.add("O GRANDE JOGO DO DEISI");
         results.add("");
         results.add("NR. DE TURNOS");
