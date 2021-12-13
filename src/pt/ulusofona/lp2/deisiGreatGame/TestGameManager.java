@@ -16,7 +16,7 @@ public class TestGameManager {
             {"28", "sranene", "PHP; Java", "Purple"},
             {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
     };
-    
+
     String[][] playerInfo3 = {
             {"28", "sranene", "PHP; Java", "Purple"},
             {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
@@ -169,7 +169,6 @@ public class TestGameManager {
 
     @Test
     public void test02moveCurrentPlayer() {
-
         String[][] mostrarAInes = {};
         int boardSize = 30;
         game.createInitialBoard(playerInfo3, boardSize, mostrarAInes);
@@ -229,9 +228,8 @@ public class TestGameManager {
     @Test
     public void test01BlueScreen(){
         String[][] abyss ={
-            { "0", "7", "8" }
+                { "0", "7", "8" }
         };
-
         assertTrue(game.createInitialBoard(playerInfo3, 30, abyss));
         game.moveCurrentPlayer(6);//Alberto vai po 7
         game.reactToAbyssOrTool();
@@ -317,8 +315,3 @@ public class TestGameManager {
 
 
 }
-
-
-
-
-
