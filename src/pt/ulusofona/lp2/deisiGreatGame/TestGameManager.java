@@ -45,7 +45,7 @@ public class TestGameManager {
         String[][] teste = {
                 {"28","sranene","PHP; Java","Green"}
         };
-        assertFalse(game.createInitialBoard(teste,20, null));
+        assertFalse(game.createInitialBoard(teste,20));
         String[][] teste1 = {
                 {"", "", "", ""},
                 {"", "", "", ""}
@@ -96,6 +96,7 @@ public class TestGameManager {
         assertTrue(game.createInitialBoard(teste9,20, null));
         game.moveCurrentPlayer(4);
         game.createInitialBoard(teste9,20, null);
+
     }
 
 

@@ -87,9 +87,7 @@ public class GameManager {
     }
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
-        createInitialBoard(playerInfo, boardSize, null);
-        return true;
-
+        return createInitialBoard(playerInfo, boardSize, null);
     }
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) {
