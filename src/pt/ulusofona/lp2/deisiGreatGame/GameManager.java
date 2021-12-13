@@ -409,8 +409,6 @@ public class GameManager {
         Programmer programmerSave = getWinner();
         programmers.remove(getWinner());
         programmers.sort(Comparator.comparing(Programmer::getPos).reversed());
-
-
         results.add("O GRANDE JOGO DO DEISI");
         results.add("");
         results.add("NR. DE TURNOS");
