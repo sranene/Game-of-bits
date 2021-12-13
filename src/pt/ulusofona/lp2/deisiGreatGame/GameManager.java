@@ -137,9 +137,10 @@ public class GameManager {
                 return false;
             }
 
-            if (playerInfo[x][2].equals("")||playerInfo[x][2] == null || playerInfo[x][2].equals(" ")) {
+            if (playerInfo[x][2].equals("") || playerInfo[x][2] == null || playerInfo[x][2].equals(" ")) {
                 return false;
             }
+
             for (int y = x + 1; y < jogadores; y++) {
 
                 if (x == jogadores - 1) {
@@ -186,6 +187,10 @@ public class GameManager {
         }
 
         if(programmers.size() < 2 || programmers.size() > 4) {
+            return false;
+        }
+
+        if (boardMap.get(1).getProgrammers().size() == 1) {
             return false;
         }
 
