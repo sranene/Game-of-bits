@@ -3,6 +3,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.TreeSet;
 
@@ -12,7 +13,15 @@ public class TestGameManager {
 
     GameManager game = new GameManager();
 
-    String[][] abyssesAndTools = {};
+    String[][] abyssesAndTools = {
+            {"0","2","10"},
+            {"1","3","15"},
+            {"1","4","7"},
+            {"0","7","3"},
+            {"1","5","4"},
+            {"0","0","1"},
+            {"0","1","2"}
+    };
 
     String[][] playerInfo = {
             {"28", "sranene", "PHP; Java", "Purple"},
@@ -20,6 +29,17 @@ public class TestGameManager {
             {"16", "Alberto", "Beck", "Brown"}
     };
 
+    String[] languages1 = {"PHP", "Java"};
+    String[] languages2 = {"Java", "C++", "Python", "Portugues"};
+    String[] languages3 = {"Beck"};
+
+    TreeSet<String> tree1 = new TreeSet<>(Arrays.asList(languages1));
+    TreeSet<String> tree2 = new TreeSet<>(Arrays.asList(languages2));
+    TreeSet<String> tree3 = new TreeSet<>(Arrays.asList(languages3));
+
+    Programmer sranene = new Programmer("sranene", 28, tree1, ProgrammerColor.PURPLE);
+    Programmer robroche = new Programmer("robroche", 31, tree2, ProgrammerColor.BLUE);
+    Programmer alberto = new Programmer("Alberto", 16, tree3, ProgrammerColor.BROWN);
 
     @Test
     public void test01CreateInitialBoard() {
@@ -179,6 +199,8 @@ public class TestGameManager {
         TreeSet<String> tree1 = new TreeSet<>(Arrays.asList(languages1));
         TreeSet<String> tree2 = new TreeSet<>(Arrays.asList(languages2));
         TreeSet<String> tree3 = new TreeSet<>(Arrays.asList(languages3));
+
+
 
 
         Programmer player1 = new Programmer("sranene", 28, tree1, ProgrammerColor.PURPLE);
@@ -425,6 +447,36 @@ public class TestGameManager {
         game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         assertEquals(16, game.getCurrentPlayerID());
 
+    }
+
+    @Test
+    public void test01getProgrammersPosition(){
+        List<Programmer> lista = new ArrayList<>();
+        lista.add(alberto);
+        alberto.setPos(5);
+        game.createInitialBoard(playerInfo,30,abyssesAndTools);
+        assertNull(game.getProgrammers(40));
+        assertNull(game.getProgrammers(20));
+        game.moveCurrentPlayer(4);
+        game.reactToAbyssOrTool();
+        assertEquals(lista.toString(), game.getProgrammers(5).toString());
+        alberto.setPos(1);
+        alberto.setPos(1);
+        alberto.setPos(1);
+    }
+
+    @Test
+    public void test01getProgrammersDefeated(){
+        List<Programmer> lista = new ArrayList<>();
+        lista.add(alberto);
+        lista.add(sranene);
+        lista.add(robroche);
+        game.createInitialBoard(playerInfo,30,abyssesAndTools);
+        assertEquals(lista.toString(),game.getProgrammers(true).toString());
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        lista.remove(alberto);
+        assertEquals(lista.toString(),game.getProgrammers(false).toString());
     }
 
 }

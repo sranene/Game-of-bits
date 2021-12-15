@@ -40,10 +40,6 @@ public abstract class Square {
         programmers.remove(programmer);
     }
 
-    public void addArrayProgrammers(List<Programmer> programmers1){
-        programmers = programmers1;
-    }
-
     public List<Programmer> getProgrammers () {
         return programmers;
     }

@@ -288,9 +288,7 @@ public class GameManager {
         if (!(boardMap.containsKey(position))) {
             return null;
         }
-        if (boardMap.get(position) == null) {
-            return null;
-        }
+
         if(boardMap.get(position).getProgrammers().isEmpty()){
             return null;
         }
