@@ -231,9 +231,9 @@ public class TestGameManager {
 
     @Test
     public void test01moveCurrentPlayer() {
-
         int boardSize = 30;
         game.createInitialBoard(playerInfo, boardSize);
+
         assertFalse(game.moveCurrentPlayer(7));
 
     }
@@ -251,7 +251,6 @@ public class TestGameManager {
 
     @Test
     public void test01getImagePng() {
-
         game.createInitialBoard(playerInfo, 30, abyssesAndTools);
 
         assertNotEquals("playerPurple.png", game.getImagePng(24));
@@ -262,7 +261,6 @@ public class TestGameManager {
 
     @Test
     public void test02getImagePng() {
-
         game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         assertNull(game.getImagePng(0));
 
@@ -270,7 +268,6 @@ public class TestGameManager {
 
     @Test
     public void test03getImagePng() {
-
         String[][] abyssesAndTools = {
                 {"1","0","1"},
                 {"1","1","2"},
@@ -312,7 +309,6 @@ public class TestGameManager {
 
     @Test
     public void test01getProgrammersInfo() {
-
         game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         game.moveCurrentPlayer(1);
         Functional functional = new Functional(1, 2);
@@ -323,7 +319,6 @@ public class TestGameManager {
 
     @Test
     public void test01getProgrammersInfoCatchesSameTool() {
-
         game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         game.moveCurrentPlayer(1);
         Functional functional = new Functional(1, 2);
@@ -341,7 +336,6 @@ public class TestGameManager {
 
     @Test
     public void test01BlueScreen(){
-
         String[][] abyss ={
                 { "0", "7", "8" }
         };
@@ -363,7 +357,6 @@ public class TestGameManager {
         game.reactToAbyssOrTool();
         game.moveCurrentPlayer(6);//robroche vai po 17
         game.reactToAbyssOrTool();
-
 
         assertEquals(8,game.getProgrammers(true).get(0).getPos());
         assertEquals(12,game.getProgrammers(true).get(1).getPos());
@@ -424,16 +417,12 @@ public class TestGameManager {
         game.moveCurrentPlayer(6);//sranene vai po 8
         game.reactToAbyssOrTool();
 
-
-
         assertEquals("sranene : No tools | robroche : No tools",game.getProgrammersInfo());
     }
 
     @Test
     public void test01getCurrentPlayerID() {
-        String[][] mostrarAInes = {};
-        game.createInitialBoard(playerInfo, 30, mostrarAInes);
-
+        game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         assertEquals(16, game.getCurrentPlayerID());
 
     }
