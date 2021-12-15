@@ -50,11 +50,8 @@ public class GameManager {
             case 9 -> {
                 return new SegmentationFault(id, pos);
             }
-            default -> {
-                return null;
-
-            }
         }
+        return null;
     }
 
     public Tool checkTool(int id, int pos) {
@@ -77,11 +74,8 @@ public class GameManager {
             case 5 -> {
                 return new TeachersHelp(id, pos);
             }
-            default -> {
-                return null;
-
-            }
         }
+        return null;
     }
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
@@ -177,10 +171,6 @@ public class GameManager {
         boardMap.put(1, new Empty(1));
         for (Programmer programmer : programmers) {
             boardMap.get(1).addProgrammer(programmer);
-        }
-
-        if(programmers.size() < 2 || programmers.size() > 4) {
-            return false;
         }
 
         for (int x = 2; x <= boardSize; x++) {

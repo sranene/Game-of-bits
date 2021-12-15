@@ -12,12 +12,9 @@ public class TestGameManager {
 
     GameManager game = new GameManager();
 
-    String[][] playerInfo2 = {
-            {"28", "sranene", "PHP; Java", "Purple"},
-            {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
-    };
+    String[][] abyssesAndTools = {};
 
-    String[][] playerInfo3 = {
+    String[][] playerInfo = {
             {"28", "sranene", "PHP; Java", "Purple"},
             {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
             {"16", "Alberto", "Beck", "Brown"}
@@ -26,7 +23,7 @@ public class TestGameManager {
     @Test
     public void test01CreateInitialBoard() {
         int boardSize = 28;
-        boolean resultado = game.createInitialBoard(playerInfo3, boardSize);
+        boolean resultado = game.createInitialBoard(playerInfo, boardSize);
         assertTrue(resultado);
     }
 
@@ -34,7 +31,7 @@ public class TestGameManager {
     public void test02CreateInitialBoard() {
         int boardSize = 3;
         String[][] teste = {};
-        boolean resultado = game.createInitialBoard(playerInfo3, boardSize, null);
+        boolean resultado = game.createInitialBoard(playerInfo, boardSize, null);
         assertFalse(resultado);
         assertFalse(game.createInitialBoard(teste,20, null));
     }
@@ -138,7 +135,7 @@ public class TestGameManager {
     public void test01getProgrammersPos() {
         String[][] teste = {};
         int boardSize = 30;
-        game.createInitialBoard(playerInfo3, boardSize, teste);
+        game.createInitialBoard(playerInfo, boardSize, teste);
 
         String[] languages1 = {"PHP", "Java"};
         String[] languages2 = {"Java", "C++", "Python", "Portugues"};
@@ -168,16 +165,15 @@ public class TestGameManager {
     @Test
     public void test01moveCurrentPlayer() {
         int boardSize = 30;
-        game.createInitialBoard(playerInfo3, boardSize);
+        game.createInitialBoard(playerInfo, boardSize);
         assertFalse(game.moveCurrentPlayer(7));
 
     }
 
     @Test
     public void test02moveCurrentPlayer() {
-        String[][] mostrarAInes = {};
         int boardSize = 30;
-        game.createInitialBoard(playerInfo3, boardSize, mostrarAInes);
+        game.createInitialBoard(playerInfo, boardSize, abyssesAndTools);
 
         assertTrue(game.moveCurrentPlayer(1));
         assertFalse(game.getProgrammers(2).isEmpty());
@@ -187,12 +183,62 @@ public class TestGameManager {
 
     @Test
     public void test01getImagePng() {
-        String[][] mostrarAInes = {};
-        game.createInitialBoard(playerInfo3, 30, mostrarAInes);
+
+        game.createInitialBoard(playerInfo, 30, abyssesAndTools);
 
         assertNotEquals("playerPurple.png", game.getImagePng(24));
         assertEquals("glory.png", game.getImagePng(30));
         assertNull(game.getImagePng(9));
+
+    }
+
+    @Test
+    public void test02getImagePng() {
+
+        game.createInitialBoard(playerInfo, 30, abyssesAndTools);
+        assertNull(game.getImagePng(0));
+
+    }
+
+    @Test
+    public void test03getImagePng() {
+
+        String[][] abyssesAndTools = {
+                {"1","0","1"},
+                {"1","1","2"},
+                {"1","2","3"},
+                {"1","3","4"},
+                {"1","4","5"},
+                {"1","5","6"},
+                {"0","0","7"},
+                {"0","1","8"},
+                {"0","2","9"},
+                {"0","3","10"},
+                {"0","4","11"},
+                {"0","5","12"},
+                {"0","6","13"},
+                {"0","7","14"},
+                {"0","8","15"},
+                {"0","9","16"}
+        };
+        game.createInitialBoard(playerInfo, 30, abyssesAndTools);
+
+        assertEquals("inheritance.png", game.getImagePng(1));
+        assertEquals("functional.png", game.getImagePng(2));
+        assertEquals("unit-tests.png", game.getImagePng(3));
+        assertEquals("catch.png", game.getImagePng(4));
+        assertEquals("IDE.png", game.getImagePng(5));
+        assertEquals("ajuda-professor.png", game.getImagePng(6));
+        assertEquals("syntax.png", game.getImagePng(7));
+        assertEquals("logic.png", game.getImagePng(8));
+        assertEquals("exception.png", game.getImagePng(9));
+        assertEquals("file-not-found-exception.png", game.getImagePng(10));
+        assertEquals("crash.png", game.getImagePng(11));
+        assertEquals("duplicated-code.png", game.getImagePng(12));
+        assertEquals("secondary-effects.png", game.getImagePng(13));
+        assertEquals("bsod.png", game.getImagePng(14));
+        assertEquals("infinite-loop.png", game.getImagePng(15));
+        assertEquals("core-dumped.png", game.getImagePng(16));
 
     }
 
@@ -229,6 +275,7 @@ public class TestGameManager {
 
     @Test
     public void test01BlueScreen(){
+
         String[][] abyss ={
                 { "0", "7", "8" }
         };
@@ -319,7 +366,7 @@ public class TestGameManager {
     @Test
     public void test01getCurrentPlayerID() {
         String[][] mostrarAInes = {};
-        game.createInitialBoard(playerInfo3, 30, mostrarAInes);
+        game.createInitialBoard(playerInfo, 30, mostrarAInes);
 
         assertEquals(16, game.getCurrentPlayerID());
 
