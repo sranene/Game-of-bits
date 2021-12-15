@@ -23,7 +23,6 @@ public class TestGameManager {
             {"16", "Alberto", "Beck", "Brown"}
     };
 
-
     @Test
     public void test01CreateInitialBoard() {
         int boardSize = 28;
@@ -66,11 +65,11 @@ public class TestGameManager {
                 {"", "", "", ""}
         };
         assertFalse(game.createInitialBoard(teste4,20, null));
-        //String[][] teste5 = {
-        //        {"28", "sranene", "PHP; Java", "Green"},
-        //        {"-2", "robroche", "Java", "Purple"}
-        //};
-        //assertFalse(game.createInitialBoard(teste5,20, null));
+        String[][] teste5 = {
+                {"28", "sranene", "PHP; Java", "Green"},
+                {"-2", "robroche", "Java", "Purple"}
+        };
+        assertFalse(game.createInitialBoard(teste5,20, null));
         String[][] teste6 = {
                 {"28","sranene","PHP; Java","Green"},
                 {"28","robroche","Python","Purple"}
@@ -94,6 +93,7 @@ public class TestGameManager {
                 {"1","Actual :","Spanish(no)","Blue"}
         };
         assertTrue(game.createInitialBoard(teste9,20, null));
+
         game.moveCurrentPlayer(4);
         game.createInitialBoard(teste9,20, null);
 
@@ -102,17 +102,16 @@ public class TestGameManager {
 
     @Test
     public void test01getProgrammers() {
-
-
         int boardSize = 30;
         game.createInitialBoard(playerInfo3, boardSize);
+
         String[] languages1 = {"PHP", "Java"};
         String[] languages2 = {"Java", "C++", "Python", "Portugues"};
         String[] languages3 = {"Beck"};
+
         TreeSet<String> tree1 = new TreeSet<>(Arrays.asList(languages1));
         TreeSet<String> tree2 = new TreeSet<>(Arrays.asList(languages2));
         TreeSet<String> tree3 = new TreeSet<>(Arrays.asList(languages3));
-
 
         Programmer player1 = new Programmer("sranene", 28, tree1, ProgrammerColor.PURPLE);
         Programmer player2 = new Programmer("robroche", 31, tree2, ProgrammerColor.BLUE);
@@ -132,8 +131,6 @@ public class TestGameManager {
 
     @Test
     public void test01getProgrammersPos() {
-
-
         String[][] teste = {};
         int boardSize = 30;
         game.createInitialBoard(playerInfo3, boardSize, teste);
@@ -165,7 +162,6 @@ public class TestGameManager {
 
     @Test
     public void test01moveCurrentPlayer() {
-
         int boardSize = 30;
         game.createInitialBoard(playerInfo3, boardSize);
         assertFalse(game.moveCurrentPlayer(7));
@@ -186,8 +182,6 @@ public class TestGameManager {
 
     @Test
     public void test01getImagePng() {
-
-
         String[][] mostrarAInes = {};
         game.createInitialBoard(playerInfo3, 30, mostrarAInes);
 
@@ -199,10 +193,9 @@ public class TestGameManager {
 
     @Test
     public void test01getProgrammersInfo() {
-
-
         String[][] mostrarAInes = {};
         game.createInitialBoard(playerInfo3, 30, mostrarAInes);
+
         game.moveCurrentPlayer(1);
         Functional functional = new Functional(1, 2);
         game.currentPlayer.addTool(functional);
@@ -212,10 +205,9 @@ public class TestGameManager {
 
     @Test
     public void test01getProgrammersInfoCatchesSameTool() {
-
-
         String[][] mostrarAInes = {};
         game.createInitialBoard(playerInfo3, 30, mostrarAInes);
+
         game.moveCurrentPlayer(1);
         Functional functional = new Functional(1, 2);
         functional.react(game.currentPlayer, 1, game.boardMap);
@@ -235,6 +227,7 @@ public class TestGameManager {
         String[][] abyss ={
                 { "0", "7", "8" }
         };
+
         assertTrue(game.createInitialBoard(playerInfo3, 30, abyss));
         game.moveCurrentPlayer(6);//Alberto vai po 7
         game.reactToAbyssOrTool();
@@ -253,7 +246,6 @@ public class TestGameManager {
         game.moveCurrentPlayer(6);//robroche vai po 17
         game.reactToAbyssOrTool();
 
-
         assertEquals(8,game.getProgrammers(true).get(0).getPos());
         assertEquals(12,game.getProgrammers(true).get(1).getPos());
         assertEquals(17,game.getProgrammers(true).get(2).getPos());
@@ -264,8 +256,10 @@ public class TestGameManager {
         String[][] abyss ={
                 { "0", "7", "8" }
         };
+
         ArrayList<String> results = new ArrayList<>();
         assertTrue(game.createInitialBoard(playerInfo3, 30, abyss));
+
         game.moveCurrentPlayer(6);//Alberto vai po 7
         game.reactToAbyssOrTool();
         assertFalse(game.gameIsOver());
@@ -302,6 +296,7 @@ public class TestGameManager {
                 { "0", "7", "8" }
         };
         assertTrue(game.createInitialBoard(playerInfo3, 30, abyss));
+
         game.moveCurrentPlayer(6);//Alberto vai po 7
         game.reactToAbyssOrTool();
         game.moveCurrentPlayer(4);//sranene vai po 5
@@ -312,8 +307,6 @@ public class TestGameManager {
         game.reactToAbyssOrTool();
         game.moveCurrentPlayer(6);//sranene vai po 8
         game.reactToAbyssOrTool();
-
-
 
         assertEquals("sranene : No tools | robroche : No tools",game.getProgrammersInfo());
     }
