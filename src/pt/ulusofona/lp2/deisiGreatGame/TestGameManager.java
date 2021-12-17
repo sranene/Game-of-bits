@@ -347,11 +347,13 @@ public class TestGameManager {
     @Test
     public void test01getProgrammersInfo() {
         game.createInitialBoard(playerInfo, 30, abyssesAndTools);
-        game.moveCurrentPlayer(1);
-        Functional functional = new Functional(1, 2);
-        game.currentPlayer.addTool(functional);
-
-        assertEquals("Alberto : Programação Funcional | sranene : No tools | robroche : No tools", game.getProgrammersInfo());
+        game.moveCurrentPlayer(6);
+        game.reactToAbyssOrTool();
+        assertEquals("Alberto : IDE | sranene : No tools | robroche : No tools", game.getProgrammersInfo());
+        game.nextNode();
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        assertEquals("Alberto : IDE | sranene : No tools | ", game.getProgrammersInfo());
     }
 
     @Test
@@ -493,5 +495,61 @@ public class TestGameManager {
         lista.remove(alberto);
         assertEquals(lista.toString(),game.getProgrammers(false).toString());
     }
+
+    @Test
+    public void test01GameOverBoardSize(){
+        game.createInitialBoard(playerInfo,19,abyssesAndTools);
+        game.moveCurrentPlayer(6);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(6);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(6);
+        game.reactToAbyssOrTool();
+        assertTrue(game.gameIsOver());
+    }
+
+    @Test
+    public void test01getWinner(){
+        game.createInitialBoard(playerInfo,19, abyssesAndTools);
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        assertNull(game.getWinner());
+    }
+
+    @Test
+    public void test01moveCurrentPLayerLooped(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(6);
+        game.currentPlayer.setPos(15);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        assertFalse(game.moveCurrentPlayer(6));
+
+    }
+
+    @Test
+    public void test01getAuthorsPanel(){
+        JPanel panel = new JPanel();
+        JLabel jlabel1 = new JLabel("Inês Marques - a22001936");
+        JLabel jlabel2 = new JLabel("Robert Cachapa - a22006023");
+
+        panel.setBounds(40, 80, 200, 200);
+        panel.setBackground(Color.white);
+        panel.add(jlabel1);
+        panel.add(jlabel2);
+
+        assertEquals(panel.toString(), game.getAuthorsPanel().toString());
+
+    }
+
 
 }
