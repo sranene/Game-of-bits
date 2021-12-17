@@ -50,8 +50,11 @@ public class GameManager {
             case 9 -> {
                 return new SegmentationFault(id, pos);
             }
+            default ->  {
+                return null;
+            }
         }
-        return null;
+
     }
 
     public Tool checkTool(int id, int pos) {
@@ -74,8 +77,11 @@ public class GameManager {
             case 5 -> {
                 return new TeachersHelp(id, pos);
             }
+            default -> {
+                return null;
+            }
         }
-        return null;
+
     }
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
@@ -183,14 +189,22 @@ public class GameManager {
                 int checkPos = Integer.parseInt(abyssesAndTool[2]);
 
                 if (abyssesAndTool[0].equals("0")) {
-                    if (checkID >= 0 && checkID <= 9 && checkPos > 0 && checkPos <= boardSize) {
-                        boardMap.put(checkPos, checkAbyss(checkID, checkPos));
+                    if (checkPos > 0 && checkPos <= boardSize) {
+                        if(checkAbyss(checkID,checkPos) != null) {
+                            boardMap.put(checkPos, checkAbyss(checkID, checkPos));
+                        } else {
+                            return false;
+                        }
                     } else {
                         return false;
                     }
                 } else if (abyssesAndTool[0].equals("1")) {
-                    if (checkID >= 0 && checkID <= 5 && checkPos > 0 && checkPos <= boardSize) {
-                        boardMap.put(checkPos, checkTool(checkID, checkPos));
+                    if (checkPos > 0 && checkPos <= boardSize) {
+                        if(checkAbyss(checkID,checkPos)!= null) {
+                            boardMap.put(checkPos, checkTool(checkID, checkPos));
+                        } else {
+                            return false;
+                        }
                     } else {
                         return false;
                     }
@@ -298,6 +312,10 @@ public class GameManager {
 
     public int getCurrentPlayerID() {
         return head.programmer.getId();
+    }
+
+    public Programmer getCurrentPlayer(){
+        return currentPlayer;
     }
 
     public boolean moveCurrentPlayer(int nrSpaces) {

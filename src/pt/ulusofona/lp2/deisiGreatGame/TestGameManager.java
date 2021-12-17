@@ -528,7 +528,7 @@ public class TestGameManager {
     public void test01moveCurrentPLayerLooped(){
         game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         game.moveCurrentPlayer(6);
-        game.currentPlayer.setPos(15);
+        game.getCurrentPlayer().setPos(15);
         game.reactToAbyssOrTool();
         game.nextNode();
         game.nextNode();
@@ -550,6 +550,53 @@ public class TestGameManager {
         assertEquals(panel.toString(), game.getAuthorsPanel().toString());
 
     }
+    @Test
+    public void test01apanhaCatch(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools);
+        game.moveCurrentPlayer(2);
+        game.getCurrentPlayer().setPos(15);
+        assertEquals("Uhhh apanhaste a ferramenta Tratamento de Excepções, agora podes te safar de alguns problemas bem chatos",game.reactToAbyssOrTool());
+        game.nextNode();
+        game.nextNode();
+        assertEquals("Já tens esta ferramenta I'm sorry :(",game.reactToAbyssOrTool());
+    }
+    @Test
+    public void test01crash(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools);
+        game.moveCurrentPlayer(2);
+        game.getCurrentPlayer().setPos(11);
+        assertEquals("Bem, parece que vais ter de voltar para a primeira casa, já não ganhas este jogo im sorry",game.reactToAbyssOrTool());
+        assertEquals(1,game.getCurrentPlayer().getPos());
+    }
+
+    @Test
+    public void test01Programmer() {
+
+        TreeSet<String> languages = new TreeSet<>();
+        languages.add("Java");
+        languages.add("PHP");
+        ProgrammerColor color = ProgrammerColor.PURPLE;
+        Programmer programmer = new Programmer("sranene",3,languages , color);
+
+        assertEquals(programmer.getId(), 3);
+        assertEquals(programmer.getName(), "sranene");
+
+    }
+
+    @Test
+    public void test02Programmer() {
+
+        TreeSet<String> languages = new TreeSet<>();
+        languages.add("Java");
+        languages.add("PHP");
+        ProgrammerColor color = ProgrammerColor.PURPLE;
+        Programmer programmer = new Programmer("sranene",3,languages , color);
+
+        assertEquals(programmer.getColor(), ProgrammerColor.PURPLE);
+        assertEquals(programmer.getPos(), 1);
+
+    }
+
 
 
 }
