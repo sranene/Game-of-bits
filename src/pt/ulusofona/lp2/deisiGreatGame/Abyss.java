@@ -1,6 +1,5 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
-import java.util.List;
 import java.util.TreeMap;
 
 public abstract class Abyss extends Square {
@@ -22,10 +21,8 @@ public abstract class Abyss extends Square {
         }
     }
 
-
     @Override
     public abstract String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap);
-
 
     public int getId() {
         return id;

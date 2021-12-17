@@ -12,6 +12,6 @@ public class Crash extends Abyss{
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
         programmer.setPos(1);
         movePlayerAbyss(boardMap,programmer);
-        return "Crash";
+        return "Bem, parece que vais ter de voltar para a primeira casa, já não ganhas este jogo im sorry";
     }
 }

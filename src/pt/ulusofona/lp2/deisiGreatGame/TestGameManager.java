@@ -2,6 +2,8 @@ package pt.ulusofona.lp2.deisiGreatGame;
 
 import org.junit.Test;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -21,6 +23,25 @@ public class TestGameManager {
             {"1","5","4"},
             {"0","0","1"},
             {"0","1","2"}
+    };
+
+    String[][] abyssesAndTools2 = {
+            {"1","0","1"},
+            {"1","1","2"},
+            {"1","2","3"},
+            {"1","3","4"},
+            {"1","4","5"},
+            {"1","5","6"},
+            {"0","0","7"},
+            {"0","1","8"},
+            {"0","2","9"},
+            {"0","3","10"},
+            {"0","4","11"},
+            {"0","5","12"},
+            {"0","6","13"},
+            {"0","7","14"},
+            {"0","8","15"},
+            {"0","9","16"}
     };
 
     String[][] playerInfo = {
@@ -190,7 +211,6 @@ public class TestGameManager {
     @Test
     public void test01getProgrammers() {
 
-
         int boardSize = 30;
         game.createInitialBoard(playerInfo, boardSize);
         String[] languages1 = {"PHP", "Java"};
@@ -199,9 +219,6 @@ public class TestGameManager {
         TreeSet<String> tree1 = new TreeSet<>(Arrays.asList(languages1));
         TreeSet<String> tree2 = new TreeSet<>(Arrays.asList(languages2));
         TreeSet<String> tree3 = new TreeSet<>(Arrays.asList(languages3));
-
-
-
 
         Programmer player1 = new Programmer("sranene", 28, tree1, ProgrammerColor.PURPLE);
         Programmer player2 = new Programmer("robroche", 31, tree2, ProgrammerColor.BLUE);
@@ -232,7 +249,6 @@ public class TestGameManager {
         TreeSet<String> tree1 = new TreeSet<>(Arrays.asList(languages1));
         TreeSet<String> tree2 = new TreeSet<>(Arrays.asList(languages2));
         TreeSet<String> tree3 = new TreeSet<>(Arrays.asList(languages3));
-
 
         Programmer player1 = new Programmer("sranene", 28, tree1, ProgrammerColor.PURPLE);
         Programmer player2 = new Programmer("robroche", 31, tree2, ProgrammerColor.BLUE);
@@ -290,25 +306,8 @@ public class TestGameManager {
 
     @Test
     public void test03getImagePng() {
-        String[][] abyssesAndTools = {
-                {"1","0","1"},
-                {"1","1","2"},
-                {"1","2","3"},
-                {"1","3","4"},
-                {"1","4","5"},
-                {"1","5","6"},
-                {"0","0","7"},
-                {"0","1","8"},
-                {"0","2","9"},
-                {"0","3","10"},
-                {"0","4","11"},
-                {"0","5","12"},
-                {"0","6","13"},
-                {"0","7","14"},
-                {"0","8","15"},
-                {"0","9","16"}
-        };
-        game.createInitialBoard(playerInfo, 30, abyssesAndTools);
+
+        game.createInitialBoard(playerInfo, 30, abyssesAndTools2);
 
         assertEquals("inheritance.png", game.getImagePng(1));
         assertEquals("functional.png", game.getImagePng(2));
@@ -326,6 +325,22 @@ public class TestGameManager {
         assertEquals("bsod.png", game.getImagePng(14));
         assertEquals("infinite-loop.png", game.getImagePng(15));
         assertEquals("core-dumped.png", game.getImagePng(16));
+
+    }
+
+    @Test
+    public void test01getTitle() {
+
+        game.createInitialBoard(playerInfo, 30, abyssesAndTools2);
+
+        assertNull(game.getTitle(0));
+        assertNull(game.getTitle(31));
+        assertEquals("Herança", game.getTitle(1));
+        assertEquals("Tratamento de Excepções", game.getTitle(4));
+        assertEquals("IDE", game.getTitle(5));
+        assertEquals("File Not Found Exception", game.getTitle(10));
+        assertEquals("Blue Screen of Death", game.getTitle(14));
+        assertEquals("Segmentation Fault", game.getTitle(16));
 
     }
 

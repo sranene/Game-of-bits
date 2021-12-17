@@ -8,13 +8,13 @@ import javax.swing.*;
 
 public class GameManager {
     Programmer currentPlayer;
-    Node head = null;
-    Node tail = null;
-    ProgrammerColor color;
-    List<Programmer> programmers = new ArrayList<>();
     TreeMap<Integer, Square> boardMap = new TreeMap<>();
-    int dado = 0;
-    int nrTurnos = 1;
+    private Node head = null;
+    private Node tail = null;
+    private ProgrammerColor color;
+    private List<Programmer> programmers = new ArrayList<>();
+    private int dado = 0;
+    private int nrTurnos = 1;
 
     public GameManager() {}
 
@@ -428,9 +428,6 @@ public class GameManager {
 
     public String getTitle(int position) {
 
-        if (position < 0 || position > boardMap.size()) {
-            return null;
-        }
         if (boardMap.containsKey(position)) {
             return boardMap.get(position).getTitle();
         }

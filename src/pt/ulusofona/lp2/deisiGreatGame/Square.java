@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.TreeMap;
 
 public abstract class Square {
-    List<Programmer> programmers = new ArrayList<>();
-    int id;
-    String title;
-    int pos;
+    protected List<Programmer> programmers = new ArrayList<>();
+    protected final int id;
+    protected String title;
+    protected int pos;
 
     public Square(int id,int pos){
         this.id = id;
