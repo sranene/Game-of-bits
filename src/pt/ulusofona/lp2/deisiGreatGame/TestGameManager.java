@@ -335,12 +335,12 @@ public class TestGameManager {
 
         assertNull(game.getTitle(0));
         assertNull(game.getTitle(31));
-        assertEquals("Herança", game.getTitle(1));
-        assertEquals("Tratamento de Excepções", game.getTitle(4));
-        assertEquals("IDE", game.getTitle(5));
-        assertEquals("File Not Found Exception", game.getTitle(10));
-        assertEquals("Blue Screen of Death", game.getTitle(14));
-        assertEquals("Segmentation Fault", game.getTitle(16));
+        assertEquals("Herança", game.getTitle(2));
+        assertEquals("Tratamento de Excepções", game.getTitle(5));
+        assertEquals("IDE", game.getTitle(6));
+        assertEquals("File Not Found Exception", game.getTitle(11));
+        assertEquals("Blue Screen of Death", game.getTitle(15));
+        assertEquals("Segmentation Fault", game.getTitle(17));
 
     }
 
