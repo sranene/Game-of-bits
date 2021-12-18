@@ -819,6 +819,13 @@ public class TestGameManager {
         assertTrue(game.moveCurrentPlayer(2));
     }
 
+    @Test
+    public void test01Syntax(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+    }
+
+
+
 
     @Test
     public void test01Programmer() {
