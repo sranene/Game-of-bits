@@ -637,7 +637,82 @@ public class TestGameManager {
         game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         game.moveCurrentPlayer(1);
         assertEquals("Parabéns! Parece que ganhaste a ferramenta Herança!",game.reactToAbyssOrTool());
+        lista.add(game.boardMap.get(2));
+        assertEquals(lista,game.getCurrentPlayer().getTools());
+        game.nextNode();
+        game.nextNode();
+        assertEquals("Já tens a ferramenta Herança, excusas de tentar apanhar outra vez, o teu pai já não volta",game.reactToAbyssOrTool());
+        assertEquals(lista,game.getCurrentPlayer().getTools());
     }
+
+    @Test
+    public void test01AjudaDoProfessor(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        List<Square> lista = new ArrayList<>();
+        lista.add(game.boardMap.get(7));
+        game.moveCurrentPlayer(6);
+        assertEquals("Oh very nice, apanhaste a ferramenta Ajuda Do Professor",game.reactToAbyssOrTool());
+        assertEquals("Epah já tens esta ferramenta, para lá de chatear o stor",game.reactToAbyssOrTool());
+        assertEquals(lista,game.getCurrentPlayer().getTools());
+    }
+
+    @Test
+    public void test01FileNotFound(){
+        List<Square> lista = new ArrayList<>();
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(11);
+        assertEquals("FileNotFound",game.reactToAbyssOrTool());
+        assertEquals(8,game.getCurrentPlayer().getPos());
+        game.moveCurrentPlayer(6);
+        assertEquals("Oh very nice, apanhaste a ferramenta Ajuda Do Professor",game.reactToAbyssOrTool());
+        lista.add(game.boardMap.get(7));
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(4);
+        assertEquals("safaste-te",game.reactToAbyssOrTool());
+        lista.clear();
+        assertEquals(11,game.getCurrentPlayer().getPos());
+        assertEquals(lista,game.getCurrentPlayer().getTools());
+    }
+
+    @Test
+    public void test01LogicVsTool() {
+        String[][] abyssesAndTools = {
+                {"1","2","2"},
+                {"0","1","3"},
+                {"0","1","9"}
+        };
+
+        List<Tool> tools = new ArrayList<>();
+
+        game.createInitialBoard(playerInfo,20, abyssesAndTools);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        assertNotEquals(tools, game.getCurrentPlayer().getTools());
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(6);
+        game.reactToAbyssOrTool();
+        assertEquals(6, game.getCurrentPlayer().getPos());
+    }
+
+    @Test
+    public void test01Loop(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(16);
+        assertEquals("Loop",game.reactToAbyssOrTool());
+        game.nextNode();
+        game.nextNode();
+        assertFalse(game.moveCurrentPlayer(2));
+    }
+
+
     @Test
     public void test01Programmer() {
 
