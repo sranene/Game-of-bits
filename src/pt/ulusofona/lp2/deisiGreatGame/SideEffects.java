@@ -14,7 +14,7 @@ public class SideEffects extends Abyss{
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Programação Funcional")) {
                 programmer.removeTool(tool);
-                return "Não tiveste efeitos secundários.. mas toma cuidadinho, nunca se sabe..\n\n *A Tool was removed from your inventory*";
+                return "Não tiveste efeitos secundários.. mas toma cuidadinho, nunca se sabe.. *A Tool was removed from your inventory*";
             }
         }
 

@@ -24,7 +24,7 @@ public class Loop extends Abyss{
                 boardMap.get(pos).getProgrammers().get(0).setLoop(false);
                 return "Estás num loop infinito.. what the hell were you doing";
             }
-            return "Tás safo my friend\n\n *A Tool was removed from your inventory*";
+            return "Tás safo my friend *A Tool was removed from your inventory*";
 
         } else {
             int count = 0;
@@ -44,7 +44,7 @@ public class Loop extends Abyss{
 
 
         }
-        return "Tás safo my friend\n\n *A Tool was removed from your inventory*";
+        return "Tás safo my friend *A Tool was removed from your inventory*";
     }
 
 }

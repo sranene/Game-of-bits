@@ -16,7 +16,7 @@ public class TeachersHelp extends Tool {
             }
         }
         programmer.addTool(this);
-        return "Agora já podes pedir ajuda aos professores, mas não abuses\n\n *Ajuda do Professor was added to your inventory*";
+        return "Agora já podes pedir ajuda aos professores, mas não abuses *Ajuda do Professor was added to your inventory*";
     }
 
 }

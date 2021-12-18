@@ -13,7 +13,7 @@ public class Exception extends Abyss{
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Tratamento de Excepções") || tool.getTitle().equals("Ajuda Do Professor")) {
                 programmer.removeTool(tool);
-                return "Hummm como tens uma ferramenta para o Exception, estás safo..\n\n *A Tool was removed from your inventory*";
+                return "Hummm como tens uma ferramenta para o Exception, estás safo.. *A Tool was removed from your inventory*";
             }
         }
         programmer.movePlayer(-2,200);

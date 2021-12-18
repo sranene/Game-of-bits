@@ -13,7 +13,7 @@ public class DuplicatedCode extends Abyss {
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Herança")) {
                 programmer.removeTool(tool);
-                return "Muito bem, usaste a Herança para evitar código duplicado...até dás a ideia de que és inteligente\n\n *A Tool was removed from your inventory*";
+                return "Muito bem, usaste a Herança para evitar código duplicado...até dás a ideia de que és inteligente *A Tool was removed from your inventory*";
             }
         }
         programmer.setPos(programmer.getPosAnterior());

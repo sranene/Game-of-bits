@@ -696,7 +696,7 @@ public class TestGameManager {
         game.nextNode();
         game.nextNode();
         game.moveCurrentPlayer(4);
-        assertEquals("Tás com sorte, não tens de recuar 3 casas\n\n *A Tool was removed from your inventory*",game.reactToAbyssOrTool());
+        assertEquals("Tás com sorte, não tens de recuar 3 casas *A Tool was removed from your inventory*",game.reactToAbyssOrTool());
         lista.clear();
         assertEquals(11,game.getCurrentPlayer().getPos());
         assertEquals(lista,game.getCurrentPlayer().getTools());

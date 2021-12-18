@@ -16,6 +16,6 @@ public class Catch extends Tool {
             }
         }
         programmer.addTool(this);
-        return "Uhhh agora podes te safar de algumas exceções bem chatas\n\n *Tratamento de Excepções was added to your inventory*";
+        return "Uhhh agora podes te safar de algumas exceções bem chatas *Tratamento de Excepções was added to your inventory*";
     }
 }

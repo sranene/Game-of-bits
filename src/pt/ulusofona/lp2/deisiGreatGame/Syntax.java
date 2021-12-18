@@ -13,7 +13,7 @@ public class Syntax extends Abyss{
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Ajuda Do Professor") || tool.getTitle().equals("IDE")) {
                 programmer.removeTool(tool);
-                return "Nice my friend, não tens erros de sintaxe no código\n\n *A Tool was removed from your inventory*";
+                return "Nice my friend, não tens erros de sintaxe no código *A Tool was removed from your inventory*";
             }
         }
         programmer.movePlayer(-1,200);

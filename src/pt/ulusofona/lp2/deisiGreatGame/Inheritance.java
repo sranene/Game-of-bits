@@ -17,6 +17,6 @@ public class Inheritance extends Tool {
             }
         }
         programmer.addTool(this);
-        return "Parabéns! Ganhaste a habilidade de fazer herança no teu programa, aproveita colega\n\n *Herança was added to your inventory*";
+        return "Parabéns! Ganhaste a habilidade de fazer herança no teu programa, aproveita colega *Herança was added to your inventory*";
     }
 }

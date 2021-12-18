@@ -16,7 +16,7 @@ public class Ide extends Tool {
             }
         }
         programmer.addTool(this);
-        return "Cool, agora podes tentar criar uns programazinhos como deve ser\n\n *Ide was added to your inventory*";
+        return "Cool, agora podes tentar criar uns programazinhos como deve ser *Ide was added to your inventory*";
     }
 
 }
