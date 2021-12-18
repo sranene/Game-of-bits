@@ -10,14 +10,15 @@ public class SegmentationFault extends Abyss{
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
-        // verificar se existem dois jogadores nesta casa
 
         if (boardMap.get(pos).getProgrammers().size() > 1) {
             int count = 0;
-            for(Tool tool : programmer.getTools()){
-                if(tool.getTitle().equals("Tratamento de Excepções")){
-                    count++;
-                    programmer.removeTool(tool);
+            if (!programmer.getTools().isEmpty()) {
+                for(Tool tool : programmer.getTools()){
+                    if(tool.getTitle().equals("Tratamento de Excepções")){
+                        count++;
+                        programmer.removeTool(tool);
+                    }
                 }
             }
             if(count == 0){
