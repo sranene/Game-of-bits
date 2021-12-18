@@ -30,10 +30,7 @@ public class SegmentationFault extends Abyss{
                 return "Vish tão todos com um SegmentationFault, este aqui é lixado..";
             }
 
-            return """
-                    Very very very lucky..
-
-                    *A Tool was removed from your inventory*""";
+            return "Very very very lucky..\n\n *A Tool was removed from your inventory*";
         }
 
         return "Tás safo por enquanto...";

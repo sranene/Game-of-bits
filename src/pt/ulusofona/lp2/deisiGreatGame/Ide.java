@@ -16,10 +16,7 @@ public class Ide extends Tool {
             }
         }
         programmer.addTool(this);
-        return """
-                Cool, agora tens a ferramenta IDE em que podes tentar criar uns programazinhos
-
-                 *Ide was added to your inventory*""";
+        return "Cool, agora tens a ferramenta IDE em que podes tentar criar uns programazinhos\n\n *Ide was added to your inventory*";
     }
 
 }

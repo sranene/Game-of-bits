@@ -13,10 +13,7 @@ public class Logic extends Abyss{
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Testes unitários") || tool.getTitle().equals("Ajuda Do Professor")) {
                 programmer.removeTool(tool);
-                return """
-                        Não tens erros de lógica no teu código pelos vistos
-
-                         *A Tool was removed from your inventory*""";
+                return "Não tens erros de lógica no teu código pelos vistos\n\n *A Tool was removed from your inventory*";
             }
         }
         int positions = -(dado/2);

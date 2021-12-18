@@ -16,10 +16,7 @@ public class UnitTests extends Tool{
             }
         }
         programmer.addTool(this);
-        return """
-                Aff apanhaste a ferramenta Testes unitários.. lá vais ter de inventar uns testes quaisquer
-
-                *Testes unitários was added to your inventory*""";
+        return "Aff.. lá vais ter de inventar uns testes quaisquer..\n\n *Testes unitários was added to your inventory*";
     }
 
 }

@@ -557,10 +557,7 @@ public class TestGameManager {
         game.nextNode();
         game.nextNode();
         game.getCurrentPlayer().setPos(15);
-        assertEquals("""
-                Uhhh agora podes te safar de algumas exceções bem chatas
-
-                *Tratamento de Excepções was added to your inventory*""",game.reactToAbyssOrTool());
+        assertEquals("Uhhh agora podes te safar de algumas exceções bem chatas\n\n *Tratamento de Excepções was added to your inventory*",game.reactToAbyssOrTool());
         game.nextNode();
         game.nextNode();
         assertEquals("Já tens esta ferramenta I'm sorry :(",game.reactToAbyssOrTool());
@@ -777,7 +774,7 @@ public class TestGameManager {
         game.moveCurrentPlayer(1);
         game.getCurrentPlayer().setPos(15);
         game.moveCurrentPlayer(1);
-        assertEquals("Tás safo my friend",game.reactToAbyssOrTool());
+        assertEquals("Tás safo my friend\n\n *A Tool was removed from your inventory*",game.reactToAbyssOrTool());
         lista.remove(game.boardMap.get(3));
         assertEquals(lista,game.getCurrentPlayer().getTools());
         game.nextNode();
