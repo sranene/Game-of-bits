@@ -18,6 +18,7 @@ public class SegmentationFault extends Abyss{
                     if(tool.getTitle().equals("Tratamento de Excepções")){
                         count++;
                         programmer.removeTool(tool);
+                        break;
                     }
                 }
             }

@@ -61,6 +61,7 @@ public class TestGameManager {
     Programmer robroche = new Programmer("robroche", 31, tree2, ProgrammerColor.BLUE);
     Programmer alberto = new Programmer("Alberto", 16, tree3, ProgrammerColor.BROWN);
 
+
     @Test
     public void test01CreateInitialBoard() {
         int boardSize = 28;
@@ -387,6 +388,7 @@ public class TestGameManager {
         game.reactToAbyssOrTool();
         game.moveCurrentPlayer(1);//ALberto perde pos 8
         game.reactToAbyssOrTool();
+        assertEquals("16 | Alberto | 8 | No tools | Beck | Derrotado",game.getCurrentPlayer().toString());
         game.moveCurrentPlayer(4);//sranene vai po 9
         game.reactToAbyssOrTool();
         game.moveCurrentPlayer(5);//robroche vai po 11
@@ -822,11 +824,135 @@ public class TestGameManager {
     @Test
     public void test01Syntax(){
         game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(2);
+        game.getCurrentPlayer().setPos(8);
+        game.reactToAbyssOrTool();
+        assertEquals(7,game.getCurrentPlayer().getPos());
+    }
+    @Test
+    public void test01SyntaxTool(){
+        List<Square> lista = new ArrayList<>();
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        lista.add(game.boardMap.get(2));
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(5);
+        game.reactToAbyssOrTool();
+        lista.add(game.boardMap.get(7));
+        assertEquals(lista,game.getCurrentPlayer().getTools());
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        lista.remove(game.boardMap.get(7));
+        assertEquals(lista,game.getCurrentPlayer().getTools());
     }
 
+    @Test
+    public void test01SegmentationFault(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(16);
+        game.moveCurrentPlayer(1);
+        assertEquals("Tás safo por enquanto...",game.reactToAbyssOrTool());
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(16);
+        game.moveCurrentPlayer(1);
+        assertEquals("Vish tão todos com um SegmentationFault, este aqui é lixado..",game.reactToAbyssOrTool());
+    }
+    @Test
+    public void test01SegmentationFaultTool(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(16);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(3);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(16);
+        game.moveCurrentPlayer(1);
+        assertEquals("Very very very lucky.. *A Tool was removed from your inventory*",game.reactToAbyssOrTool());
+    }
 
+    @Test
+    public void test01SideEffects(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(5);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(13);
+        game.moveCurrentPlayer(1);
+        assertEquals(8,game.getCurrentPlayer().getPosAnteriorAnterior());
+        game.reactToAbyssOrTool();
+        assertEquals(13,game.getCurrentPlayer().getPosAnteriorAnterior());
+    }
 
+    @Test
+    public void test01SideEffectTool(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(2);
+        game.getCurrentPlayer().setPos(13);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        assertEquals(14,game.getCurrentPlayer().getPos());
+    }
 
+    @Test
+    public void test01UnitTestsx2(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(2);
+        assertEquals("Aff.. lá vais ter de inventar uns testes quaisquer.. *Testes unitários was added to your inventory*",game.reactToAbyssOrTool());
+        assertEquals("Não podes apanhar a ferramenta Testes unitários, porque já a tens, move along",game.reactToAbyssOrTool());
+    }
+    @Test
+    public void test01GetAbyssIdAndPos(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        assertEquals(0,game.boardMap.get(8).getId());
+        assertEquals(8,game.boardMap.get(8).getPos());
+        assertEquals(-1,game.boardMap.get(19).getId());
+        assertEquals(19,game.boardMap.get(19).getPos());
+    }
+    @Test
+    public void test01SairBoard(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(2);
+        game.getCurrentPlayer().setPos(19);
+        game.moveCurrentPlayer(5);
+        assertEquals(16,game.getCurrentPlayer().getPos());
+    }
+    @Test
+    public void test02SairBoard(){
+        String[][] abyss ={
+                {"0","2","2"}
+        };
+        game.createInitialBoard(playerInfo,20,abyss);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        assertEquals(1,game.getCurrentPlayer().getPos());
+    }
     @Test
     public void test01Programmer() {
 
@@ -853,6 +979,27 @@ public class TestGameManager {
         assertEquals(programmer.getColor(), ProgrammerColor.PURPLE);
         assertEquals(programmer.getPos(), 1);
 
+    }
+    @Test
+    public void test03Programmer(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        assertEquals("16 | Alberto | 4 | Herança;Programação Funcional;Testes unitários | Beck | Em Jogo",game.getCurrentPlayer().toString());
+        assertEquals("Alberto : Herança;Programação Funcional;Testes unitários | sranene : No tools | robroche : No tools",game.getProgrammersInfo());
+    }
+    @Test
+    public void test01Main(){
+        String[] teste = new String[1];
+        Main.main(teste);
     }
 
 }

@@ -64,7 +64,7 @@ public class Programmer {
 
     public void setPos(int pos) {
         posAnteriorAnterior = posAnterior;
-        posAnterior = pos;
+        posAnterior = this.pos;
         this.pos = pos;
     }
 

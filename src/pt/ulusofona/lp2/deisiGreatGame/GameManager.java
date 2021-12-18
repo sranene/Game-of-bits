@@ -86,6 +86,7 @@ public class GameManager {
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize) {
         return createInitialBoard(playerInfo, boardSize, null);
+
     }
 
     public boolean createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) {
@@ -196,8 +197,7 @@ public class GameManager {
                             return false;
                         }
                     } else {
-                        return false;
-                    }
+                        return false; }
                 } else if (abyssesAndTool[0].equals("1")) {
                     if (checkPos > 0 && checkPos <= boardSize) {
                         if(checkTool(checkID,checkPos)!= null) {
@@ -206,11 +206,9 @@ public class GameManager {
                             return false;
                         }
                     } else {
-                        return false;
-                    }
+                        return false; }
                 } else {
-                    return false;
-                }
+                    return false; }
             }
         }
 
