@@ -44,7 +44,7 @@ public class Loop extends Abyss{
 
 
         }
-        return "safaste te";
+        return "Tás safo my friend";
     }
 
 }

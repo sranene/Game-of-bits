@@ -552,9 +552,15 @@ public class TestGameManager {
     @Test
     public void test01Catch2x(){
         game.createInitialBoard(playerInfo,20,abyssesAndTools);
-        game.moveCurrentPlayer(2);
+        game.moveCurrentPlayer(3);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
         game.getCurrentPlayer().setPos(15);
-        assertEquals("Uhhh apanhaste a ferramenta Tratamento de Excepções, agora podes te safar de alguns problemas bem chatos",game.reactToAbyssOrTool());
+        assertEquals("""
+                Uhhh agora podes te safar de algumas exceções bem chatas
+
+                *Tratamento de Excepções was added to your inventory*""",game.reactToAbyssOrTool());
         game.nextNode();
         game.nextNode();
         assertEquals("Já tens esta ferramenta I'm sorry :(",game.reactToAbyssOrTool());
@@ -573,6 +579,9 @@ public class TestGameManager {
     public void test01DuplicatedCode(){
         game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
         game.getCurrentPlayer().setPos(13);
         assertEquals("Oops, parece que agora tens código a duplicar, volta lá pra casa onde tavas, maroto",game.reactToAbyssOrTool());
     }
@@ -585,20 +594,30 @@ public class TestGameManager {
         game.nextNode();
         game.nextNode();
         game.getCurrentPlayer().setPos(13);
-        assertEquals("safaste-te",game.reactToAbyssOrTool());
+        assertEquals("""
+                        Muito bem, usaste a Herança para evitar código duplicado... até dás a ideia de que és inteligente
+
+                         *A tool was removed from your inventory*""",game.reactToAbyssOrTool());
     }
 
     @Test
     public void test01Exception(){
         String[][] abyssesAndTools = {
                 {"1","3","2"},
-                {"0","2","3"},
+                {"1","0","3"},
                 {"0","2","4"},
+                {"0","2","5"},
         };
 
-        List<Tool> tools = new ArrayList<>();
+        List<Square> tools = new ArrayList<>();
+
 
         game.createInitialBoard(playerInfo,20,abyssesAndTools);
+        tools.add(game.boardMap.get(3));
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
         game.moveCurrentPlayer(1);
         game.reactToAbyssOrTool();
         game.nextNode();
@@ -610,7 +629,7 @@ public class TestGameManager {
         game.nextNode();
         game.moveCurrentPlayer(1);
         game.reactToAbyssOrTool();
-        assertEquals(2, game.getCurrentPlayer().getPos());
+        assertEquals(3, game.getCurrentPlayer().getPos());
 
     }
 
@@ -618,8 +637,9 @@ public class TestGameManager {
     public void test01Ide2x(){
 
         String[][] abyssesAndTools = {
-                {"1","4","2"},
+                {"1","3","2"},
                 {"1","4","3"},
+                {"1","4","4"},
         };
 
         game.createInitialBoard(playerInfo,20, abyssesAndTools);
@@ -628,7 +648,11 @@ public class TestGameManager {
         game.nextNode();
         game.nextNode();
         game.moveCurrentPlayer(1);
-        assertEquals("Já tens este IDE, não te chega otario?", game.reactToAbyssOrTool());
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        assertEquals("Já tens este IDE, não achas que te chega?", game.reactToAbyssOrTool());
     }
 
     @Test
@@ -636,7 +660,10 @@ public class TestGameManager {
         List<Square> lista = new ArrayList<>();
         game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         game.moveCurrentPlayer(1);
-        assertEquals("Parabéns! Parece que ganhaste a ferramenta Herança!",game.reactToAbyssOrTool());
+        assertEquals("""
+                Parabéns! Parece que ganhaste a habilidade de fazer herança no teu programa, aproveita colega
+
+                 *Herança was added to your inventory*""",game.reactToAbyssOrTool());
         lista.add(game.boardMap.get(2));
         assertEquals(lista,game.getCurrentPlayer().getTools());
         game.nextNode();
@@ -649,9 +676,17 @@ public class TestGameManager {
     public void test01AjudaDoProfessor(){
         game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         List<Square> lista = new ArrayList<>();
+        lista.add(game.boardMap.get(3));
         lista.add(game.boardMap.get(7));
-        game.moveCurrentPlayer(6);
-        assertEquals("Oh very nice, apanhaste a ferramenta Ajuda Do Professor",game.reactToAbyssOrTool());
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(4);
+        assertEquals("""
+                Agora já podes pedir ajuda aos professores, mas não abuses
+
+                *Ajuda do Professor was added to your inventory*""",game.reactToAbyssOrTool());
         assertEquals("Epah já tens esta ferramenta, para lá de chatear o stor",game.reactToAbyssOrTool());
         assertEquals(lista,game.getCurrentPlayer().getTools());
     }
@@ -661,8 +696,11 @@ public class TestGameManager {
         List<Square> lista = new ArrayList<>();
         game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
         game.getCurrentPlayer().setPos(11);
-        assertEquals("FileNotFound",game.reactToAbyssOrTool());
+        assertEquals("Algo não está certo.. FileNotFoundException!! Im sorry, vais ter de recuar 3 casas amigo",game.reactToAbyssOrTool());
         assertEquals(8,game.getCurrentPlayer().getPos());
         game.moveCurrentPlayer(6);
         assertEquals("""
@@ -716,6 +754,52 @@ public class TestGameManager {
         game.nextNode();
         game.nextNode();
         assertFalse(game.moveCurrentPlayer(2));
+    }
+
+    @Test
+    public void test01LoopTool(){
+        List<Square> lista = new ArrayList<>();
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        assertEquals( """
+                Wow que sorte, és o rei!! Apanhaste a ferramenta Programação Funcional!
+
+                 *Programação Funcional was added to your inventory*""",game.reactToAbyssOrTool());
+        lista.add(game.boardMap.get(2));
+        lista.add(game.boardMap.get(3));
+        assertEquals(lista,game.getCurrentPlayer().getTools());
+        game.nextNode();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.getCurrentPlayer().setPos(15);
+        game.moveCurrentPlayer(1);
+        assertEquals("Tás safo my friend",game.reactToAbyssOrTool());
+        lista.remove(game.boardMap.get(3));
+        assertEquals(lista,game.getCurrentPlayer().getTools());
+        game.nextNode();
+        game.nextNode();
+        assertTrue(game.moveCurrentPlayer(2));
+    }
+    @Test
+    public void test02Loop(){
+        game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        game.moveCurrentPlayer(2);
+        game.getCurrentPlayer().setPos(15);
+        game.moveCurrentPlayer(1);
+        assertEquals("Estás num loop infinito.. what the hell were you doing",game.reactToAbyssOrTool());
+        game.moveCurrentPlayer(2);
+        game.getCurrentPlayer().setPos(15);
+        game.moveCurrentPlayer(1);
+        assertEquals("Estás num loop infinito.. what the hell were you doing",game.reactToAbyssOrTool());
+        game.nextNode();
+        assertTrue(game.moveCurrentPlayer(2));
+        game.nextNode();
+        assertFalse(game.moveCurrentPlayer(2));
+
     }
 
 
