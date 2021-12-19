@@ -3,3 +3,4 @@ Projecto Lp2
 
 ![](diagrama.png?raw=true "Diagrama UML")
 
+URL do video: https://youtu.be/MrCEBjtrSlI
