@@ -149,7 +149,7 @@ public class GameManager {
         return true;
     }
 
-    public boolean loadGame(File file) throws IOException{
+    public boolean loadGame(File file) {
 
         Scanner sc = null;
         try {
