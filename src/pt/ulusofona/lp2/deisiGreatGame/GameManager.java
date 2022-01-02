@@ -115,14 +115,10 @@ public class GameManager {
 
     }
 
-    public boolean saveGame(File file){
+    public boolean saveGame(File file) throws IOException {
         FileWriter fw = null;
-        try {
-            if(!file.canWrite()){
-                return false;
-            }
-            fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
+        fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
             bw.write(""+programmers.size() + "\n");
             bw.write(""+(boardTool.size() + boardAbyss.size()) + "\n");
             bw.write("Player: " + head.getProgrammer().toStringToFile() +"\n");
@@ -142,20 +138,14 @@ public class GameManager {
             bw.write("BoardSize: "+boardMap.size() + "\n");
             bw.write("Turnos: "+nrTurnos);
             bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         return true;
     }
 
-    public boolean loadGame(File file) {
+    public boolean loadGame(File file) throws FileNotFoundException {
 
-        Scanner sc = null;
-        try {
-            if(!file.canRead()){
-                return false;
-            }
+            Scanner sc = null;
             sc = new Scanner(file);
             int boardSize = 0;
             int jogadores = Integer.parseInt(sc.nextLine());
@@ -270,10 +260,6 @@ public class GameManager {
             for(Programmer programmer : programmers){
                 boardMap.get(programmer.getPos()).addProgrammer(programmer);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
 
         return true;
     }
