@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.deisiGreatGame;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
@@ -117,37 +118,38 @@ public class GameManager {
     }
 
     public boolean saveGame(File file) {
-        StringBuilder result = new StringBuilder();
-        FileWriter fw = null;
-        BufferedWriter bw = null;
         try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            StringBuilder result = new StringBuilder();
+            FileWriter fw = null;
+            BufferedWriter bw = null;
             fw = new FileWriter(file);
             bw = new BufferedWriter(fw);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        result.append(programmers.size()).append("\n");
-        result.append(boardTool.size() + boardAbyss.size()).append("\n");
-        result.append("Player: ").append(head.getProgrammer().toStringToFile()).append("\n");
-        if (head.next != tail) {
-            result.append("Player: ").append(head.next.getProgrammer().toStringToFile()).append("\n");
-        }
-        if (head.next.next != tail) {
-            result.append("Player: ").append(head.next.next.getProgrammer().toStringToFile()).append("\n");
-        }
-        result.append("Player: ").append(tail.getProgrammer().toStringToFile()).append("\n");
-        for (Tool tool : boardTool) {
-            result.append("Tool: ").append(tool.getId()).append(",").append(tool.getPos()).append("\n");
-        }
-        for (Abyss abyss : boardAbyss) {
-            result.append("Abyss: ").append(abyss.getId()).append(",").append(abyss.getPos()).append("\n");
-        }
-        result.append("BoardSize: ").append(boardMap.size()).append("\n");
-        result.append("Turnos: ").append(nrTurnos);
-        try {
+
+            result.append(programmers.size()).append("\n");
+            result.append(boardTool.size() + boardAbyss.size()).append("\n");
+            result.append("Player: ").append(head.getProgrammer().toStringToFile()).append("\n");
+            if (head.next != tail) {
+                result.append("Player: ").append(head.next.getProgrammer().toStringToFile()).append("\n");
+            }
+            if (head.next.next != tail) {
+                result.append("Player: ").append(head.next.next.getProgrammer().toStringToFile()).append("\n");
+            }
+            result.append("Player: ").append(tail.getProgrammer().toStringToFile()).append("\n");
+            for (Tool tool : boardTool) {
+                result.append("Tool: ").append(tool.getId()).append(",").append(tool.getPos()).append("\n");
+            }
+            for (Abyss abyss : boardAbyss) {
+                result.append("Abyss: ").append(abyss.getId()).append(",").append(abyss.getPos()).append("\n");
+            }
+            result.append("BoardSize: ").append(boardMap.size()).append("\n");
+            result.append("Turnos: ").append(nrTurnos);
+
             bw.write(result.toString());
             bw.close();
-        } catch (IOException e) {
+        }catch(Exception e){
             e.printStackTrace();
         }
 
