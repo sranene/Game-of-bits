@@ -317,39 +317,39 @@ public class GameManager {
 
 
         if (jogadores <= 1 || jogadores > 4) {
-            throw new InvalidInitialBoardException("Numero Jogadores invalidos");
+            throw new InvalidInitialBoardException("Numero Jogadores invalidos", -1, false);
         }
 
         if (jogadores * 2 > boardSize) {
-            throw new InvalidInitialBoardException("BoardSize insuficiente");
+            throw new InvalidInitialBoardException("BoardSize insuficiente", -1 ,false);
         }
 
         for (int x = 0; x < jogadores; x++) {
 
             if (playerInfo[x][1].equals("") || playerInfo[x][1] == null || playerInfo[x][1].equals(" ")) {
-                throw new InvalidInitialBoardException("Nome Invalido");
+                throw new InvalidInitialBoardException("Nome Invalido", -1 ,false);
             }
 
             if (!((playerInfo[x][3].equals(ProgrammerColor.GREEN.toString())) ||
                     (playerInfo[x][3].equals(ProgrammerColor.BROWN.toString()))
                     || (playerInfo[x][3].equals(ProgrammerColor.PURPLE.toString())) ||
                     (playerInfo[x][3].equals(ProgrammerColor.BLUE.toString())))) {
-                throw new InvalidInitialBoardException("Cor Invalida");
+                throw new InvalidInitialBoardException("Cor Invalida", -1 ,false);
             }
 
             if (Integer.parseInt(playerInfo[x][0]) < 0 || playerInfo[x][0] == null || playerInfo[x][0].equals("") || playerInfo[x][0].isEmpty()) {
-                throw new InvalidInitialBoardException("ID Invalido");
+                throw new InvalidInitialBoardException("ID Invalido", -1 ,false);
             }
 
             if (playerInfo[x][2].equals("") || playerInfo[x][2] == null || playerInfo[x][2].equals(" ")) {
-                throw new InvalidInitialBoardException("Linguagens Invalidas");
+                throw new InvalidInitialBoardException("Linguagens Invalidas", -1 ,false);
             }
 
             for (int y = x + 1; y < jogadores; y++) {
                 if (playerInfo[x][0].equals(playerInfo[y][0])) {
-                    throw new InvalidInitialBoardException("ID repetido");
+                    throw new InvalidInitialBoardException("ID repetido", -1 ,false);
                 } else if (playerInfo[x][3].equals(playerInfo[y][3])) {
-                    throw new InvalidInitialBoardException("Cor repetida");
+                    throw new InvalidInitialBoardException("Cor repetida", -1 ,false);
                 }
             }
         }
@@ -403,10 +403,10 @@ public class GameManager {
                             boardMap.put(checkPos, abyss);
                             boardAbyss.add(abyss);
                         } else {
-                            throw new InvalidInitialBoardException("Abyss Invalido");
+                            throw new InvalidInitialBoardException("Abyss Invalido", checkID, false);
                         }
                     } else {
-                        throw new InvalidInitialBoardException("Posição Invalida");
+                        throw new InvalidInitialBoardException("Posição Invalida", checkID, false);
                     }
                 } else if (abyssesAndTool[0].equals("1")) {
                     if (checkPos > 0 && checkPos <= boardSize) {
@@ -415,13 +415,13 @@ public class GameManager {
                             boardMap.put(checkPos, tool);
                             boardTool.add(tool);
                         } else {
-                            throw new InvalidInitialBoardException("Tool Invalida");
+                            throw new InvalidInitialBoardException("Tool Invalida", checkID, true);
                         }
                     } else {
-                        throw new InvalidInitialBoardException("Posição Invalida");
+                        throw new InvalidInitialBoardException("Posição Invalida", checkID, true);
                     }
                 } else {
-                    throw new InvalidInitialBoardException("Não é tool nem abismo");
+                    throw new InvalidInitialBoardException("Não é tool nem abismo", -1 ,false);
                 }
             }
         }

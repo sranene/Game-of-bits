@@ -1,10 +1,14 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
 public class InvalidInitialBoardException extends Exception{
-    String message;
+    private String message;
+    private int id;
+    private boolean isTool;
 
-    InvalidInitialBoardException(String message){
+    InvalidInitialBoardException(String message, int id, boolean isTool){
         this.message = message;
+        this.id = id;
+        this.isTool = isTool;
     }
 
     public String getMessage() {
@@ -12,14 +16,14 @@ public class InvalidInitialBoardException extends Exception{
     }
 
     public boolean isInvalidAbyss(){
-        return false;
+        return !isTool;
     }
 
     public boolean isInvalidTool(){
-        return false;
+        return isTool;
     }
 
     public int getTypeId(){
-        return 0;
+        return id;
     }
 }
