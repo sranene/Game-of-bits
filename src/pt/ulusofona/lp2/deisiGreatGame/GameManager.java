@@ -115,7 +115,7 @@ public class GameManager {
 
     }
 
-    public boolean saveGame(File file) throws IOException {
+    public boolean saveGame(File file){
         FileWriter fw = null;
         try {
             if(!file.canWrite()){
