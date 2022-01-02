@@ -147,8 +147,118 @@ public class GameManager {
         return true;
     }
 
-    public boolean loadGame(File file){
-        return false;
+    public boolean loadGame(File file) throws FileNotFoundException, InvalidInitialBoardException {
+        Scanner sc = new Scanner(file);
+        int boardSize = 0;
+        int jogadores = Integer.parseInt(sc.nextLine());
+        int abyssesAndToolsLenth = Integer.parseInt(sc.nextLine());
+        int turnos = 0;
+        List<Programmer> players = new ArrayList<>();
+        String[][] playerInfo = new String[jogadores][4];
+        String[][] abyssesAndTools = new String[abyssesAndToolsLenth][3];
+        TreeSet<String> languages;
+
+        boolean loop;
+        boolean status;
+
+        int x = 0;
+        int y = 0;
+        while (sc.hasNext()) {
+            String line = sc.nextLine();
+            List<Tool> tools = new ArrayList<>();
+            if (line.startsWith("Player: ")) {
+
+                line = line.replace("Player: ", "");
+                String[] playerData = line.split("/");
+
+                playerInfo[x][0] = playerData[0];
+                playerInfo[x][1] = playerData[1];
+                playerInfo[x][2] = playerData[6];
+                playerInfo[x][3] = playerData[2];
+
+                if (!playerData[7].equals("No tools")) {
+
+                    String[] toolsString = playerData[7].split(";");
+                    for (String toolCheck : toolsString) {
+                        Tool tool = checkTool(-1, -1, toolCheck);
+                        tools.add(tool);
+                    }
+                }
+                switch (playerData[2]) {
+                    case "Green" -> color = ProgrammerColor.GREEN;
+                    case "Blue" -> color = ProgrammerColor.BLUE;
+                    case "Brown" -> color = ProgrammerColor.BROWN;
+                    case "Purple" -> color = ProgrammerColor.PURPLE;
+                }
+                loop = !playerData[8].equals("No Loop");
+                status = !playerData[9].equals("Em Jogo");
+                String[] language = playerData[6].split(";");
+                languages = new TreeSet<>(Arrays.asList(language));
+                Programmer player = new Programmer(Integer.parseInt(playerData[0]),playerData[1],color,
+                        Integer.parseInt(playerData[3]),Integer.parseInt(playerData[4]),
+                        Integer.parseInt(playerData[5]),languages,tools,loop,status);
+                players.add(player);
+
+                x++;
+
+            } else if (line.startsWith("Tool: ")) {
+                line = line.replace("Tool: ","");
+                String[] toolData = line.split(",");
+                abyssesAndTools[y][0] = "1";
+                abyssesAndTools[y][1] = toolData[0];
+                abyssesAndTools[y][2] = toolData[1];
+                y++;
+
+            }else if(line.startsWith("Abyss: ")){
+                line = line.replace("Abyss: ","");
+                String[] abyssData = line.split(",");
+                abyssesAndTools[y][0] = "0";
+                abyssesAndTools[y][1] = abyssData[0];
+                abyssesAndTools[y][2] = abyssData[1];
+                y++;
+
+            } else if (line.startsWith("BoardSize: ")) {
+                line = line.replace("BoardSize: ","");
+                boardSize = Integer.parseInt(line);
+            }else if (line.startsWith("Turnos: ")) {
+                line = line.replace("Turnos: ","");
+                turnos = Integer.parseInt(line);
+            }
+
+        }
+        createInitialBoard(playerInfo,boardSize,abyssesAndTools);
+        boardMap.get(1).getProgrammers().clear();
+        if (head != null) {
+            if (head.next.next != null && head.next.next != tail) {
+                head.next.next = null;
+            }
+            if (head.next != tail) {
+                head.next = null;
+            }
+            head = null;
+            tail = null;
+        }
+        for (Programmer player : players) {
+            Node newNode = new Node(player);
+            if (head == null) {
+                head = newNode;
+            } else {
+                tail.next = newNode;
+            }
+            tail = newNode;
+            tail.next = head;
+        }
+        players.sort(Comparator.comparing(Programmer::getId));
+        for(int i = 0;i<programmers.size();i++){
+            programmers.set(i, players.get(i));
+        }
+        nrTurnos = turnos;
+        for(Programmer programmer : programmers){
+            boardMap.get(programmer.getPos()).addProgrammer(programmer);
+        }
+
+
+        return true;
     }
 
     public void createInitialBoard(String[][] playerInfo, int boardSize) throws InvalidInitialBoardException{
@@ -273,8 +383,10 @@ public class GameManager {
                     }
                 } else if (abyssesAndTool[0].equals("1")) {
                     if (checkPos > 0 && checkPos <= boardSize) {
-                        if(checkTool(checkID,checkPos)!= null) {
-                            boardMap.put(checkPos, checkTool(checkID, checkPos));
+                        if(checkTool(checkID,checkPos, "")!= null) {
+                            Tool tool = checkTool(checkID,checkPos,"");
+                            boardMap.put(checkPos, tool);
+                            boardTool.add(tool);
                         } else {
                             throw new InvalidInitialBoardException("Tool Invalida");
                         }
