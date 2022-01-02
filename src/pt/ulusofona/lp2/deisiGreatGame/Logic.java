@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public class Logic extends Abyss{
 
-    public Logic(int id, int pos) {
-        super(id, pos);
+    public Logic(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

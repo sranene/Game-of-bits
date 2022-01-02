@@ -1,7 +1,7 @@
 package pt.ulusofona.lp2.deisiGreatGame;
 
 import java.awt.*;
-import java.io.File;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
@@ -12,7 +12,9 @@ public class GameManager {
     Programmer currentPlayer;
     TreeMap<Integer, Square> boardMap = new TreeMap<>();
     private final List<Programmer> programmers = new ArrayList<>();
-    private ProgrammerColor color;
+    List<Tool> boardTool = new ArrayList<>();
+    List<Abyss> boardAbyss = new ArrayList<>();
+    ProgrammerColor color;
     private Node head = null;
     private Node tail = null;
     private int nrTurnos = 1;
@@ -24,34 +26,34 @@ public class GameManager {
     public Abyss checkAbyss(int id, int pos) {
         switch (id) {
             case 0 -> {
-                return new Syntax(id, pos);
+                return new Syntax(0,id, pos);
             }
             case 1 -> {
-                return new Logic(id, pos);
+                return new Logic(0,id, pos);
             }
             case 2 -> {
-                return new ExceptionAbyss(id, pos);
+                return new ExceptionAbyss(0,id, pos);
             }
             case 3 -> {
-                return new FileNotFound(id, pos);
+                return new FileNotFound(0,id, pos);
             }
             case 4 -> {
-                return new Crash(id, pos);
+                return new Crash(0,id, pos);
             }
             case 5 -> {
-                return new DuplicatedCode(id, pos);
+                return new DuplicatedCode(0,id, pos);
             }
             case 6 -> {
-                return new SideEffects(id, pos);
+                return new SideEffects(0,id, pos);
             }
             case 7 -> {
-                return new BlueScreen(id, pos);
+                return new BlueScreen(0,id, pos);
             }
             case 8 -> {
-                return new Loop(id, pos);
+                return new Loop(0,id, pos);
             }
             case 9 -> {
-                return new SegmentationFault(id, pos);
+                return new SegmentationFault(0,id, pos);
             }
             default ->  {
                 return null;
@@ -60,40 +62,89 @@ public class GameManager {
 
     }
 
-    public Tool checkTool(int id, int pos) {
-        switch (id) {
-            case 0 -> {
-                return new Inheritance(id, pos);
+    public Tool checkTool(int id, int pos, String title) {
+        if (title.equals("")) {
+            switch (id) {
+                case 0 -> {
+                    return new Inheritance(1, id, pos);
+                }
+                case 1 -> {
+                    return new Functional(1, id, pos);
+                }
+                case 2 -> {
+                    return new UnitTests(1, id, pos);
+                }
+                case 3 -> {
+                    return new Catch(1, id, pos);
+                }
+                case 4 -> {
+                    return new Ide(1, id, pos);
+                }
+                case 5 -> {
+                    return new TeachersHelp(1, id, pos);
+                }
+                default -> {
+                    return null;
+                }
             }
-            case 1 -> {
-                return new Functional(id, pos);
-            }
-            case 2 -> {
-                return new UnitTests(id, pos);
-            }
-            case 3 -> {
-                return new Catch(id, pos);
-            }
-            case 4 -> {
-                return new Ide(id, pos);
-            }
-            case 5 -> {
-                return new TeachersHelp(id, pos);
-            }
-            default -> {
-                return null;
+        } else {
+            switch (title) {
+                case "Herança" -> {
+                    return new Inheritance(1, 0, pos);
+                }
+                case "Programação Funcional" -> {
+                    return new Functional(1, 1, pos);
+                }
+                case "Testes unitários" -> {
+                    return new UnitTests(1, 2, pos);
+                }
+                case "Tratamento de Excepções" -> {
+                    return new Catch(1, 3, pos);
+                }
+                case "IDE" -> {
+                    return new Ide(1, 4, pos);
+                }
+                case "Ajuda Do Professor" -> {
+                    return new TeachersHelp(1, 5, pos);
+                }
+                default -> {
+                    return null;
+                }
             }
         }
 
     }
 
-    public boolean saveGame(File file){
-
-        if(file.canWrite()){
-            File sla = new File("macaco");
-
+    public boolean saveGame(File file) throws IOException {
+        if (!file.exists()) {
+            if(!file.createNewFile()){
+                return false;
+            }
         }
-        return false;
+
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(""+programmers.size() + "\n");
+        bw.write(""+(boardTool.size() + boardAbyss.size()) + "\n");
+        bw.write("Player: " + head.getProgrammer().toStringToFile() +"\n");
+        if(head.next != tail){
+            bw.write("Player: " + head.next.getProgrammer().toStringToFile() +"\n");
+        }
+        if(head.next.next != tail){
+            bw.write("Player: " +head.next.next.getProgrammer().toStringToFile() +"\n");
+        }
+        bw.write("Player: "+tail.getProgrammer().toStringToFile() +"\n");
+        for(Tool tool : boardTool ){
+            bw.write("Tool: " + tool.getId() + "," +tool.getPos()+ "\n");
+        }
+        for(Abyss abyss : boardAbyss){
+            bw.write("Abyss: "+abyss.getId() +","+abyss.getPos() + "\n");
+        }
+        bw.write("BoardSize: "+boardMap.size() + "\n");
+        bw.write("Turnos: "+nrTurnos);
+        bw.close();
+
+        return true;
     }
 
     public boolean loadGame(File file){
@@ -108,7 +159,10 @@ public class GameManager {
     public void createInitialBoard(String[][] playerInfo, int boardSize, String[][] abyssesAndTools) throws InvalidInitialBoardException {
         String[] languages;
         boardMap.clear();
+        boardTool.clear();
+        boardAbyss.clear();
         currentPlayer = null;
+        ProgrammerColor color = ProgrammerColor.PURPLE;
         programmers.clear();
         if (head != null) {
             if (head.next.next != null && head.next.next != tail) {
@@ -208,7 +262,9 @@ public class GameManager {
                 if (abyssesAndTool[0].equals("0")) {
                     if (checkPos > 0 && checkPos <= boardSize) {
                         if(checkAbyss(checkID,checkPos) != null) {
-                            boardMap.put(checkPos, checkAbyss(checkID, checkPos));
+                            Abyss abyss = checkAbyss(checkID,checkPos);
+                            boardMap.put(checkPos, abyss);
+                            boardAbyss.add(abyss);
                         } else {
                             throw new InvalidInitialBoardException("Abyss Invalido");
                         }

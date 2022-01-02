@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public abstract class Tool extends Square{
 
-    Tool(int id, int pos) {
-        super(id, pos);
+    Tool(int abyssOrTool,int id, int pos) {
+        super(abyssOrTool,id, pos);
         switch (id) {
             case 0 -> title = "Herança";
             case 1 -> title = "Programação Funcional";

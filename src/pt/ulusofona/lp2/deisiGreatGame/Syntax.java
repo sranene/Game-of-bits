@@ -4,8 +4,8 @@ package pt.ulusofona.lp2.deisiGreatGame;
 
 public class Syntax extends Abyss{
 
-    public Syntax(int id, int pos) {
-        super(id, pos);
+    public Syntax(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

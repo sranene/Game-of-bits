@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public class Inheritance extends Tool {
 
-    Inheritance(int id, int pos) {
-        super(id, pos);
+    Inheritance(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

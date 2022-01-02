@@ -1,9 +1,13 @@
-/*package pt.ulusofona.lp2.deisiGreatGame;
+package pt.ulusofona.lp2.deisiGreatGame;
 
 import org.junit.Test;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -61,8 +65,34 @@ public class TestGameManager {
     Programmer robroche = new Programmer("robroche", 31, tree2, ProgrammerColor.BLUE);
     Programmer alberto = new Programmer("Alberto", 16, tree3, ProgrammerColor.BROWN);
 
-
     @Test
+    public void test01LoadGame() throws InvalidInitialBoardException {
+        try {
+            game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("ola.txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        file.setWritable(true);
+        try {
+            game.saveGame(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            game.loadGame(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+  /*  @Test
     public void test01CreateInitialBoard() {
         int boardSize = 28;
         boolean resultado = game.createInitialBoard(playerInfo, boardSize);
@@ -206,10 +236,10 @@ public class TestGameManager {
                 {"0","9","5"}
         };
         assertTrue(game.createInitialBoard(playerInfo,20,abyssesAndTools11));
-    }
+    }*/
 
     @Test
-    public void test01getProgrammers() {
+    public void test01getProgrammers() throws InvalidInitialBoardException {
 
         int boardSize = 30;
         game.createInitialBoard(playerInfo, boardSize);
@@ -237,7 +267,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void test01getProgrammersPos() {
+    public void test01getProgrammersPos() throws InvalidInitialBoardException {
 
         String[][] teste = {};
         int boardSize = 30;
@@ -266,7 +296,7 @@ public class TestGameManager {
 
     }
 
-
+/*
     @Test
     public void test01moveCurrentPlayer() {
         int boardSize = 30;
@@ -1000,6 +1030,6 @@ public class TestGameManager {
     public void test01Main(){
         String[] teste = new String[1];
         Main.main(teste);
-    }
+    }*/
 
-}*/
+}

@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class Functional extends Tool {
 
-    Functional(int id, int pos) {
-        super(id, pos);
+
+    Functional(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

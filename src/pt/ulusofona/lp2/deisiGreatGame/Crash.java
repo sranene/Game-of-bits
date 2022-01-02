@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class Crash extends Abyss{
 
-    public Crash(int id, int pos) {
-        super(id, pos);
+
+    public Crash(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

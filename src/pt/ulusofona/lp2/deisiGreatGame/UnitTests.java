@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public class UnitTests extends Tool{
 
-    UnitTests(int id, int pos) {
-        super(id, pos);
+    UnitTests(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

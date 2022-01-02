@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class Ide extends Tool {
 
-    Ide(int id, int pos) {
-        super(id, pos);
+
+    Ide(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

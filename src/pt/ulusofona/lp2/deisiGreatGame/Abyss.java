@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public abstract class Abyss extends Square {
 
-    public Abyss(int id, int pos) {
-        super(id, pos);
+    public Abyss(int abyssOrTool,int id, int pos) {
+        super(abyssOrTool,id, pos);
         switch (id) {
             case 0 -> title = "Erro de sintaxe";
             case 1 -> title = "Erro de lógica";

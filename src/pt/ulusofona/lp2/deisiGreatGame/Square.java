@@ -7,11 +7,13 @@ import java.util.TreeMap;
 
 public abstract class Square {
     protected List<Programmer> programmers = new ArrayList<>();
+    protected final int abyssOrTool;
     protected final int id;
     protected String title;
     protected int pos;
 
-    public Square(int id,int pos){
+    public Square(int abyssOrTool,int id,int pos){
+        this.abyssOrTool = abyssOrTool;
         this.id = id;
         this.pos = pos;
     }
@@ -20,6 +22,7 @@ public abstract class Square {
         this.id = -1;
         this.title = null;
         this.pos = pos;
+        abyssOrTool = -1;
     }
 
     public abstract String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap);
@@ -36,6 +39,7 @@ public abstract class Square {
         programmers.add(programmer);
         programmers.sort(Comparator.comparing(Programmer::getName));
     }
+
     public void removeProgrammer(Programmer programmer){
         programmers.remove(programmer);
     }
@@ -44,9 +48,12 @@ public abstract class Square {
         return programmers;
     }
 
-
     public String getTitle(){
         return title;
+    }
+
+    public String toString(){
+        return abyssOrTool + "," + id + "," + pos;
     }
 
 }

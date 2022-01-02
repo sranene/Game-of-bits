@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class FileNotFound extends Abyss{
 
-    public FileNotFound(int id, int pos) {
-        super(id, pos);
+
+    public FileNotFound(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class DuplicatedCode extends Abyss {
 
-    public DuplicatedCode(int id, int pos) {
-        super(id, pos);
+
+    public DuplicatedCode(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

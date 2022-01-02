@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public class Loop extends Abyss{
 
-    public Loop(int id, int pos) {
-        super(id, pos);
+    public Loop(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

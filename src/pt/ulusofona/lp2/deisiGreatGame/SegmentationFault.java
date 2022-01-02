@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public class SegmentationFault extends Abyss{
 
-    public SegmentationFault(int id, int pos) {
-        super(id, pos);
+    public SegmentationFault(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

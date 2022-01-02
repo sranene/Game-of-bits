@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class ExceptionAbyss extends Abyss{
 
-    public ExceptionAbyss(int id, int pos) {
-        super(id, pos);
+
+    public ExceptionAbyss(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public class TeachersHelp extends Tool {
 
-    TeachersHelp(int id, int pos) {
-        super(id, pos);
+    TeachersHelp(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

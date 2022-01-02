@@ -4,8 +4,8 @@ import java.util.TreeMap;
 
 public class SideEffects extends Abyss{
 
-    public SideEffects(int id, int pos) {
-        super(id, pos);
+    public SideEffects(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

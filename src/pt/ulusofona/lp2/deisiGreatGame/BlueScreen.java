@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class BlueScreen extends Abyss{
 
-    public BlueScreen(int id, int pos) {
-        super(id, pos);
+
+    public BlueScreen(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override

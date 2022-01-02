@@ -9,4 +9,9 @@
             this.next = null;
         }
 
+        public Programmer getProgrammer(){
+            return programmer;
+        }
+
+
     }

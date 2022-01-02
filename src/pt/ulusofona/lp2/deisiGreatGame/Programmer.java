@@ -20,7 +20,18 @@ public class Programmer {
         this.id = id;
         this.color = color;
     }
-
+    Programmer(int id,String name,ProgrammerColor color,int pos,int posAnterior,int posAnteriorAnterior,TreeSet<String> languages,List<Tool> tools,boolean loop,boolean defeated){
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.pos = pos;
+        this.posAnterior = posAnterior;
+        this.posAnteriorAnterior = posAnteriorAnterior;
+        this.languages = languages;
+        this.tools = tools;
+        this.loop = loop;
+        this.defeated = defeated;
+    }
 
     public int getId() {
         return id;
@@ -109,6 +120,12 @@ public class Programmer {
         loop = looped;
     }
 
+    public void removeTool(Tool tool) {
+        if(tools.contains(tool)) {
+            this.tools.remove(tool);
+        }
+    }
+
     public String toString() {
         StringBuilder languages = new StringBuilder();
         StringBuilder tools = new StringBuilder();
@@ -148,9 +165,49 @@ public class Programmer {
     }
 
 
-    public void removeTool(Tool tool) {
-        if(tools.contains(tool)) {
-            this.tools.remove(tool);
+    public String toStringToFile(){
+
+        StringBuilder result = new StringBuilder();
+        result.append(id).append("/");
+        result.append(name).append("/");
+        result.append(color.toString()).append("/");
+        result.append(pos).append("/");
+        result.append(posAnterior).append("/");
+        result.append(posAnteriorAnterior).append("/");
+        int aux = 0;
+        for (String language : this.languages) {
+            if (this.languages.size() - 1 == aux) {
+                result.append(language).append("/");
+                break;
+            }
+            aux++;
+            result.append(language).append(";");
         }
+        if (this.tools.isEmpty()) {
+            result.append("No tools").append("/");
+        } else {
+            int i = 1;
+            for(Tool tool : this.tools) {
+                if (i == this.tools.size()) {
+                    result.append(tool.getTitle()).append("/");
+                } else {
+                    result.append(tool.getTitle()).append(";");
+                }
+                i++;
+            }
+        }
+        if(loop){
+            result.append("Loop").append("/");
+        }else{
+            result.append("No Loop").append("/");
+        }
+        if(defeated){
+            result.append("Derrotado");
+        }else{
+            result.append("Em Jogo");
+        }
+
+        return result.toString();
     }
+
 }

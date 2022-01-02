@@ -4,8 +4,9 @@ import java.util.TreeMap;
 
 public class Catch extends Tool {
 
-    public Catch(int id, int pos) {
-        super(id, pos);
+
+    Catch(int abyssOrTool, int id, int pos) {
+        super(abyssOrTool, id, pos);
     }
 
     @Override
