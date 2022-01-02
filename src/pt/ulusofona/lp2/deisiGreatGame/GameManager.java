@@ -265,7 +265,6 @@ public class GameManager {
             boardMap.get(programmer.getPos()).addProgrammer(programmer);
         }
 
-
         return true;
     }
 
