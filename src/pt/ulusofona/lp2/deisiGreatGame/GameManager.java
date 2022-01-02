@@ -119,14 +119,12 @@ public class GameManager {
     public boolean saveGame(File file) {
         StringBuilder result = new StringBuilder();
         FileWriter fw = null;
+        BufferedWriter bw = null;
         try {
             fw = new FileWriter(file);
+            bw = new BufferedWriter(fw);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        BufferedWriter bw = null;
-        if (fw != null) {
-            bw = new BufferedWriter(fw);
         }
         result.append(programmers.size()).append("\n");
         result.append(boardTool.size() + boardAbyss.size()).append("\n");
@@ -147,12 +145,8 @@ public class GameManager {
         result.append("BoardSize: ").append(boardMap.size()).append("\n");
         result.append("Turnos: ").append(nrTurnos);
         try {
-            if (bw != null) {
-                bw.write(result.toString());
-            }
-            if (bw != null) {
-                bw.close();
-            }
+            bw.write(result.toString());
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
