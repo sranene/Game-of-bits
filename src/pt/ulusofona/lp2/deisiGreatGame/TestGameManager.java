@@ -79,16 +79,11 @@ public class TestGameManager {
             e.printStackTrace();
         }
         file.setWritable(true);
-        try {
-            game.saveGame(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            game.loadGame(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        game.saveGame(file);
+
+        game.loadGame(file);
+
     }
 
 
