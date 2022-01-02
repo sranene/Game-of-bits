@@ -148,7 +148,7 @@ public class GameManager {
         return true;
     }
 
-    public boolean loadGame(File file) throws FileNotFoundException, InvalidInitialBoardException {
+    public boolean loadGame(File file) throws InvalidInitialBoardException, IOException {
 
         if(!file.canRead()){
             return false;
