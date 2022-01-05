@@ -10,6 +10,7 @@ public class Empty extends Square {
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
+        this.increaseNumSteps();
         return null;
     }
 

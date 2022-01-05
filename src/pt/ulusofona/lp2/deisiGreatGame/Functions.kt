@@ -70,11 +70,15 @@ fun getPolyglots(game: GameManager,args : List<String>) : String?{
     return result
 }
 
-fun mostUsedAbysses(game: GameManager,args : List<String>) : String?{
-    return null
+fun mostUsedPositions(game: GameManager,args : List<String>) : String?{
+    var result = "";
+    game.getBoardMap().sortedBy { it.getNumSteps() }.reversed().take(args[1].toInt()).forEach {
+        result += "\n" + it.getPos().toString() + ":" + it.getNumSteps().toString() }
+    result = result.replaceFirstChar { "" }
+    return result
 }
 
-fun mostUsedPositions(game: GameManager,args : List<String>) : String?{
+fun mostUsedAbysses(game: GameManager,args : List<String>) : String?{
     return null
 }
 

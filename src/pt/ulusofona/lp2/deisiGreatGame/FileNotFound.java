@@ -11,6 +11,7 @@ public class FileNotFound extends Abyss{
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
+        this.increaseNumSteps();
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Tratamento de Excepções") || tool.getTitle().equals("Ajuda Do Professor")) {
                 programmer.removeTool(tool);

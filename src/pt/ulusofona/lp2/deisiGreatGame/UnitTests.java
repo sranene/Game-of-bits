@@ -10,6 +10,7 @@ public class UnitTests extends Tool{
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
+        this.increaseNumSteps();
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Testes unitários")) {
                 return "Não podes apanhar a ferramenta Testes unitários, porque já a tens, move along";

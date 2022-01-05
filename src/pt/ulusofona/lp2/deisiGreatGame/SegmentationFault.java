@@ -10,7 +10,7 @@ public class SegmentationFault extends Abyss{
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
-
+        this.increaseNumSteps();
         if (boardMap.get(pos).getProgrammers().size() > 1) {
             int count = 0;
             if (!programmer.getTools().isEmpty()) {

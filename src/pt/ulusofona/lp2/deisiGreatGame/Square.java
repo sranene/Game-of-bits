@@ -11,6 +11,7 @@ public abstract class Square {
     protected final int id;
     protected String title;
     protected int pos;
+    protected int numSteps = 0;
 
     public Square(int abyssOrTool,int id,int pos){
         this.abyssOrTool = abyssOrTool;
@@ -33,6 +34,14 @@ public abstract class Square {
 
     public int getPos(){
         return pos;
+    }
+
+    public int getNumSteps(){
+        return numSteps;
+    }
+
+    public void increaseNumSteps() {
+        numSteps++;
     }
 
     public void addProgrammer(Programmer programmer) {

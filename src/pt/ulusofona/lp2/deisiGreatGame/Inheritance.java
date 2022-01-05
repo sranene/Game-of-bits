@@ -10,6 +10,7 @@ public class Inheritance extends Tool {
 
     @Override
     public String react(Programmer programmer, int dado, TreeMap<Integer,Square> boardMap) {
+        this.increaseNumSteps();
         for (Tool tool : programmer.getTools()) {
             if (tool.getTitle().equals("Herança")) {
                 return "Já tens a ferramenta Herança, excusas de tentar apanhar outra vez," +
