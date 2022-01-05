@@ -53,6 +53,10 @@ public class Programmer {
         return name;
     }
 
+    public String getFirstName(){
+        return name.split(" ")[0];
+    }
+
     public ProgrammerColor getColor() {
         return color;
     }
