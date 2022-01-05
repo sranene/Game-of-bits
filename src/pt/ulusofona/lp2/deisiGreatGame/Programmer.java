@@ -41,6 +41,12 @@ public class Programmer {
         return defeated;
     }
 
+    public List<String> getLanguages() {
+
+        return new ArrayList<>(this.languages);
+
+    }
+
     public void gotDefeated() {
         this.defeated = true;
     }
