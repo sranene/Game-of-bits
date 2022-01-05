@@ -535,6 +535,10 @@ public class GameManager {
         return new ArrayList<>(boardMap.values());
     }
 
+    public List<Square> getBoardAbyss() {
+        return new ArrayList<>(boardAbyss);
+    }
+
     public boolean moveCurrentPlayer(int nrSpaces) {
         if (nrSpaces < 1 || nrSpaces > 6) {
             return false;

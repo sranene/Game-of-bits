@@ -23,8 +23,8 @@ fun commandGet(game: GameManager, args :List<String>) : String? {
         "PLAYER" -> return::getPlayer.invoke(game,args)
         "PLAYERS_BY_LANGUAGE" -> return::getPlayersByLanguage.invoke(game,args)
         "POLYGLOTS" -> return::getPolyglots.invoke(game,args)
-        "MOST_USED_POSITIONS" -> return::mostUsedPositions.invoke(game,args)
-        "MOST_USED_ABYSSES" -> return::mostUsedAbysses.invoke(game,args)
+        "MOST_USED_POSITIONS" -> return::getMostUsedPositions.invoke(game,args)
+        "MOST_USED_ABYSSES" -> return::getMostUsedAbysses.invoke(game,args)
     }
     return null
 }
@@ -39,8 +39,10 @@ fun commandPost(game: GameManager, args : List<String>) : String? {
 
 fun getPlayer(game: GameManager,args : List<String>) : String? {
 
-    return if(game.getProgrammers(true).filter { it.firstName == args[1]}.size == 1){
-        game.getProgrammers(true).filter { it.firstName == args[1]}[0].toString()
+    return if(game.getProgrammers(true)
+            .filter { it.firstName == args[1]}.size == 1){
+        game.getProgrammers(true)
+            .filter { it.firstName == args[1]}[0].toString()
     }else{
         "Inexistent player"
     }
@@ -50,7 +52,7 @@ fun getPlayer(game: GameManager,args : List<String>) : String? {
 fun getPlayersByLanguage(game: GameManager,args: List<String>) : String?{
     var result = ""
     game.getProgrammers(true).filter{ it.languages.contains(args[1])}
-                                         .forEach{ result += "," + it.name }
+                                          .forEach{ result += "," + it.name }
 
     result = result.replaceFirstChar { "" }
     return result
@@ -61,7 +63,7 @@ fun getPolyglots(game: GameManager,args : List<String>) : String?{
     var result = "";
 
     game.getProgrammers(true).filter{it.languages.size > 1}
-                                         .forEach{lista.add(it)}
+                                          .forEach{lista.add(it)}
 
     lista.sortedWith{s1,s2 -> s1.languages.size - s2.languages.size}
          .forEach { result += "\n" + it.name + ":" + it.languages.size }
@@ -70,16 +72,25 @@ fun getPolyglots(game: GameManager,args : List<String>) : String?{
     return result
 }
 
-fun mostUsedPositions(game: GameManager,args : List<String>) : String?{
+fun getMostUsedPositions(game: GameManager,args : List<String>) : String?{
     var result = "";
-    game.getBoardMap().sortedBy { it.getNumSteps() }.reversed().take(args[1].toInt()).forEach {
-        result += "\n" + it.getPos().toString() + ":" + it.getNumSteps().toString() }
+    game.getBoardMap().sortedBy { it.getNumSteps() }
+        .reversed()
+        .take(args[1].toInt())
+        .forEach { result += "\n" + it.getPos().toString() + ":" + it.getNumSteps().toString() }
+
     result = result.replaceFirstChar { "" }
     return result
 }
 
-fun mostUsedAbysses(game: GameManager,args : List<String>) : String?{
-    return null
+fun getMostUsedAbysses(game: GameManager,args : List<String>) : String?{
+    var result = "";
+    game.getBoardAbyss()
+        .sortedBy { it.getNumSteps() }
+        .reversed()
+        .distinctBy { it.getTitle() }
+        .forEach { result += "\n" + it.getTitle().toString() + ":" + it.getNumSteps().toString() }
+    return result
 }
 
 fun postMove(game: GameManager,args : List<String>) : String?{
