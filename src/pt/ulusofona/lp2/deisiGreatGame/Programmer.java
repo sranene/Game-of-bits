@@ -3,16 +3,16 @@ package pt.ulusofona.lp2.deisiGreatGame;
 import java.util.*;
 
 public class Programmer {
-    String name;
-    int id;
-    boolean defeated = false;
-    TreeSet<String> languages;
-    List<Tool> tools = new ArrayList<>();
-    ProgrammerColor color;
-    int pos = 1;
-    int posAnterior = 1;
-    int posAnteriorAnterior = 1;
-    boolean loop = false;
+    private final String name;
+    private final int id;
+    private final TreeSet<String> languages;
+    private final ProgrammerColor color;
+    private List<Tool> tools = new ArrayList<>();
+    private int pos = 1;
+    private int posAnterior = 1;
+    private int posAnteriorAnterior = 1;
+    private boolean loop = false;
+    private boolean defeated = false;
 
     Programmer(String name, int id, TreeSet<String> languages, ProgrammerColor color) {
         this.name = name;

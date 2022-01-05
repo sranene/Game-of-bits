@@ -33,15 +33,20 @@ fun getPlayer(game: GameManager,args : List<String>) : String? {
     return if(game.getProgrammers(true).filter { it.firstName == args[1]}.size == 1){
         game.getProgrammers(true).filter { it.firstName == args[1]}[0].toString()
     }else{
-        null
+        "Inexistent player"
     }
 
 }
 
-
-
-
-
+fun getPlayersByLanguage(game: GameManager,args: List<String>) : String?{
+    var result = ""
+    game.getProgrammers(true).forEach { programmer -> if(programmer.languages.filter { it == args[1] }.size == 1){
+        result += "," + programmer.name
+    }
+    }
+    result = result.replaceFirstChar { "" }
+    return result
+}
 
 fun mostUsedAbysses(game: GameManager,args : List<String>) : String?{
     return null
@@ -52,10 +57,6 @@ fun mostUsedPositions(game: GameManager,args : List<String>) : String?{
 }
 
 fun getPolyglots(game: GameManager,args : List<String>) : String?{
-    return null
-}
-
-fun getPlayersByLanguage(game: GameManager,args: List<String>) : String?{
     return null
 }
 
