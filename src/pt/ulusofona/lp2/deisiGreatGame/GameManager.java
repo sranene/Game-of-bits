@@ -535,6 +535,10 @@ public class GameManager {
         return new ArrayList<>(boardMap.values());
     }
 
+    public TreeMap<Integer,Square> getBoardMap(){
+        return boardMap;
+    }
+
     public List<Square> getBoardAbyss() {
         return new ArrayList<>(boardAbyss);
     }

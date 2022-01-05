@@ -101,7 +101,7 @@ fun postMove(game: GameManager,args : List<String>) : String?{
 }
 
 fun postAbyss(game: GameManager,args : List<String>) : String?{
-    return if (game.getBoardMap()[args[2].toInt()].getId() == - 1) {
+    return if (game.getBoardMap()[args[2].toInt()]?.getId() == - 1) {
         val abyss = game.checkAbyss(args[1].toInt(), args[2].toInt())
         game.getBoardMap()[args[2].toInt()] = abyss
         return "OK"
