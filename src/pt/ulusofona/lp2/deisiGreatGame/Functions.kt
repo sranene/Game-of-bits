@@ -48,15 +48,23 @@ fun getPlayersByLanguage(game: GameManager,args: List<String>) : String?{
     return result
 }
 
+fun getPolyglots(game: GameManager,args : List<String>) : String?{
+    val lista = arrayListOf<String>()
+    var result = "";
+    game.getProgrammers(true).forEach { programmer -> programmer.languages.filter {programmer.languages.size > 1}
+        lista.add(programmer.name + ":" + programmer.languages.size + "\n")
+    }
+    lista.reversed().forEach {
+        result += it
+    }
+    return result
+}
+
 fun mostUsedAbysses(game: GameManager,args : List<String>) : String?{
     return null
 }
 
 fun mostUsedPositions(game: GameManager,args : List<String>) : String?{
-    return null
-}
-
-fun getPolyglots(game: GameManager,args : List<String>) : String?{
     return null
 }
 
