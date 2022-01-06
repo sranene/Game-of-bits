@@ -105,6 +105,67 @@ public class TestGameManager {
         }
         game.saveGame(file);
     }
+    @Test
+    public void test03saveGame(){
+        try{
+            game.createInitialBoard(playerInfo2,20,abyssesAndTools2);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("save");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        game.moveCurrentPlayer(6);
+        game.moveCurrentPlayer(6);
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.saveGame(file);
+    }
+    @Test
+    public void test04saveGame(){
+        try{
+            game.createInitialBoard(playerInfo2,20,abyssesAndTools2);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("save");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        game.moveCurrentPlayer(6);
+        game.moveCurrentPlayer(6);
+        game.moveCurrentPlayer(3);
+        game.reactToAbyssOrTool();
+        game.saveGame(file);
+    }
+    @Test
+    public void test05saveGame(){
+        try{
+            game.createInitialBoard(playerInfo2,20,abyssesAndTools2);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("save");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.nextNode();
+        game.moveCurrentPlayer(1);
+        game.reactToAbyssOrTool();
+        game.saveGame(file);
+    }
 
     @Test
     public void test01LoadGame()  {
@@ -124,6 +185,7 @@ public class TestGameManager {
         game.saveGame(file);
 
         game.loadGame(file);
+
 
     }
 
@@ -148,20 +210,13 @@ public class TestGameManager {
             e.printStackTrace();
         }
         File file = new File("ola2");
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        BufferedWriter bw = new BufferedWriter(fw);
         game.moveCurrentPlayer(2);
         game.reactToAbyssOrTool();
         game.moveCurrentPlayer(3);
         game.reactToAbyssOrTool();
         game.saveGame(file);
         game.loadGame(file);
-
+        game.loadGame(new File("ola3"));
     }
 
     @Test
@@ -892,6 +947,7 @@ public class TestGameManager {
     }
     @Test
     public void test01Catch2x(){
+        List<Square> board = game.getBoardMapValues();
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
@@ -1486,6 +1542,7 @@ public class TestGameManager {
         String[] teste = new String[1];
         Main.main(teste);
     }
+
 
 
 

@@ -211,12 +211,9 @@ public class Programmer {
         }else{
             result.append("No Loop").append("/");
         }
-        if(defeated){
-            result.append("Derrotado");
-        }else{
+        if(!defeated){
             result.append("Em Jogo");
         }
-
         return result.toString();
     }
 

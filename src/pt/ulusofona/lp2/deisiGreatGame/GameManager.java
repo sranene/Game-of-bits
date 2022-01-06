@@ -240,6 +240,7 @@ public class GameManager {
             createInitialBoard(playerInfo, boardSize, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
             e.printStackTrace();
+            return false;
         }
         boardMap.get(1).getProgrammers().clear();
         if (head != null) {
