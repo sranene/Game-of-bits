@@ -1,0 +1,24 @@
+3
+17
+Player: 16/Alberto/Brown/1/1/1/Beck/No tools/No Loop/Em Jogo
+Player: 28/sranene/Purple/1/1/1/Java;PHP/No tools/No Loop/Em Jogo
+Player: 31/robroche/Blue/1/1/1/C++;Java;Portugues;Python/No tools/No Loop/Em Jogo
+Tool: 0,2
+Tool: 1,3
+Tool: 2,4
+Tool: 3,5
+Tool: 4,6
+Tool: 5,7
+Abyss: 0,8
+Abyss: 1,9
+Abyss: 2,10
+Abyss: 3,11
+Abyss: 4,12
+Abyss: 5,13
+Abyss: 6,14
+Abyss: 7,15
+Abyss: 8,16
+Abyss: 9,17
+Abyss: 2,18
+BoardSize: 20
+Turnos: 1
