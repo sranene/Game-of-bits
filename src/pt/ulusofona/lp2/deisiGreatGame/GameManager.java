@@ -118,11 +118,6 @@ public class GameManager {
 
     public boolean saveGame(File file) {
         try {
-            if (!file.exists()) {
-                if(!file.createNewFile()){
-                    return false;
-                }
-            }
             StringBuilder result = new StringBuilder();
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -156,20 +151,12 @@ public class GameManager {
     }
 
     public boolean loadGame(File file) {
-        if(!file.canRead()){
-            return false;
-        }
-        if(!file.exists()){
-            return false;
-        }
-        if(!file.isFile()){
-            return false;
-        }
         Scanner sc = null;
         try {
             sc = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
         int boardSize = 0;
         int jogadores = Integer.parseInt(sc.nextLine());
@@ -246,8 +233,6 @@ public class GameManager {
             } else if (line.startsWith("Turnos: ")) {
                 line = line.replace("Turnos: ", "");
                 turnos = Integer.parseInt(line);
-            } else {
-                return false;
             }
 
         }

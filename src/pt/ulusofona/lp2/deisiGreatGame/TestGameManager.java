@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -50,6 +52,12 @@ public class TestGameManager {
             {"31", "robroche", "Java; C++; Python; Portugues", "Blue"},
             {"16", "Alberto", "Beck", "Brown"}
     };
+    String[][] playerInfo2 = {
+            {"28", "sranene", "PHP; Java", "Purple"},
+            {"31", "robroche", "Java; C++; Python; Portugues", "Green"},
+            {"16", "Alberto", "Beck", "Brown"},
+            {"100","Sonecas","BlueEyes,miau","Blue"}
+    };
 
     String[] languages1 = {"PHP", "Java"};
     String[] languages2 = {"Java", "C++", "Python", "Portugues"};
@@ -63,8 +71,43 @@ public class TestGameManager {
     Programmer robroche = new Programmer("robroche", 31, tree2, ProgrammerColor.BLUE);
     Programmer alberto = new Programmer("Alberto", 16, tree3, ProgrammerColor.BROWN);
 
+
     @Test
-    public void test01LoadGame() throws InvalidInitialBoardException {
+    public void test01saveGame(){
+        try{
+            game.createInitialBoard(playerInfo2,20,abyssesAndTools);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("save.txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+    }
+        file.setWritable(true);
+        game.saveGame(file);
+    }
+
+    @Test
+    public void test02saveGame(){
+        try{
+            game.createInitialBoard(playerInfo2,20,abyssesAndTools);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("save.txt");
+        try {
+            file.createNewFile();
+            file.setReadOnly();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        game.saveGame(file);
+    }
+
+    @Test
+    public void test01LoadGame()  {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
@@ -84,13 +127,72 @@ public class TestGameManager {
 
     }
 
+    @Test
+    public void test02LoadGame(){
+        try {
+            game.createInitialBoard(playerInfo,20,abyssesAndTools2);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("ola.txt");
+        file.setReadable(false);
+        file.delete();
+        game.loadGame(file);
+    }
+
+    @Test
+    public void test03LoadGame(){
+        try {
+            game.createInitialBoard(playerInfo2,20,abyssesAndTools2);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("ola2");
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(fw);
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(3);
+        game.reactToAbyssOrTool();
+        game.saveGame(file);
+        game.loadGame(file);
+
+    }
+
+    @Test
+    public void test04LoadGame(){
+        try {
+            game.createInitialBoard(playerInfo2,20,abyssesAndTools2);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+        }
+        File file = new File("ola2");
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(fw);
+        game.moveCurrentPlayer(2);
+        game.reactToAbyssOrTool();
+        game.moveCurrentPlayer(3);
+        game.reactToAbyssOrTool();
+        game.saveGame(file);
+        game.loadGame(file);
+
+    }
 
   @Test
     public void test01CreateInitialBoard() {
       try {
           game.createInitialBoard(playerInfo, 28);
       } catch (InvalidInitialBoardException e) {
-          e.printStackTrace();
           fail("Não devia ter dado InvalidInitialBoardException");
       }
 
@@ -104,14 +206,12 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo, boardSize, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("BoardSize insuficiente", e.getMessage());
         }
         try {
             game.createInitialBoard(teste,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Numero Jogadores invalidos", e.getMessage());
         }
     }
@@ -125,7 +225,6 @@ public class TestGameManager {
             game.createInitialBoard(teste,20);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Numero Jogadores invalidos", e.getMessage());
         }
         String[][] teste0 = {
@@ -136,7 +235,6 @@ public class TestGameManager {
             game.createInitialBoard(teste0,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Linguagens Invalidas", e.getMessage());
         }
         String[][] teste1 = {
@@ -147,7 +245,6 @@ public class TestGameManager {
             game.createInitialBoard(teste1,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Nome Invalido", e.getMessage());
         }
         String[][] teste2 = {
@@ -158,7 +255,6 @@ public class TestGameManager {
             game.createInitialBoard(teste2,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Nome Invalido", e.getMessage());
         }
         String[][] teste3 = {
@@ -169,7 +265,6 @@ public class TestGameManager {
             game.createInitialBoard(teste3,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Cor Invalida", e.getMessage());
         }
         String[][] teste4 = {
@@ -180,7 +275,6 @@ public class TestGameManager {
             game.createInitialBoard(teste4,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Cor Invalida", e.getMessage());
         }
         String[][] teste5 = {
@@ -191,7 +285,6 @@ public class TestGameManager {
             game.createInitialBoard(teste5,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("ID Invalido", e.getMessage());
         }
         String[][] teste6 = {
@@ -202,7 +295,6 @@ public class TestGameManager {
             game.createInitialBoard(teste6,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("ID repetido", e.getMessage());
         }
         String[][] teste7 = {
@@ -213,7 +305,6 @@ public class TestGameManager {
             game.createInitialBoard(teste7,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Cor Invalida", e.getMessage());
         }
         String[][] teste7emeio = {
@@ -224,7 +315,6 @@ public class TestGameManager {
             game.createInitialBoard(teste7emeio,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Linguagens Invalidas", e.getMessage());
         }
         String[][] teste8 = {
@@ -236,7 +326,6 @@ public class TestGameManager {
             game.createInitialBoard(teste8,20, null);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Cor repetida", e.getMessage());
         }
         String[][] teste9 = {
@@ -248,14 +337,12 @@ public class TestGameManager {
         try {
             game.createInitialBoard(teste9,20, null);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(4);
         try {
             game.createInitialBoard(teste9,20, null);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             fail("Não devia ter dado InvalidInitialBoardException");
         }
     }
@@ -269,7 +356,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Abyss Invalido", e.getMessage());
         }
         String[][] abyssesAndTools2 = {
@@ -279,7 +365,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Posição Invalida", e.getMessage());
         }
         String[][] abyssesAndTools3 = {
@@ -289,7 +374,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools3);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Abyss Invalido", e.getMessage());
         }
         String[][] abyssesAndTools4 = {
@@ -299,7 +383,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools4);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Posição Invalida", e.getMessage());
         }
         String[][] abyssesAndTools5 = {
@@ -309,7 +392,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools5);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Tool Invalida", e.getMessage());
         }
         String[][] abyssesAndTools6 = {
@@ -319,7 +401,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools6);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Posição Invalida", e.getMessage());
         }
         String[][] abyssesAndTools7 = {
@@ -329,7 +410,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools7);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Tool Invalida", e.getMessage());
         }
         String[][] abyssesAndTools8 = {
@@ -339,7 +419,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools8);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Posição Invalida", e.getMessage());
         }
         String[][] abyssesAndTools9 = {
@@ -349,7 +428,6 @@ public class TestGameManager {
             game.createInitialBoard(playerInfo,20,abyssesAndTools9);
             fail("Devia ter dado InvalidInitialBoardException");
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             assertEquals("Não é tool nem abismo", e.getMessage());
         }
         String[][] abyssesAndTools10 = {
@@ -364,7 +442,6 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools10);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         String[][] abyssesAndTools11 = {
@@ -381,7 +458,6 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools11);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
             fail("Não devia ter dado InvalidInitialBoardException");
         }
     }
@@ -451,7 +527,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, boardSize);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
 
@@ -465,7 +541,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, boardSize, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
 
@@ -480,7 +556,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
 
@@ -495,7 +571,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         assertNull(game.getImagePng(0));
@@ -508,7 +584,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
 
@@ -537,7 +613,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
 
@@ -557,7 +633,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(6);
@@ -574,7 +650,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -600,7 +676,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyss);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(6);//Alberto vai po 7
@@ -635,7 +711,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyss);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(6);//Alberto vai po 7
@@ -676,7 +752,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyss);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(6);//Alberto vai po 7
@@ -698,7 +774,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo, 30, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         assertEquals(16, game.getCurrentPlayerID());
@@ -713,7 +789,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,30,abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         assertNull(game.getProgrammers(40));
@@ -735,7 +811,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,30,abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         assertEquals(lista.toString(),game.getProgrammers(true).toString());
@@ -750,7 +826,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,19,abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(6);
@@ -771,7 +847,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,19, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(2);
@@ -788,7 +864,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(6);
@@ -819,7 +895,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(3);
@@ -838,7 +914,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(2);
@@ -852,7 +928,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(2);
@@ -861,6 +937,7 @@ public class TestGameManager {
         game.nextNode();
         game.getCurrentPlayer().setPos(13);
         assertEquals("Oops, parece que agora tens código a duplicar, volta lá pra casa onde tavas, maroto",game.reactToAbyssOrTool());
+        assertEquals("0,1,9",game.getBoardAbyss().get(1).toString());
     }
 
     @Test
@@ -868,7 +945,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -894,7 +971,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         tools.add(game.boardMap.get(3));
@@ -929,7 +1006,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -950,7 +1027,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -968,7 +1045,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         List<Square> lista = new ArrayList<>();
@@ -990,7 +1067,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1026,7 +1103,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20, abyssesAndTools);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         tools.add(game.boardMap.get(2));
@@ -1057,7 +1134,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1074,7 +1151,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1103,7 +1180,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(2);
@@ -1125,7 +1202,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1159,7 +1236,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(2);
@@ -1173,12 +1250,12 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
         game.reactToAbyssOrTool();
-        lista.add(game.boardMap.get(2));
+        lista.add(game.getBoardMap().get(2));
         game.nextNode();
         game.nextNode();
         game.moveCurrentPlayer(5);
@@ -1198,7 +1275,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1215,7 +1292,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1241,11 +1318,12 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
         game.reactToAbyssOrTool();
+        assertEquals(1,game.boardMap.get(2).getNumSteps());
         game.nextNode();
         game.nextNode();
         game.moveCurrentPlayer(5);
@@ -1265,7 +1343,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(2);
@@ -1284,7 +1362,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1300,10 +1378,11 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         assertEquals(0,game.boardMap.get(8).getId());
+        assertEquals("0,0,8",game.boardMap.get(8).toString());
         assertEquals(8,game.boardMap.get(8).getPos());
         assertEquals(-1,game.boardMap.get(19).getId());
         assertEquals(19,game.boardMap.get(19).getPos());
@@ -1313,7 +1392,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(2);
@@ -1321,6 +1400,22 @@ public class TestGameManager {
         game.moveCurrentPlayer(5);
         assertEquals(16,game.getCurrentPlayer().getPos());
     }
+
+    @Test
+    public void test01InvalidInitialBoardException(){
+        String[][] abyssesAndTols = {
+                {"0","15","22"}
+        };
+        try {
+            game.createInitialBoard(playerInfo,30,abyssesAndTols);
+        } catch (InvalidInitialBoardException e) {
+            e.printStackTrace();
+            assertTrue(e.isInvalidAbyss());
+            assertFalse(e.isInvalidTool());
+            assertEquals(15,e.getTypeId());
+        }
+    }
+
     @Test
     public void test02SairBoard(){
         String[][] abyss ={
@@ -1329,7 +1424,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyss);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1343,10 +1438,12 @@ public class TestGameManager {
         languages.add("Java");
         languages.add("PHP");
         ProgrammerColor color = ProgrammerColor.PURPLE;
-        Programmer programmer = new Programmer("sranene",3,languages , color);
+        Programmer programmer = new Programmer("sra nene",3,languages , color);
+        assertEquals(languages.toString(),programmer.getLanguages().toString());
+        assertEquals("sra",programmer.getFirstName());
 
         assertEquals(programmer.getId(), 3);
-        assertEquals(programmer.getName(), "sranene");
+        assertEquals(programmer.getName(), "sra nene");
 
     }
 
@@ -1368,7 +1465,7 @@ public class TestGameManager {
         try {
             game.createInitialBoard(playerInfo,20,abyssesAndTools2);
         } catch (InvalidInitialBoardException e) {
-            e.printStackTrace();
+            
             fail("Não devia ter dado InvalidInitialBoardException");
         }
         game.moveCurrentPlayer(1);
@@ -1389,6 +1486,8 @@ public class TestGameManager {
         String[] teste = new String[1];
         Main.main(teste);
     }
+
+
 
 
 
