@@ -4,7 +4,9 @@ This Board Game is a digital adaptation of the traditional Portuguese game “Jo
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/213b0d6a-b8f7-4a07-916e-a79747d236ce" height="500"/>
+  <img src="https://github.com/user-attachments/assets/0c0c062c-9f3c-4cf7-bc90-054628d91662" height="500"/>
 </p>
+
 
 ## App presentation
 
